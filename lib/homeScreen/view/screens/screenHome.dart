@@ -220,7 +220,8 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
             ),
             ElevatedButton(onPressed: ()async{
-              await FacebookAuth.instance.logOut();
+
+              //await FacebookAuth.instance.logOut();
 
               FirebaseServ().signOut() .then((value) {
                 print("signout");

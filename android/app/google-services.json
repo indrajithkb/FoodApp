@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "300643736688-20b7urqq2ja4rkta5uk7eifr1qrspre5.apps.googleusercontent.com",
+              "client_id": "300643736688-15h83peoglvrm65gvg640be1cqq3o3qp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ileaf.fooddelivery"
+                "bundle_id": "com.ileaf.fooddelivery.foodieapp"
               }
             }
           ]
@@ -58,6 +58,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "300643736688-v8m8s9tvck6boa198pdrel0a39tlr77d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ileaf.fooddelivery.foodieapp",
+            "certificate_hash": "4c13369523e106d21706d1de85b88f1cf0413771"
+          }
+        },
         {
           "client_id": "300643736688-v2k104g1gdpg813gkdsa961tvu2ppo1q.apps.googleusercontent.com",
           "client_type": 3
@@ -76,10 +84,10 @@
               "client_type": 3
             },
             {
-              "client_id": "300643736688-20b7urqq2ja4rkta5uk7eifr1qrspre5.apps.googleusercontent.com",
+              "client_id": "300643736688-15h83peoglvrm65gvg640be1cqq3o3qp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ileaf.fooddelivery"
+                "bundle_id": "com.ileaf.fooddelivery.foodieapp"
               }
             }
           ]

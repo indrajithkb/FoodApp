@@ -103,6 +103,7 @@ class FirebaseServ {
 
         final GoogleSignInAuthentication? googleAuth =
             await googleUser?.authentication;
+            
         if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
           final credential = GoogleAuthProvider.credential(
             accessToken: googleAuth?.accessToken,
@@ -123,7 +124,8 @@ class FirebaseServ {
           // }
 
         }else{
-          print("null");
+          
+          debugPrint('user cancelled signin');
         }
 
     errorMsg = '';
