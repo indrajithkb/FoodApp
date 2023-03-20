@@ -27,10 +27,10 @@ class AccountNavBar{
 
 }
 List<AccountNavBar>accountNavBarList=[
-  AccountNavBar(accountDetails: "Your orders", icon:ImageIcon(AssetImage('assets/images/yourOrders.png'),)),
-    AccountNavBar(accountDetails: "Address book", icon:ImageIcon(AssetImage('assets/images/addressBook.png'),)),
-      AccountNavBar(accountDetails: "Your transactions", icon:ImageIcon(AssetImage('assets/images/yourTrans.png'),)),
-        AccountNavBar(accountDetails: "Table reservations", icon:ImageIcon(AssetImage('assets/images/tableReserve.png'),)),
-          AccountNavBar(accountDetails: "Notifications", icon:ImageIcon(AssetImage('assets/images/notification.png'),)),
-            AccountNavBar(accountDetails: "Help", icon:ImageIcon(AssetImage('assets/images/help.png'),)),
+  AccountNavBar(accountDetails: 'Your orders', icon:const ImageIcon(AssetImage('assets/images/yourOrders.png'),)),
+    AccountNavBar(accountDetails: 'Address book', icon:  const ImageIcon(AssetImage('assets/images/addressBook.png'),)),
+      AccountNavBar(accountDetails: 'Your transactions', icon:const ImageIcon(AssetImage('assets/images/yourTrans.png'),)),
+        AccountNavBar(accountDetails: 'Table reservations', icon:const ImageIcon(AssetImage('assets/images/tableReserve.png'),)),
+          AccountNavBar(accountDetails: 'Notifications', icon:const ImageIcon(AssetImage('assets/images/notification.png'),)),
+            AccountNavBar(accountDetails: 'Help', icon:const ImageIcon(AssetImage('assets/images/help.png'),)),
 ];

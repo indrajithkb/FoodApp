@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -16,13 +14,13 @@ class OfferBanner extends StatelessWidget {
                   width: 78.w,
                   decoration: BoxDecoration(
                       //color:  Color(0xFFE6556F),
-                      borderRadius: BorderRadius.circular(25)),
+                      borderRadius: BorderRadius.circular(25),),
                   child: Image.asset('assets/images/offerbg.png',),
                 ),
                 Positioned(
                     right: 10,
                     bottom: 20,
-                    child: Image.asset('assets/images/kfc.png')),
+                    child: Image.asset('assets/images/kfc.png'),),
                 Positioned(
                     left: 30,
                     top: 25,
@@ -30,12 +28,12 @@ class OfferBanner extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Wednesday ",
+                          'Wednesday ',
                           style:
                               FoodDeliveryTextStyles.componentBoxStyle,
                         ),
                         Text(
-                          "Buckets at ${FoodDeliveryConstantText.rupeesSymbol}350 ",
+                          'Buckets at ${FoodDeliveryConstantText.rupeesSymbol}350 ',
                           style:
                               FoodDeliveryTextStyles.componentBoxStyle,
                         ),
@@ -53,7 +51,7 @@ class OfferBanner extends StatelessWidget {
                                   style: FoodDeliveryTextStyles
                                       .componentBoxSubtleBold,
                                 ),
-                              ]),
+                              ],),
                         ),
                         RichText(
                           text: TextSpan(
@@ -66,7 +64,7 @@ class OfferBanner extends StatelessWidget {
                                   style: FoodDeliveryTextStyles
                                       .componentBoxSubtleBold,
                                 ),
-                              ]),
+                              ],),
                         ),
                         SizedBox(height: 1.5.h,),
                         SizedBox(
@@ -82,10 +80,15 @@ class OfferBanner extends StatelessWidget {
                                 ),
 
                               ),
-                              child: Text("ORDER NOW",style: TextStyle(fontFamily: 'Poppins',fontSize: 11.5,color: Colors.black,fontWeight: FontWeight.w500,),maxLines: 1,)),
+                              child: const Text('ORDER NOW',
+                              style: TextStyle(fontFamily: 'Poppins',
+                              fontSize: 11.5,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,),
+                              maxLines: 1,),),
                         )
                       ],
-                    ))
+                    ),)
               ],
             );
   }

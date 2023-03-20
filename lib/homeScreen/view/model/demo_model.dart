@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 // DemoModel demoModelFromJson(String str) => 
 //DemoModel.fromJson(json.decode(str)as Map<String,dynamic>);
@@ -49,15 +49,15 @@ import 'dart:convert';
 // }
 
 class DemoModel {
-  List<NQ8c9ItMdKP94bJ8GKG>? nQ8c9ItMdKP94bJ8GKG;
+  List<NQyXi099IQRk4xAvC8d>? nQ8c9ItMdKP94bJ8GKG;
 
   DemoModel({this.nQ8c9ItMdKP94bJ8GKG});
 
-  DemoModel.fromJson(Map<String, dynamic> json) {
-    if (json['-NQ8c9ItMdKP94bJ8GKG'] != null) {
-      nQ8c9ItMdKP94bJ8GKG = <NQ8c9ItMdKP94bJ8GKG>[];
-      json['-NQ8c9ItMdKP94bJ8GKG'].forEach((v) {
-        nQ8c9ItMdKP94bJ8GKG!.add(new NQ8c9ItMdKP94bJ8GKG.fromJson(v as Map<String, dynamic>));
+  DemoModel.fromJson(dynamic json) {
+    if (json['-NQyXi099IQRk4xAvC8d'] != null) {
+      nQ8c9ItMdKP94bJ8GKG = <NQyXi099IQRk4xAvC8d>[];
+      json['-NQyXi099IQRk4xAvC8d'].forEach((v) {
+        nQ8c9ItMdKP94bJ8GKG!.add(NQyXi099IQRk4xAvC8d.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -65,21 +65,21 @@ class DemoModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.nQ8c9ItMdKP94bJ8GKG != null) {
-      data['-NQ8c9ItMdKP94bJ8GKG'] =
+      data['-NQyXi099IQRk4xAvC8d'] =
           this.nQ8c9ItMdKP94bJ8GKG!.map((v ) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class NQ8c9ItMdKP94bJ8GKG {
+class NQyXi099IQRk4xAvC8d {
   String? foodname;
   int? id;
   String? image;
 
-  NQ8c9ItMdKP94bJ8GKG({this.foodname, this.id, this.image});
+  NQyXi099IQRk4xAvC8d({this.foodname, this.id, this.image});
 
-  NQ8c9ItMdKP94bJ8GKG.fromJson(Map<String, dynamic> json) {
+  NQyXi099IQRk4xAvC8d.fromJson(Map<String, dynamic> json) {
     foodname = json['foodname'] as String;
     id = json['id'] as int;
     image = json['image'] as String;

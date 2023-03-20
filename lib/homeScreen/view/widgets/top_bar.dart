@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:sizer/sizer.dart';
 
 class TopBar extends StatelessWidget {
@@ -21,7 +19,7 @@ class TopBar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "Carnival Infopark",
+                              'Carnival Infopark',
                               style: TextStyle(
                                 fontSize: 13.sp,
                                 fontFamily: 'SpaceGrotesk',
@@ -30,7 +28,7 @@ class TopBar extends StatelessWidget {
                               ),
                             ),
                             const Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8),
                               child: Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color: Color(0xFF1A2C42),
@@ -39,7 +37,7 @@ class TopBar extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          "Infopark campus,Kakanad,..",
+                          'Infopark campus,Kakanad,..',
                           style: TextStyle(
                             fontSize: 10.sp,
                             fontFamily: 'SpaceGrotesk',
@@ -59,9 +57,9 @@ class TopBar extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(14.0),
+                          padding: const EdgeInsets.all(14),
                           child: Image.asset(
-                            "assets/images/searchLoc.png",
+                            'assets/images/searchLoc.png',
                             fit: BoxFit.contain,
                           ),
                         ),

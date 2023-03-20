@@ -1,10 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/homeScreen/view/screens/dailySpecial.dart';
 
 class ReadExamples extends StatefulWidget {
@@ -15,7 +11,7 @@ class ReadExamples extends StatefulWidget {
 }
 
 class _WriteExamplesState extends State<ReadExamples> {
-  String _displayText = "Results go here";
+  String _displayText = 'Results go here';
   final _database = FirebaseDatabase.instance.ref();
   late StreamSubscription _dailySpecialStream;
   List<FoodSpecial>foodSpecialList=[];
@@ -53,11 +49,11 @@ class _WriteExamplesState extends State<ReadExamples> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("read details"),
+        title: const Text('read details'),
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
             children: [
               // Text(_displayText),
@@ -69,11 +65,12 @@ class _WriteExamplesState extends State<ReadExamples> {
                     // scrollDirection: Axis.horizontal,
                     itemCount: foodSpecialList.length,
                     itemBuilder: (context, index) {
-                      print(foodSpecialList[index].image);
+                      debugPrint(foodSpecialList[index].image);
                       return ListTile(
                         leading: CircleAvatar(
                           radius: 30,
-                          child: Image.network(foodSpecialList[index].image,fit: BoxFit.fill,),
+                          child: Image.network(foodSpecialList[index].image,
+                          fit: BoxFit.fill,),
                         ),
                         title: Text(foodSpecialList[index].foodname),
                         subtitle: Text(foodSpecialList[index].id.toString()),

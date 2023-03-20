@@ -1,7 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AddPostScreen extends StatefulWidget {
@@ -12,7 +10,7 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  final databaseRef = FirebaseDatabase.instance.ref("post1");
+  final databaseRef = FirebaseDatabase.instance.ref('post1');
   bool loading = false;
   final postController = TextEditingController();
   @override
@@ -21,16 +19,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
       appBar: AppBar(),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15),
             child: TextFormField(
               controller: postController,
               maxLines: 5,
-              decoration: InputDecoration(
-                  hintText: "whats in your mind", border: OutlineInputBorder()),
+              decoration: const InputDecoration(
+                  hintText: 'whats in your mind', 
+                  border: OutlineInputBorder(),),
             ),
           ),
           ElevatedButton(
@@ -46,10 +45,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
               
 
                 await databaseRef.child(id).set({
-                  "id": id,
-                  "title": postController.text.toString()
+                  'id': id,
+                  'title': postController.text.toString()
                 }).then((value) {
-                  Fluttertoast.showToast(msg: "post added");
+                  Fluttertoast.showToast(msg: 'post added');
                     setState(() {
                   loading = false;
                     postController.clear();
@@ -62,7 +61,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 });
                 });
               },
-              child: loading ? CircularProgressIndicator() : Text("add post"))
+              child: loading ? const CircularProgressIndicator() :
+               const Text('add post'),)
         ],
       ),
     );

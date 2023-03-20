@@ -1,21 +1,15 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc/bloc.dart';
-
 import 'package:foodieapp/firebase/firebase_services.dart';
-import 'package:foodieapp/homeScreen/view/screens/dummy_home.dart';
 import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
 import 'package:foodieapp/l10n/l10n.dart';
+import 'package:foodieapp/login/bloc/login_bloc.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
 import 'package:foodieapp/utils/constants.dart';
-
 import 'package:sizer/sizer.dart';
 
-import '../../../signUp/signUp.dart';
-import '../../login.dart';
 
 bool onActive = true;
 
@@ -50,7 +44,7 @@ class ScreenLogin extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: Form(
           key: formKey,
-          child: Container(
+          child: SizedBox(
             //color: Colors.grey,
 
             height: height,
@@ -59,7 +53,7 @@ class ScreenLogin extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  child: Container(
+                  child: SizedBox(
                     height: 26.h,
                     //color: Colors.amber,
                     width: double.infinity,
@@ -84,11 +78,11 @@ class ScreenLogin extends StatelessWidget {
                         child: Image.asset(
                           'assets/images/signInBottom.png',
                           fit: BoxFit.contain,
-                        ))),
+                        ),),),
                 Positioned.fill(
                     top: 30.h,
                     bottom: 0,
-                    child: Container(
+                    child: SizedBox(
                       height: 40.h,
                       //color: Colors.red,
                       child: Column(
@@ -97,14 +91,14 @@ class ScreenLogin extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 15.sp),
                             child: Text(FoodDeliveryConstantText.titleText,
-                                style: FoodDeliveryTextStyles.headingStyle),
+                                style: FoodDeliveryTextStyles.headingStyle,),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: 1.h, left: 2.h, right: 2.h),
+                                top: 1.h, left: 2.h, right: 2.h,),
                             child: SizedBox(
                               //height: 6.5.h,
                               child: reusableTextField(
@@ -119,11 +113,11 @@ class ScreenLogin extends StatelessWidget {
                                 controller: _emailTextController,
                                 onValidate: (value) {
                                   if (value!.isEmpty || value == null) {
-                                    return "Email address required";
+                                    return 'Email address required';
                                   } else if (!RegExp(
-                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+\.[a-zA-Z]+")
+                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+\.[a-zA-Z]+",)
                                       .hasMatch(value)) {
-                                    return "Enter valid Email Id";
+                                    return 'Enter valid Email Id';
                                   }
                                   return null;
                                 },
@@ -135,21 +129,21 @@ class ScreenLogin extends StatelessWidget {
                           ),
                           Padding(
                               padding: EdgeInsets.only(
-                                  top: 1.h, left: 2.h, right: 2.h),
+                                  top: 1.h, left: 2.h, right: 2.h,),
                               child: SizedBox(
                                   // height: 6.5.h,
                                   child: BlocBuilder<LoginBloc, LoginState>(
                                 builder: (context, state) {
                                   return reusableTextField(
-                                      text: "Password",
+                                      text: 'Password',
                                       icon: Icons.lock_outline,
                                       isPasswordType: true,
                                       controller: _passwordTextController,
                                       onValidate: (value) {
                                         if (value!.isEmpty || value == null) {
-                                          return "Password required";
+                                          return 'Password required';
                                         } else if (value.length < 8) {
-                                          return "Enter valid password of atleast 8 letters";
+                                          return 'Enter valid password of atleast 8 letters';
                                         }
                                         // else if (!RegExp(
                                         //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
@@ -170,9 +164,9 @@ class ScreenLogin extends StatelessWidget {
                                           Icons.remove_red_eye_outlined,
                                           color: Colors.grey,
                                         ),
-                                      ));
+                                      ),);
                                 },
-                              ))),
+                              ),),),
                           SizedBox(
                             height: 1.h,
                           ),
@@ -181,7 +175,7 @@ class ScreenLogin extends StatelessWidget {
                               FirebaseServ().signInUser(
                                   context: context,
                                   email: _emailTextController.text,
-                                  password: _passwordTextController.text);
+                                  password: _passwordTextController.text,);
                             }
                           }),
                           SizedBox(
@@ -202,19 +196,19 @@ class ScreenLogin extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                         ScreenHome()
+                                         ScreenHome(),
 
                                                 //ScreenSignUp(),
-                                          ));
+                                          ),);
                                     },
                                     child: Text(
-                                      "Sign Up",
+                                      'Sign Up',
                                       style: TextStyle(
                                           color: const Color(0xFF1D9F80),
                                           fontSize: 11.sp,
                                           fontFamily: 'SpaceGrotesk',
-                                          fontWeight: FontWeight.w600),
-                                    ))
+                                          fontWeight: FontWeight.w600,),
+                                    ),)
                               ],
                             ),
                           ),
@@ -228,14 +222,14 @@ class ScreenLogin extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     FirebaseServ().resetPassword(
-                                        email: _emailTextController.text);
+                                        email: _emailTextController.text,);
                                   },
                                   child: Text(
-                                    "Forgot Password ?",
+                                    'Forgot Password ?',
                                     style:
                                         FoodDeliveryTextStyles.textFieldStyle,
                                   ),
-                                )),
+                                ),),
                           ),
                           SizedBox(
                             height: 4.h,
@@ -245,9 +239,9 @@ class ScreenLogin extends StatelessWidget {
                             child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  "Or Sign in with",
+                                  'Or Sign in with',
                                   style: FoodDeliveryTextStyles.textFieldStyle,
-                                )),
+                                ),),
                           ),
                           SizedBox(
                             height: 3.h,
@@ -264,13 +258,13 @@ class ScreenLogin extends StatelessWidget {
                                         .then((value) {
                                       // print(value!.user!.email);
                                       if (value != null) {
-                                        debugPrint("apple login");
+                                        debugPrint('apple login');
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenHome(),
-                                            ));
+                                            ),);
                                       } else {
                                         return;
                                       }
@@ -285,9 +279,9 @@ class ScreenLogin extends StatelessWidget {
                                             shape: BoxShape.circle,
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
+                                            padding: const EdgeInsets.all(12),
                                             child: Image.asset(
-                                              "assets/images/apple.png",
+                                              'assets/images/apple.png',
                                               fit: BoxFit.contain,
                                             ),
                                           ),
@@ -303,13 +297,13 @@ class ScreenLogin extends StatelessWidget {
                                         .signInWithFacebook()
                                         .then((value) {
                                       if (value != null) {
-                                        debugPrint("fb login");
+                                        debugPrint('fb login');
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenHome(),
-                                            ));
+                                            ),);
                                       } else {
                                         return;
                                       }
@@ -323,9 +317,9 @@ class ScreenLogin extends StatelessWidget {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(13.0),
+                                      padding: const EdgeInsets.all(13),
                                       child: Image.asset(
-                                        "assets/images/fbF.png",
+                                        'assets/images/fbF.png',
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -340,13 +334,13 @@ class ScreenLogin extends StatelessWidget {
                                         .signInWithGoogle()
                                         .then((value) {
                                       if (value != null) {
-                                        print("google login");
+                                        debugPrint('google login');
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenHome(),
-                                            ));
+                                            ),);
                                       } else {
                                         return;
                                       }
@@ -360,19 +354,19 @@ class ScreenLogin extends StatelessWidget {
                                         shape: BoxShape.circle,
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(13.0),
+                                        padding: const EdgeInsets.all(13),
                                         child: Image.asset(
-                                          "assets/images/googleG.png",
+                                          'assets/images/googleG.png',
                                           fit: BoxFit.contain,
                                         ),
-                                      )),
+                                      ),),
                                 ),
                               ),
                             ],
                           )
                         ],
                       ),
-                    ))
+                    ),)
               ],
             ),
           ),

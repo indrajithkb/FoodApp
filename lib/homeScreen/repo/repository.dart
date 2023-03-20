@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
+
 import 'package:http/http.dart';
 
 class DemoRepository{
@@ -15,7 +16,7 @@ return DemoModel.fromJson(json.decode(response.body)as Map<String,dynamic>);
 
     }
     else{
-      print("errrr");
+      print('errrr');
       throw Exception(response.reasonPhrase);
     }
   }

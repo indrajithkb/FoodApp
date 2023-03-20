@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +23,7 @@ class FavResto extends StatelessWidget {
             padding: EdgeInsets.only(left: 2.sp, right: 2.sp, top: 20.sp),
             child: SizedBox(
               height: 9.h,
-              child: TopBar(),
+              child: const TopBar(),
             ),
           ),
           SizedBox(
@@ -35,11 +33,11 @@ class FavResto extends StatelessWidget {
         
              Padding(
                      padding: EdgeInsets.only(left: 18.sp),
-                  child: Text("Favorite Restaurants",
-                        style: FoodDeliveryTextStyles.homeScreenTitles),
+                  child: Text('Favorite Restaurants',
+                        style: FoodDeliveryTextStyles.homeScreenTitles,),
                 ),
                  SizedBox(height: 3.h,),
-                Container(
+                SizedBox(
                   height: 72.h,
                   child: ListView.builder(
                     itemCount: imgList.length,
@@ -58,7 +56,7 @@ class FavResto extends StatelessWidget {
                                 Container(
                                   //height: 100,
 
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
 
                                       //color: Colors.amber,
                                       //borderRadius: BorderRadius.circular(25)
@@ -76,7 +74,7 @@ class FavResto extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 5.sp, right: 5.sp, top: 5.sp),
+                                      left: 5.sp, right: 5.sp, top: 5.sp,),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -87,10 +85,10 @@ class FavResto extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Chakarapanthal"),
+                                          const Text('Chakarapanthal'),
                                           Padding(
                                             padding: EdgeInsets.only(top: 5.sp),
-                                            child: Text("Kochi -5km"),
+                                            child: const Text('Kochi -5km'),
                                           ),
                                         ],
                                       ),
@@ -98,11 +96,11 @@ class FavResto extends StatelessWidget {
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                right: 1.5.sp, bottom: 2.sp),
+                                                right: 1.5.sp, bottom: 2.sp,),
                                             child: Image.asset(
-                                                'assets/images/deliveryBike.png'),
+                                                'assets/images/deliveryBike.png',),
                                           ),
-                                          Text("30 min")
+                                          const Text('30 min')
                                         ],
                                       )
                                     ],
@@ -158,10 +156,10 @@ class FavResto extends StatelessWidget {
                               right: 5,
                               child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.favorite,
                                     color: Color(0xFFE6556F),
-                                  )),
+                                  ),),
                             ),
                             Positioned(
                                 right: 15,
@@ -205,7 +203,7 @@ class FavResto extends StatelessWidget {
                                       //   ],
                                       // )
                                       ),
-                                )),
+                                ),),
                                  Positioned(
                                  right: 22,
                                 bottom: 60,
@@ -223,17 +221,17 @@ class FavResto extends StatelessWidget {
                                             ),
                                           ),
                                           const Text(
-                                            "4.5",
+                                            '4.5',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: 'SpaceGrotesk',
                                               fontWeight: FontWeight.w600,
-                                             color: Color(0xFFFFFFFF)
+                                             color: Color(0xFFFFFFFF),
                                             ),
                                             // maxLines: 1,
                                           ),
                                         ],
-                                      )
+                                      ),
                                    )
                           ],
                         ),

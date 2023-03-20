@@ -11,7 +11,7 @@ class DemoUserBloc extends Bloc<DemoUserEvent, DemoUserState> {
   DemoUserBloc(this._demoRepository) : super(DemoUserLoading()) {
     on<LoadDemoUser >((event, emit) async{
      emit(DemoUserLoading());
-     print("first state emitted");
+    // print("first state emitted");
     //  final DemoModel user=await _demoRepository.demoUser();
     //  emit(DemoUserLoaded(user));
     });

@@ -21,11 +21,15 @@ class DemoModel {
     List<Nq8C9ItMdKp94BJ8Gkg> demosub;
 
     factory DemoModel.fromJson(Map<String, dynamic> json) => DemoModel(
-        demosub: List<Nq8C9ItMdKp94BJ8Gkg>.from((json["-NQ8c9ItMdKP94bJ8GKG"]as List).map((x) => Nq8C9ItMdKp94BJ8Gkg.fromJson(x as Map<String,dynamic>))),
+        demosub: List<Nq8C9ItMdKp94BJ8Gkg>.
+        from((json['-NQ8c9ItMdKP94bJ8GKG']as List)
+        .map((x) => Nq8C9ItMdKp94BJ8Gkg.fromJson(
+          x as Map<String,dynamic>,),),),
     );
 
     Map<String, dynamic> toJson() => {
-        "-NQ8c9ItMdKP94bJ8GKG": List<dynamic>.from(demosub.map((x) => x.toJson())),
+        '-NQ8c9ItMdKP94bJ8GKG': 
+        List<dynamic>.from(demosub.map((x) => x.toJson())),
     };
 }
 
@@ -40,16 +44,17 @@ class Nq8C9ItMdKp94BJ8Gkg {
     int id;
     String image;
 
-    factory Nq8C9ItMdKp94BJ8Gkg.fromJson(Map<String, dynamic> json) => Nq8C9ItMdKp94BJ8Gkg(
-        foodname: json["foodname"] as String,
-        id: json["id"]as int,
-        image: json["image"] as String,
+    factory Nq8C9ItMdKp94BJ8Gkg.fromJson(
+      Map<String, dynamic> json,) => Nq8C9ItMdKp94BJ8Gkg(
+        foodname: json['foodname'] as String,
+        id: json['id']as int,
+        image: json['image'] as String,
     );
 
     Map<String, dynamic> toJson() => {
-        "foodname": foodname,
-        "id": id,
-        "image": image,
+        'foodname': foodname,
+        'id': id,
+        'image': image,
     };
 }
 

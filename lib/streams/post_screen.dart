@@ -28,7 +28,8 @@ class _ScreenStreamState extends State<ScreenPost> {
               child: StreamBuilder(
             stream: ref.onValue,
             builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-// Map<dynamic,dynamic>map=snapshot.data!.snapshot.value as Map<dynamic,dynamic>;
+// Map<dynamic,dynamic>map=
+//snapshot.data!.snapshot.value as Map<dynamic,dynamic>;
               final map =
                   snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
               // print(snapshot.data!.snapshot.value);
@@ -38,19 +39,19 @@ class _ScreenStreamState extends State<ScreenPost> {
               list = map.values.toList();
               // print(list);
               if (!snapshot.hasData) {
-                print("no data");
-                return CircularProgressIndicator();
+                debugPrint('no data');
+                return const CircularProgressIndicator();
               } else {
                 return ListView.builder(
                   itemCount: snapshot.data!.snapshot.children.length,
                   itemBuilder: (context, index) {
-                    final title = list[index]["title"].toString();
-                    final id = list[index]["id"].toString();
+                    final title = list[index]['title'].toString();
+                    final id = list[index]['id'].toString();
                     return ListTile(
-                      title: Text(list[index]["title"].toString()),
-                      subtitle: Text(list[index]["id"].toString()),
+                      title: Text(list[index]['title'].toString()),
+                      subtitle: Text(list[index]['id'].toString()),
                       trailing: PopupMenuButton(
-                        icon: Icon(Icons.more_vert),
+                        icon: const Icon(Icons.more_vert),
                         itemBuilder: (context) => [
                           PopupMenuItem(
                               value: 1,
@@ -59,19 +60,19 @@ class _ScreenStreamState extends State<ScreenPost> {
                                   Navigator.pop(context);
                                   showMyDialog(title, id);
                                 },
-                                leading: Icon(Icons.edit),
-                                title: Text("Edit"),
-                              )),
+                                leading: const Icon(Icons.edit),
+                                title: const Text('Edit'),
+                              ),),
                           PopupMenuItem(
                               value: 2,
                               child: ListTile(
-                                leading: Icon(Icons.delete),
+                                leading: const Icon(Icons.delete),
                                 title: InkWell(
                                     onTap: () {
                                       ref.child(id).remove();
                                     },
-                                    child: Text("del")),
-                              )),
+                                    child: const Text('del'),),
+                              ),),
                         ],
                       ),
                     );
@@ -79,7 +80,7 @@ class _ScreenStreamState extends State<ScreenPost> {
                 );
               }
             },
-          ))
+          ),)
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -87,10 +88,10 @@ class _ScreenStreamState extends State<ScreenPost> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddPostScreen(),
-              ));
+                builder: (context) => const AddPostScreen(),
+              ),);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -101,30 +102,28 @@ class _ScreenStreamState extends State<ScreenPost> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("update"),
-          content: Container(
-            child: TextField(
-              controller: editcontroller,
-              decoration: InputDecoration(hintText: "edit text"),
-            ),
+          title: const Text('update'),
+          content: TextField(
+            controller: editcontroller,
+            decoration: const InputDecoration(hintText: 'edit text'),
           ),
           actions: [
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   ref.child(id).update(
-                      {"title": editcontroller.text.toString()}).then((value) {
-                    Fluttertoast.showToast(msg: "post updated");
+                      {'title': editcontroller.text.toString()},).then((value) {
+                    Fluttertoast.showToast(msg: 'post updated');
                   }).onError((error, stackTrace) {
                     Fluttertoast.showToast(msg: error.toString());
                   });
                 },
-                child: Text("update")),
+                child: const Text('update'),),
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("cancel")),
+                child: const Text('cancel'),),
           ],
         );
       },

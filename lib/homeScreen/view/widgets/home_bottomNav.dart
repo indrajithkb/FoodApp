@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
 import 'package:foodieapp/homeScreen/view/screens/dailySpecial.dart';
 
 import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
+
 
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -31,7 +32,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
-  final ref = FirebaseDatabase.instance.ref("post/-NQ8c9ItMdKP94bJ8GKG");
+  final ref = FirebaseDatabase.instance.ref('post/-NQyXi099IQRk4xAvC8d');
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
               height: 20.5.h,
               width: 90.w,
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                borderRadius: BorderRadius.all(Radius.circular(25)),
                 //  color: Colors.redAccent,
               ),
               child: PageView.builder(
@@ -111,8 +112,8 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 22.sp),
-                  child: Text("Whats on your mind?",
-                      style: FoodDeliveryTextStyles.homeScreenTitles),
+                  child: Text('Whats on your mind?',
+                      style: FoodDeliveryTextStyles.homeScreenTitles,),
                 )
               ],
             ),
@@ -128,7 +129,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                 child: BlocBuilder<DemoUserBloc, DemoUserState>(
                   builder: (context, state) {
                     if (state is DemoUserLoading) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -170,7 +171,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                       child: CircleAvatar(
                                         radius: 35,
                                         backgroundImage: NetworkImage(
-                                          snapData[index].image
+                                          snapData[index].image,
                                           // list[index]["image"].toString()
                                             // userr.demosub[index].image
                                             ),
@@ -187,14 +188,15 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                             fontFamily: 'SpaceGrotesk',
                                             fontWeight: FontWeight.w600,
                                             color: Color(0xFF696969),
-                                          )),
+                                          ),),
                                     ),
                                   ],
                                 );
                               },
                             );
                           } else {
-                            return Center(child: CircularProgressIndicator(),);
+                            return const Center(
+                              child: CircularProgressIndicator(),);
                           }
                         },
                       );
@@ -261,7 +263,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                     Padding(
                       padding: EdgeInsets.only(left: 22.sp),
                       child: Text(
-                        "387 restaurants to explore",
+                        '387 restaurants to explore',
                         style: FoodDeliveryTextStyles.homeScreenTitles,
                       ),
                     ),
@@ -270,7 +272,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                 SizedBox(
                   height: 2.h,
                 ),
-                Container(
+                SizedBox(
                   height: 60.h,
                   child: ListView.builder(
                     itemCount: imgList.length,
@@ -289,7 +291,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                 Container(
                                   //height: 100,
 
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
 
                                       //color: Colors.amber,
                                       //borderRadius: BorderRadius.circular(25)
@@ -307,7 +309,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 5.sp, right: 5.sp, top: 5.sp),
+                                      left: 5.sp, right: 5.sp, top: 5.sp,),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -318,10 +320,10 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Chakarapanthal"),
+                                          const Text('Chakarapanthal'),
                                           Padding(
                                             padding: EdgeInsets.only(top: 5.sp),
-                                            child: Text("Kochi -5km"),
+                                            child: const Text('Kochi -5km'),
                                           ),
                                         ],
                                       ),
@@ -329,11 +331,11 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                right: 1.5.sp, bottom: 2.sp),
+                                                right: 1.5.sp, bottom: 2.sp,),
                                             child: Image.asset(
-                                                'assets/images/deliveryBike.png'),
+                                                'assets/images/deliveryBike.png',),
                                           ),
-                                          Text("30 min")
+                                          const Text('30 min')
                                         ],
                                       )
                                     ],
@@ -389,10 +391,10 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                               right: 5,
                               child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.favorite,
                                     color: Color(0xFFFFFFFF),
-                                  )),
+                                  ),),
                             ),
                             Positioned(
                                 right: 15,
@@ -423,7 +425,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                             ),
                                           ),
                                           const Text(
-                                            "4.5",
+                                            '4.5',
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: 'SpaceGrotesk',
@@ -433,8 +435,8 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                             // maxLines: 1,
                                           ),
                                         ],
-                                      )),
-                                ))
+                                      ),),
+                                ),)
                           ],
                         ),
                       );
@@ -461,6 +463,6 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
         //       },
         //       child: const Text("logout"))
       ],
-    ));
+    ),);
   }
 }

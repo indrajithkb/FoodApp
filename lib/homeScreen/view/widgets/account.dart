@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
-import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
 import 'package:sizer/sizer.dart';
 
 class Account extends StatelessWidget {
    Account({super.key});
 List<String>accList=[
-  "Your orders",
-  "Address book",
-  "Your transactions",
-  "Table reservations",
-  "Notification",
-  "Help"
+  'Your orders',
+  'Address book',
+  'Your transactions',
+  'Table reservations',
+  'Notification',
+  'Help'
 ];
   @override
   Widget build(BuildContext context) {
@@ -35,10 +31,10 @@ List<String>accList=[
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 50,
                           backgroundImage:
-                              AssetImage("assets/images/propic.png"),
+                              AssetImage('assets/images/propic.png'),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -49,7 +45,7 @@ List<String>accList=[
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                "KIM JONG-UN",
+                                'KIM JONG-UN',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'SpaceGrotesk',
@@ -58,7 +54,7 @@ List<String>accList=[
                                 ),
                               ),
                               Text(
-                                "kimjongun@gmail.com",  style: TextStyle(
+                                'kimjongun@gmail.com',  style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'SpaceGrotesk',
                                   fontWeight: FontWeight.w400,
@@ -72,7 +68,7 @@ List<String>accList=[
                     ),
                     IconButton(
                         onPressed: () {},
-                        icon: Image.asset('assets/images/editIcon.png'))
+                        icon: Image.asset('assets/images/editIcon.png'),)
                   ],
                 ),
               ),
@@ -86,7 +82,7 @@ List<String>accList=[
             height: 15.5.h,
 
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFF1D9F80),
             ),child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,7 +91,7 @@ List<String>accList=[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 35,
                       backgroundColor: Colors.white,
                       child:  ImageIcon(AssetImage('assets/icons/fav.png'),color: Color(0xFF1D9F80),),
@@ -103,28 +99,28 @@ List<String>accList=[
                     ),
                     Padding(
                        padding: EdgeInsets.only(top: 5.sp),
-                      child: Text("Liked"),
+                      child: const Text('Liked'),
                     )
                   ],
                 ),
                  Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                         radius: 35,
                          backgroundColor: Colors.white,
                          child:  ImageIcon(AssetImage('assets/images/favResto.png'),color: Color(0xFF1D9F80)),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5.sp),
-                      child: Text("Fav restaurants"),
+                      child: const Text('Fav restaurants'),
                     )
                   ],
                 ),
                  Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                          radius: 35,
                           backgroundColor: Colors.white,
                           child:  ImageIcon(AssetImage('assets/images/settingsIcon.png'),color: Color(0xFF1D9F80)),
@@ -132,7 +128,7 @@ List<String>accList=[
                     ),
                     Padding(
                          padding: EdgeInsets.only(top: 5.sp),
-                      child: Text("Settings"),
+                      child: const Text('Settings'),
                     )
                   ],
                 )
@@ -140,7 +136,7 @@ List<String>accList=[
               ],
             ),
           ),SizedBox(height: 2.h,),
-          Container(
+          SizedBox(
             height: 45.h,
             // color: Colors.amber,
             child:ListView.builder(
@@ -149,7 +145,7 @@ List<String>accList=[
                 final accTitles=accountNavBarList[index];
               return ListTile(
                 leading: accTitles.icon,
-                title:Text(accTitles.accountDetails!,  style: TextStyle(
+                title:Text(accTitles.accountDetails!,  style: const TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'SpaceGrotesk',
                                   fontWeight: FontWeight.w400,
@@ -157,7 +153,7 @@ List<String>accList=[
                                 ),) ,
                                 trailing: IconButton(onPressed: (){
 
-                                }, icon: ImageIcon(AssetImage('assets/images/trailing.png'),),),
+                                }, icon: const ImageIcon(AssetImage('assets/images/trailing.png'),),),
               );
             },) ,
           )

@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 // class DailySpecial{
 //   final String? description;
@@ -34,7 +34,7 @@ class FoodSpecial{
       image: data["image"]as String 
       
      
-       );
+       ,);
     
   }
   //  String fancyDescription(){

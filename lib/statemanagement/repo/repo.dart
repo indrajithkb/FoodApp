@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'package:foodieapp/statemanagement/model/demo_model.dart';
 import 'package:http/http.dart';
 
@@ -7,12 +7,12 @@ class DemoRepository{
  Future <DemoModel> demoUser()async{
     final response =await get(Uri.parse(endpoint));
     if(response.statusCode==200 || response.statusCode==201){
-   print(response.body);
+  //  print(response.body);
  return demoModelFromJson(response.body );
 
     }
     else{
-      print("errrr");
+ 
       throw Exception(response.reasonPhrase);
     }
   }

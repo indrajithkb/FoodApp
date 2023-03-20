@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +23,7 @@ class DiningBottomNav extends StatelessWidget {
             padding: EdgeInsets.only(left: 2.sp, right: 2.sp, top: 20.sp),
             child: SizedBox(
               height: 9.h,
-              child: TopBar(),
+              child: const TopBar(),
             ),
           ),
           SizedBox(
@@ -39,8 +37,8 @@ class DiningBottomNav extends StatelessWidget {
               children: [
                 Padding(
                      padding: EdgeInsets.only(left: 18.sp),
-                  child: Text("Must try in Kochi",
-                        style: FoodDeliveryTextStyles.homeScreenTitles),
+                  child: Text('Must try in Kochi',
+                        style: FoodDeliveryTextStyles.homeScreenTitles,),
                 ),
 
               ],
@@ -48,7 +46,7 @@ class DiningBottomNav extends StatelessWidget {
             SizedBox(
             height: 2.5.h,
           ),
-          Container(
+          SizedBox(
             height: 20.h,
             //color: Colors.amberAccent,
             width: double.infinity,
@@ -68,9 +66,12 @@ class DiningBottomNav extends StatelessWidget {
                         // width: 165,
                         width: 45.w,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),),
                           //color: Colors.amber,
-                          image: DecorationImage(image: NetworkImage(img),fit: BoxFit.cover)
+                          image: DecorationImage(image: NetworkImage(img),
+                          fit: BoxFit.cover,),
                         ),
                        
                       ),
@@ -89,10 +90,10 @@ class DiningBottomNav extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                      ),child: Container()
+                                      ),child: Container(),
                                     
                                       ),
-                                )),
+                                ),),
                                 Positioned(
                                   left: 34,
                                 bottom: 12,
@@ -110,7 +111,7 @@ class DiningBottomNav extends StatelessWidget {
                                             ),
                                           ),
                                           const Text(
-                                            "4.5",
+                                            '4.5',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: 'SpaceGrotesk',
@@ -120,17 +121,19 @@ class DiningBottomNav extends StatelessWidget {
                                             // maxLines: 1,
                                           ),
                                         ],
-                                      )
+                                      ),
                                    )
-                       ]
+                       ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 18.sp,),
-                      child: Text("Paragon ",style: FoodDeliveryTextStyles.homeScreenTitlesMustTry,),
+                      child: Text('Paragon ',
+                      style: FoodDeliveryTextStyles.homeScreenTitlesMustTry,),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 18.sp,),
-                      child: Text("Kochi",style: FoodDeliveryTextStyles.homeScreenTitlesMustTryPlace,),
+                      child: Text('Kochi',
+                      style: FoodDeliveryTextStyles.homeScreenTitlesMustTryPlace,),
                     )
                    
                   ],
@@ -144,11 +147,11 @@ class DiningBottomNav extends StatelessWidget {
           SizedBox(height: 3.h,),
              Padding(
                      padding: EdgeInsets.only(left: 18.sp),
-                  child: Text("Popular Restaurants",
-                        style: FoodDeliveryTextStyles.homeScreenTitles),
+                  child: Text('Popular Restaurants',
+                        style: FoodDeliveryTextStyles.homeScreenTitles,),
                 ),
                  SizedBox(height: 3.h,),
-                Container(
+                SizedBox(
                   height: 72.h,
                   child: ListView.builder(
                     itemCount: imgList.length,
@@ -167,7 +170,7 @@ class DiningBottomNav extends StatelessWidget {
                                 Container(
                                   //height: 100,
 
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
 
                                       //color: Colors.amber,
                                       //borderRadius: BorderRadius.circular(25)
@@ -185,7 +188,7 @@ class DiningBottomNav extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 5.sp, right: 5.sp, top: 5.sp),
+                                      left: 5.sp, right: 5.sp, top: 5.sp,),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -196,10 +199,10 @@ class DiningBottomNav extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Chakarapanthal"),
+                                          const Text('Chakarapanthal'),
                                           Padding(
                                             padding: EdgeInsets.only(top: 5.sp),
-                                            child: Text("Kochi -5km"),
+                                            child: const Text('Kochi -5km'),
                                           ),
                                         ],
                                       ),
@@ -207,11 +210,11 @@ class DiningBottomNav extends StatelessWidget {
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                right: 1.5.sp, bottom: 2.sp),
+                                                right: 1.5.sp, bottom: 2.sp,),
                                             child: Image.asset(
-                                                'assets/images/deliveryBike.png'),
+                                                'assets/images/deliveryBike.png',),
                                           ),
-                                          Text("30 min")
+                                          const Text('30 min')
                                         ],
                                       )
                                     ],
@@ -267,10 +270,10 @@ class DiningBottomNav extends StatelessWidget {
                               right: 5,
                               child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.favorite,
                                     color: Color(0xFFFFFFFF),
-                                  )),
+                                  ),),
                             ),
                             Positioned(
                                 right: 15,
@@ -314,7 +317,7 @@ class DiningBottomNav extends StatelessWidget {
                                       //   ],
                                       // )
                                       ),
-                                )),
+                                ),),
                                  Positioned(
                                  right: 22,
                                 bottom: 60,
@@ -332,17 +335,17 @@ class DiningBottomNav extends StatelessWidget {
                                             ),
                                           ),
                                           const Text(
-                                            "4.5",
+                                            '4.5',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: 'SpaceGrotesk',
                                               fontWeight: FontWeight.w600,
-                                             color: Color(0xFFFFFFFF)
+                                             color: Color(0xFFFFFFFF),
                                             ),
                                             // maxLines: 1,
                                           ),
                                         ],
-                                      )
+                                      ),
                                    )
                           ],
                         ),

@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +6,7 @@ import 'package:foodieapp/homeScreen/view/widgets/account.dart';
 import 'package:foodieapp/homeScreen/view/widgets/dining_bottomNav.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home_bottomNav.dart';
-import 'package:foodieapp/homeScreen/view/widgets/offer_banner.dart';
-import 'package:foodieapp/utils/constants.dart';
 
-import 'package:sizer/sizer.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ScreenHome extends StatefulWidget {
    ScreenHome({super.key});
@@ -59,38 +54,39 @@ class _ScreenHomeState extends State<ScreenHome> {
             items: const [
               BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8),
                     child: ImageIcon(AssetImage('assets/icons/homeIcon.png')),
                   ),
                   label: 'Home',
-                  backgroundColor: Color(0xFF1D9F80)),
+                  backgroundColor: Color(0xFF1D9F80),),
               BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8),
                     child: ImageIcon(AssetImage('assets/icons/diningIcon.png')),
                   ),
                   label: 'Dining',
-                  backgroundColor: Color(0xFF1D9F80)),
+                  backgroundColor: Color(0xFF1D9F80),),
               BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8),
                     child: ImageIcon(AssetImage('assets/icons/fav.png')),
                   ),
                   label: 'Favorites',
-                  backgroundColor: Color(0xFF1D9F80)),
+                  backgroundColor: Color(0xFF1D9F80),),
               BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8),
                     child: ImageIcon(AssetImage('assets/icons/account.png')),
                   ),
                   label: 'Account',
-                  backgroundColor: Color(0xFF1D9F80)),
+                  backgroundColor: Color(0xFF1D9F80),),
             ],
             onTap: (index) {
               // context
               //     .read<HomeScreenBloc>()
               //     .add(NavBarChange(currentInd: index));
-                   BlocProvider.of<HomeScreenBloc>(context).add(NavBarChange(currentInd: index));
+                   BlocProvider.of<HomeScreenBloc>(context)
+                   .add(NavBarChange(currentInd: index));
               // setState(() {
               //   _currentIndex = index;
               // });

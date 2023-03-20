@@ -4,7 +4,8 @@ import 'package:sizer/sizer.dart';
 //textStyles
 class FoodDeliveryTextStyles {
   static TextStyle headingStyle = TextStyle(
-      fontFamily: 'SpaceGrotesk', fontSize: 18.sp, fontWeight: FontWeight.w600,);
+      fontFamily: 'SpaceGrotesk',
+       fontSize: 18.sp, fontWeight: FontWeight.w600,);
 
   static TextStyle textFieldStyle = TextStyle(
       color: const Color(0xFF696969),
@@ -14,7 +15,8 @@ class FoodDeliveryTextStyles {
       fontWeight: FontWeight.w600,);
 
   static TextStyle buttonTextStyle = TextStyle(
-      fontFamily: 'SpaceGrotesk', fontWeight: FontWeight.w600, fontSize: 12.sp,);
+      fontFamily: 'SpaceGrotesk', 
+      fontWeight: FontWeight.w600, fontSize: 12.sp,);
 
   static TextStyle componentBoxStyle = const TextStyle(
       color: Colors.white,
@@ -39,14 +41,16 @@ class FoodDeliveryTextStyles {
                         color: Color(0xFF1A2C42),
                       ) ;  
 
-                      static   TextStyle homeScreenTitlesMustTry=  const TextStyle(
+                      static   TextStyle homeScreenTitlesMustTry=  
+                      const TextStyle(
                         fontSize: 16,
                         fontFamily: 'SpaceGrotesk',
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF1A2C42),
                       ) ;    
                       
-                      static   TextStyle homeScreenTitlesMustTryPlace=  const TextStyle(
+                      static   TextStyle homeScreenTitlesMustTryPlace= 
+                       const TextStyle(
                         fontSize: 14,
                         fontFamily: 'SpaceGrotesk',
                         fontWeight: FontWeight.w400,

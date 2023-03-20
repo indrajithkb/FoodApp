@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
+
 import 'package:foodieapp/utils/constants.dart';
 
 import 'package:sizer/sizer.dart';
@@ -25,16 +25,16 @@ TextFormField reusableTextField(
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
     decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 15),
+        contentPadding: const EdgeInsets.only(top: 15),
         errorBorder: OutlineInputBorder(
-           borderRadius: BorderRadius.circular(12.0),
-           borderSide: BorderSide(color: Colors.red.shade200, width: 2.0)
+           borderRadius: BorderRadius.circular(12),
+           borderSide: BorderSide(color: Colors.red.shade200, width: 2)
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: Colors.grey.shade300, width: 2)),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300, width: 2),
         ),
         //labelText:text ,
@@ -47,7 +47,7 @@ TextFormField reusableTextField(
         ),
         suffixIcon: suffixIcon
        
-        ),
+       , ),
   );
 }
 
@@ -72,8 +72,11 @@ SizedBox signInSignUpButton(
               isLogin
                   ? FoodDeliveryConstantText.titleText
                   : FoodDeliveryConstantText.titleSignUpText,
-              style: FoodDeliveryTextStyles.buttonTextStyle),
+              style: FoodDeliveryTextStyles.buttonTextStyle,),
         ),
-      ));
+      ),);
+      
 }
+
+
  
