@@ -4,14 +4,14 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodieapp/firebase/emailVerify.dart';
 import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+
 
 class FirebaseServ {
   final _googleSignIn = GoogleSignIn();
@@ -21,22 +21,22 @@ class FirebaseServ {
   signInUser(
       {required BuildContext context,
       required String email,
-      required String password}) async {
+      required String password,}) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        print("logIn");
+        debugPrint('login');
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ScreenHome(),
-            ));
+              builder: (context) => ScreenHome(),
+            ),);
       });
       errorMsg = '';
     } on FirebaseAuthException catch (logInErr) {
       errorMsg = logInErr.message!;
-      print(errorMsg);
+      debugPrint(errorMsg);
       Fluttertoast.showToast(msg: errorMsg);
     }
   }
@@ -54,18 +54,18 @@ class FirebaseServ {
           //await sendEmailVerification(context);
           .then((value) {
         //Fluttertoast.showToast(msg: 'Account created successfully');
-        print("acc created successfully");
+        print('acc created successfully');
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const EmailVerifyScreen(),
-            ));
+            ),);
       });
 
       errorMsg = '';
     } on FirebaseAuthException catch (signUpErr) {
       errorMsg = signUpErr.message!;
-      print(errorMsg);
+      debugPrint(errorMsg);
       Fluttertoast.showToast(msg: errorMsg);
     }
   }
@@ -205,14 +205,14 @@ Future<UserCredential?> signInWithApple() async {
   // include a nonce in the credential request. When signing in with
   // Firebase, the nonce in the id token returned by Apple, is expected to
   // match the sha256 hash of `rawNonce`.
-  
+  debugPrint('stage1');
   try {
     final rawNonce = generateNonce();
   final nonce = sha256ofString(rawNonce);
 
   // Request credential for the currently signed in Apple account.
 
-           
+         print("apple");  
   final appleCredential = await SignInWithApple.getAppleIDCredential(
     scopes: [
       AppleIDAuthorizationScopes.email,
@@ -238,8 +238,8 @@ Future<UserCredential?> signInWithApple() async {
     debugPrint("apple null");
   }
   
-  } on FirebaseAuthException catch (fbErr) {
-      errorMsg = fbErr.message!;
+  } on FirebaseAuthException catch (Err) {
+      errorMsg = Err.message!;
       Fluttertoast.showToast(msg: errorMsg);
     }      
   

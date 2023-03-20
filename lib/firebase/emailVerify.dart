@@ -24,7 +24,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     user.sendEmailVerification();
 
     timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
-      await chechEmailVerified();
+      await checkEmailVerified();
     });
     super.initState();
   }
@@ -55,16 +55,16 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     );
   }
 
-  Future<void> chechEmailVerified() async {
+  Future<void> checkEmailVerified() async {
     user = auth.currentUser!;
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      Navigator.push(
+       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ScreenHome(),
-          ));
+          ),);
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodieapp/firebase/firebase_services.dart';
+import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
 import 'package:foodieapp/utils/constants.dart';
 
@@ -186,7 +189,6 @@ class ScreenSignUp extends StatelessWidget {
                                           context
                                               .read<SignUpBloc>()
                                               .add(ShowPasswd());
-                                          
                                         },
                                         child: const Icon(
                                           Icons.remove_red_eye_outlined,
@@ -261,56 +263,117 @@ class ScreenSignUp extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(right: 2.h),
-                                  child: Container(
-                                    height: 6.h,
-                                    width: 6.h,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF000000),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Image.asset(
-                                        "assets/images/apple.png",
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      FirebaseServ()
+                                          .signInWithApple()
+                                          .then((value) {
+                                        // print(value!.user!.email);
+                                        if (value != null) {
+                                          debugPrint("apple login");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ScreenHome(),
+                                              ));
+                                        } else {
+                                          return;
+                                        }
+                                      });
+                                    },
+                                    child: Platform.isIOS
+                                        ? Container(
+                                            height: 6.h,
+                                            width: 6.h,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF000000),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Image.asset(
+                                                "assets/images/apple.png",
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          )
+                                        : Container(),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 2.h),
-                                  child: Container(
-                                    height: 6.h,
-                                    width: 6.h,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF1877F2),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(13.0),
-                                      child: Image.asset(
-                                        "assets/images/fbF.png",
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 2.h),
-                                  child: Container(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await FirebaseServ()
+                                          .signInWithFacebook()
+                                          .then((value) {
+                                        if (value != null) {
+                                          debugPrint("fb login");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ScreenHome(),
+                                              ));
+                                        } else {
+                                          return;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
                                       height: 6.h,
                                       width: 6.h,
                                       decoration: const BoxDecoration(
-                                        color: Color(0xFFD0463B),
+                                        color: Color(0xFF1877F2),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(13.0),
                                         child: Image.asset(
-                                          "assets/images/googleG.png",
+                                          "assets/images/fbF.png",
                                           fit: BoxFit.contain,
                                         ),
-                                      )),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 2.h),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await FirebaseServ()
+                                          .signInWithGoogle()
+                                          .then((value) {
+                                        if (value != null) {
+                                          print("google login");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ScreenHome(),
+                                              ));
+                                        } else {
+                                          return;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                        height: 6.h,
+                                        width: 6.h,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFFD0463B),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(13.0),
+                                          child: Image.asset(
+                                            "assets/images/googleG.png",
+                                            fit: BoxFit.contain,
+                                          ),
+                                        )),
+                                  ),
                                 ),
                               ],
                             )

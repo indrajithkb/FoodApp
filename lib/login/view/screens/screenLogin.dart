@@ -4,12 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
+
 import 'package:foodieapp/firebase/firebase_services.dart';
+import 'package:foodieapp/homeScreen/view/screens/dummy_home.dart';
 import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
 import 'package:foodieapp/l10n/l10n.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
 import 'package:foodieapp/utils/constants.dart';
-
 
 import 'package:sizer/sizer.dart';
 
@@ -34,10 +35,13 @@ class ScreenLogin extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
+
+
   BuildContext? ctx;
 
   @override
   Widget build(BuildContext context) {
+   
     final l10n = context.l10n;
     final height = MediaQuery.of(context).size.height;
     return GestureDetector(
@@ -198,7 +202,9 @@ class ScreenLogin extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                ScreenSignUp(),
+                                         ScreenHome()
+
+                                                //ScreenSignUp(),
                                           ));
                                     },
                                     child: Text(
@@ -256,6 +262,7 @@ class ScreenLogin extends StatelessWidget {
                                     FirebaseServ()
                                         .signInWithApple()
                                         .then((value) {
+                                      // print(value!.user!.email);
                                       if (value != null) {
                                         debugPrint("apple login");
                                         Navigator.push(
@@ -343,9 +350,7 @@ class ScreenLogin extends StatelessWidget {
                                       } else {
                                         return;
                                       }
-                                      
                                     });
-                                    
                                   },
                                   child: Container(
                                       height: 6.h,
