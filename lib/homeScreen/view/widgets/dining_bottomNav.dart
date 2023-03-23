@@ -128,12 +128,19 @@ class DiningBottomNav extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 18.sp,),
                       child: Text('Paragon ',
-                      style: FoodDeliveryTextStyles.homeScreenTitlesMustTry,),
+                      style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+
+                      ),),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 18.sp,),
                       child: Text('Kochi',
-                      style: FoodDeliveryTextStyles.homeScreenTitlesMustTryPlace,),
+                      style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      )),
                     )
                    
                   ],

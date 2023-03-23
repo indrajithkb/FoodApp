@@ -1,9 +1,15 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
+import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
+
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class OfferBanner extends StatelessWidget {
-  OfferBanner({super.key,});
+  OfferBanner({required this.snapData,required this.indexx,super.key,});
+  Nr2VxEfuKw1HWplkxdy snapData;
+  int indexx;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,10 @@ class OfferBanner extends StatelessWidget {
                   decoration: BoxDecoration(
                       //color:  Color(0xFFE6556F),
                       borderRadius: BorderRadius.circular(25),),
-                  child: Image.asset('assets/images/offerbg.png',),
+                  child: Image.network(
+                    snapData.banners[indexx].image,
+                  ),
+                  // Image.asset('assets/images/offerbg.png',),
                 ),
                 Positioned(
                     right: 10,
@@ -49,7 +58,9 @@ class OfferBanner extends StatelessWidget {
                                 TextSpan(
                                   text: ' up to 55% OFF ',
                                   style: FoodDeliveryTextStyles
-                                      .componentBoxSubtleBold,
+                                       .componentBoxSubtleStyle.copyWith(
+                                        fontWeight: FontWeight.w800,
+                                       ),
                                 ),
                               ],),
                         ),
@@ -62,7 +73,9 @@ class OfferBanner extends StatelessWidget {
                                 TextSpan(
                                   text: ' KFC',
                                   style: FoodDeliveryTextStyles
-                                      .componentBoxSubtleBold,
+                                       .componentBoxSubtleStyle.copyWith(
+                                        fontWeight: FontWeight.w800,
+                                       ),
                                 ),
                               ],),
                         ),
@@ -70,7 +83,8 @@ class OfferBanner extends StatelessWidget {
                         SizedBox(
                           height: 3.5.h,
                           width: 26.w,
-                          child: ElevatedButton(
+                          child: 
+                          ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,

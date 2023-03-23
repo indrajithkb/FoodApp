@@ -3,15 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/demo_user_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/repo/repository.dart';
-
 import 'package:foodieapp/l10n/l10n.dart';
 import 'package:foodieapp/login/bloc/login_bloc.dart';
 import 'package:foodieapp/login/view/screens/screenLogin.dart';
 import 'package:foodieapp/signUp/bloc/sign_up_bloc.dart';
-
-
-
-
 import 'package:sizer/sizer.dart';
 
 
@@ -118,7 +113,8 @@ class App extends StatelessWidget {
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return MaterialApp(
+//     return Sizer(builder: (context, orientation, deviceType) {
+//       return MaterialApp(
 //       theme: ThemeData(
 //         appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
 //         colorScheme: ColorScheme.fromSwatch(
@@ -127,7 +123,10 @@ class App extends StatelessWidget {
 //       ),
 //       localizationsDelegates: AppLocalizations.localizationsDelegates,
 //       supportedLocales: AppLocalizations.supportedLocales,
-//       home: ScreenPost(),
+//       home: FoodScreen()
+//       // DummyHome()
+//       // ScreenPost(),
 //     );
+//     },);
 //   }
 // }

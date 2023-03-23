@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FoodModel{
+  FoodModel({required this.imgg,required this.foodName});
   String? imgg;
   String? foodName;
-  FoodModel({required this.imgg,required this.foodName});
 
 }
 
@@ -20,9 +20,9 @@ List<FoodModel>foodModelList=[
 
 
 class AccountNavBar{
+  AccountNavBar({required this.accountDetails,required this.icon});
   String? accountDetails;
   final ImageIcon icon;
-  AccountNavBar({required this.accountDetails,required this.icon});
   
 
 }

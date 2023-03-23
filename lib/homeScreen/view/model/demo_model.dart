@@ -48,48 +48,145 @@
 //     };
 // }
 
-class DemoModel {
-  List<NQyXi099IQRk4xAvC8d>? nQ8c9ItMdKP94bJ8GKG;
 
-  DemoModel({this.nQ8c9ItMdKP94bJ8GKG});
 
-  DemoModel.fromJson(dynamic json) {
-    if (json['-NQyXi099IQRk4xAvC8d'] != null) {
-      nQ8c9ItMdKP94bJ8GKG = <NQyXi099IQRk4xAvC8d>[];
-      json['-NQyXi099IQRk4xAvC8d'].forEach((v) {
-        nQ8c9ItMdKP94bJ8GKG!.add(NQyXi099IQRk4xAvC8d.fromJson(v as Map<String, dynamic>));
-      });
-    }
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.nQ8c9ItMdKP94bJ8GKG != null) {
-      data['-NQyXi099IQRk4xAvC8d'] =
-          this.nQ8c9ItMdKP94bJ8GKG!.map((v ) => v.toJson()).toList();
-    }
-    return data;
-  }
+// To parse this JSON data, do
+//
+//     final foodDemoModel = foodDemoModelFromJson(jsonString);
+
+// ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls
+
+
+import 'dart:convert';
+
+FoodDemoModel foodDemoModelFromJson(String str) => FoodDemoModel.fromJson(json.decode(str)as Map<String,dynamic>);
+
+String foodDemoModelToJson(FoodDemoModel data) => json.encode(data.toJson());
+
+class FoodDemoModel {
+    FoodDemoModel({
+        required this.nr2VxEfuKw1HWplkxdy,
+    });
+
+    factory FoodDemoModel.fromJson(dynamic json) => FoodDemoModel(
+        nr2VxEfuKw1HWplkxdy: Nr2VxEfuKw1HWplkxdy.fromJson(json['-NR2VxEfuKw1hWplkxdy']as Map<String,dynamic>),
+    );
+
+    Nr2VxEfuKw1HWplkxdy nr2VxEfuKw1HWplkxdy;
+
+    Map<String, dynamic> toJson() => {
+        '-NR2VxEfuKw1hWplkxdy': nr2VxEfuKw1HWplkxdy.toJson(),
+    };
 }
 
-class NQyXi099IQRk4xAvC8d {
-  String? foodname;
-  int? id;
-  String? image;
+class Nr2VxEfuKw1HWplkxdy {
+    Nr2VxEfuKw1HWplkxdy({
+        required this.banners,
+        required this.foodBanners,
+        required this.xploreResto,
+    });
 
-  NQyXi099IQRk4xAvC8d({this.foodname, this.id, this.image});
+    factory Nr2VxEfuKw1HWplkxdy.fromJson(dynamic json) => Nr2VxEfuKw1HWplkxdy(
+        banners: List<Banners>.from((json['banners']as List).map((x) => Banners.fromJson(x as dynamic))),
+        foodBanners: List<FoodBanner>.from((json['foodBanners']as List).map((x) => FoodBanner.fromJson(x as dynamic))),
+        xploreResto: List<XploreResto>.from((json['xploreResto']as List).map((x) => XploreResto.fromJson(x as dynamic))),
+    );
 
-  NQyXi099IQRk4xAvC8d.fromJson(Map<String, dynamic> json) {
-    foodname = json['foodname'] as String;
-    id = json['id'] as int;
-    image = json['image'] as String;
-  }
+    List<Banners> banners;
+    List<FoodBanner> foodBanners;
+    List<XploreResto> xploreResto;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['foodname'] = this.foodname;
-    data['id'] = this.id;
-    data['image'] = this.image;
-    return data;
-  }
+    Map<String, dynamic> toJson() => {
+        'banners': List<dynamic>.from(banners.map((x) => x.toJson())),
+        'foodBanners': List<dynamic>.from(foodBanners.map((x) => x.toJson())),
+        'xploreResto': List<dynamic>.from(xploreResto.map((x) => x.toJson())),
+    };
+}
+
+class Banners {
+    Banners({
+        required this.id,
+        required this.image,
+    });
+
+    factory Banners.fromJson(dynamic json) => Banners(
+        id: json['id'] as int,
+        image: json['image']as String,
+    );
+
+    int id;
+    String image;
+
+    Map<String, dynamic> toJson() => {
+        'id': id,
+        'image': image,
+    };
+}
+class XploreResto {
+    XploreResto({
+        required this.id,
+        required this.image,
+        required this.rating,
+        required this.off,
+        required this.hotel,
+        required this.time,
+        required this.place,
+        required this.distance,
+    });
+
+    factory XploreResto.fromJson(dynamic json) => XploreResto(
+        id: json['id'] as int,
+        image: json['image']as String,
+        rating: json['rating'] as double,
+        off: json['off'] as int,
+        hotel: json['hotel'] as String,
+        time:json['time'] as int,
+        place: json['place'] as String,
+        distance: json['distance']as int,
+    );
+
+    int id;
+    String image;
+   double rating;
+   int off;
+   String hotel;
+   String place;
+   int time; 
+   int distance;
+
+    Map<String, dynamic> toJson() => {
+        'id': id,
+        'image': image,
+        'rating':rating,
+        'off':off,
+        'hotel':hotel,
+        'time':time,
+        'place':place,
+        'distance':distance
+    };
+}
+
+class FoodBanner {
+    FoodBanner({
+        required this.foodname,
+        required this.id,
+        required this.image,
+    });
+
+    factory FoodBanner.fromJson(dynamic json) => FoodBanner(
+        foodname: json['foodname'] as String,
+        id: json['id']as int,
+        image: json['image']as String,
+    );
+
+    String foodname;
+    int id;
+    String image;
+
+    Map<String, dynamic> toJson() => {
+        'foodname': foodname,
+        'id': id,
+        'image': image,
+    };
 }

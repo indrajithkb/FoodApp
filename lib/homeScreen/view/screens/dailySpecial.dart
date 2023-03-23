@@ -18,11 +18,13 @@
 //   }
 // }
 
+// ignore_for_file: avoid_dynamic_calls
+
 class FoodSpecial{
+  FoodSpecial({required this.foodname,required this.id,required this.image});
   String foodname;
   int id;
   String image;
-  FoodSpecial({required this.foodname,required this.id,required this.image});
 
 
    factory FoodSpecial.fromRTDB( dynamic data) {
@@ -30,8 +32,8 @@ class FoodSpecial{
    
     return FoodSpecial(
       foodname: data['foodname'] as String , 
-      id: data["id"] as int , 
-      image: data["image"]as String 
+      id: data['id'] as int , 
+      image: data['image']as String 
       
      
        ,);

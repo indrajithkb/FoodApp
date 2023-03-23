@@ -7,13 +7,14 @@ import 'package:sizer/sizer.dart';
 TextFormField reusableTextField(
     {required String text,
     required IconData icon,
+    required TextEditingController controller,
     Widget? suffixIcon,
     required bool isPasswordType,
     required bool isObscure,
     FocusNode? focusNode,
     Function(String)? onFieldSub,
     String? Function(String?)? onValidate,
-    required TextEditingController controller}) {
+    }) {
   return TextFormField(
     
     validator:onValidate,
@@ -28,11 +29,11 @@ TextFormField reusableTextField(
         contentPadding: const EdgeInsets.only(top: 15),
         errorBorder: OutlineInputBorder(
            borderRadius: BorderRadius.circular(12),
-           borderSide: BorderSide(color: Colors.red.shade200, width: 2)
+           borderSide: BorderSide(color: Colors.red.shade200, width: 2),
         ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.grey.shade300, width: 2)),
+            borderSide: BorderSide(color: Colors.grey.shade300, width: 2),),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300, width: 2),
@@ -52,7 +53,7 @@ TextFormField reusableTextField(
 }
 
 SizedBox signInSignUpButton(
-    BuildContext context, bool isLogin, Function onTap) {
+    BuildContext context, bool isLogin, Function onTap,) {
   return SizedBox(
       height: 6.5.h,
       width: double.infinity,

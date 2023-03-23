@@ -14,7 +14,7 @@ class DemoUserBloc extends Bloc<DemoUserEvent, DemoUserState> {
      emit(DemoUserLoading());
     print('first state emitted');
      try {
-       final DemoModel user=await _demoRepository.demoUser();
+       final FoodDemoModel user=await _demoRepository.demoUser();
      emit(DemoUserLoaded(user));
      } catch (e) {
        emit(DemoUserError(e.toString()));

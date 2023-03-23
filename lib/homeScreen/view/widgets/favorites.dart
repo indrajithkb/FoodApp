@@ -53,7 +53,7 @@ class FavResto extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                Container(
+                                DecoratedBox(
                                   //height: 100,
 
                                   decoration: const BoxDecoration(

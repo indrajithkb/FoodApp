@@ -8,7 +8,7 @@ class DemoUserLoading extends DemoUserState {
 }
 
 class DemoUserLoaded extends DemoUserState {
-  DemoModel user;
+  FoodDemoModel user;
   DemoUserLoaded(this.user);
   @override
   List<Object> get props => [user];
