@@ -1,10 +1,10 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, avoid_redundant_argument_values
 
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/firebase/firebase_services.dart';
-import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
+import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:foodieapp/login/view/screens/screenLogin.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
 import 'package:foodieapp/signUp/bloc/sign_up_bloc.dart';
@@ -231,11 +231,10 @@ class ScreenSignUp extends StatelessWidget {
                                       },
                                       child: Text(
                                         'Sign In',
-                                        style: TextStyle(
-                                            color: const Color(0xFF1D9F80),
-                                            fontSize: 11.sp,
-                                            fontFamily: 'SpaceGrotesk',
-                                            fontWeight: FontWeight.w600,),
+                                        style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                                          fontSize: 11.sp,
+                                          color: const Color(0xFF1D9F80),
+                                        ),
                                       ),)
                                 ],
                               ),

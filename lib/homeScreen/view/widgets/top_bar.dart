@@ -1,4 +1,7 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
+import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class TopBar extends StatelessWidget {
@@ -20,12 +23,11 @@ class TopBar extends StatelessWidget {
                           children: [
                             Text(
                               'Carnival Infopark',
-                              style: TextStyle(
+                              style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
                                 fontSize: 13.sp,
-                                fontFamily: 'SpaceGrotesk',
-                                fontWeight: FontWeight.w600,
                                 color: const Color(0xFF1A2C42),
                               ),
+                             
                             ),
                             const Padding(
                               padding: EdgeInsets.all(8),
@@ -38,13 +40,12 @@ class TopBar extends StatelessWidget {
                         ),
                         Text(
                           'Infopark campus,Kakanad,..',
-                          style: TextStyle(
+                           style:FoodDeliveryTextStyles.homeScreenTitles.copyWith(
                             fontSize: 10.sp,
-                            fontFamily: 'SpaceGrotesk',
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF696969),
-                          ),
-                        )
+                             color: const Color(0xFF696969),
+                           ),
+                        
+                         )
                       ],
                     ),
                     Padding(

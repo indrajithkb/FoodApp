@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:foodieapp/homeScreen/repo/repository.dart';
@@ -12,7 +14,7 @@ class DemoUserBloc extends Bloc<DemoUserEvent, DemoUserState> {
   DemoUserBloc(this._demoRepository) : super(DemoUserLoading ()) {
     on<LoadDemoUser>((event, emit) async{
      emit(DemoUserLoading());
-    print('first state emitted');
+    // print('first state emitted');
      try {
        final FoodDemoModel user=await _demoRepository.demoUser();
      emit(DemoUserLoaded(user));

@@ -35,7 +35,7 @@ class FoodDeliveryTextStyles {
     fontSize: 13,
     fontFamily: 'QuickSand',
   );
- 
+
   static TextStyle homeScreenTitles = const TextStyle(
     fontSize: 16,
     fontFamily: 'SpaceGrotesk',
@@ -54,6 +54,17 @@ class FoodDeliveryTextStyles {
 //colors
 class FoodDeliveryColor {
   static Color buttonColor = const Color(0xFF1D9F80);
+
+  static LinearGradient gradient =const LinearGradient(
+                                          colors: [
+                                            Colors.transparent,
+                                            Colors.transparent,
+                                            Colors.black87,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [0, .5, 1.0],
+                                        );
 }
 
 // constantTexts

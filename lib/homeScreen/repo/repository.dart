@@ -16,7 +16,7 @@ return FoodDemoModel.fromJson(json.decode(response.body)as Map<String,dynamic>);
 
     }
     else{
-      print('errrr');
+      // print('errrr');
       throw Exception(response.reasonPhrase);
     }
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, avoid_bool_literals_in_conditional_expressions
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
   final ref = FirebaseDatabase.instance.ref('post/-NR2VxEfuKw1hWplkxdy');
-
+  bool isButtonBanner = true;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -66,12 +66,13 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                         snapshot.data!.snapshot.value != null) {
                       final snap = snapshot.data!.snapshot.value
                           as Map<Object?, Object?>;
-                     final  snapData = Nr2VxEfuKw1HWplkxdy.fromJson(snap);
+                      final snapData = Nr2VxEfuKw1HWplkxdy.fromJson(snap);
                       return PageView.builder(
                         controller: PageController(viewportFraction: .95),
                         onPageChanged: (index) {
                           setState(() {
                             activeIndex = index;
+                            isButtonBanner = false;
                           });
                         },
                         // scrollDirection: Axis.horizontal,
@@ -83,8 +84,10 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                             padding: EdgeInsets.only(right: 15.sp),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(25),
-                              child:
-                              OfferBanner(snapData: snapData,indexx: index),
+                              child: OfferBanner(
+                                  snapData: snapData,
+                                  indexx: index,
+                                  isButtonBanner: index == 0 ? true : false,),
                               //  Image.network(
                               //   // img,
                               //   snapData.banners[index].image,
@@ -165,7 +168,8 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                 snapshot.data!.snapshot.value != null) {
                               final snap = snapshot.data!.snapshot.value
                                   as Map<Object?, Object?>;
-                             final snapData=Nr2VxEfuKw1HWplkxdy.fromJson(snap);
+                              final snapData =
+                                  Nr2VxEfuKw1HWplkxdy.fromJson(snap);
 
                               return ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -193,11 +197,11 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                           snapData.foodBanners[index].foodname,
                                           // list[index]["foodname"].toString(),
                                           // userr.demosub[index].foodname,
-                                          style: const TextStyle(
+                                          style: FoodDeliveryTextStyles
+                                              .homeScreenTitles
+                                              .copyWith(
                                             fontSize: 12,
-                                            fontFamily: 'SpaceGrotesk',
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF696969),
+                                            color: const Color(0xFF696969),
                                           ),
                                         ),
                                       ),
@@ -212,48 +216,6 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                             }
                           },
                         );
-
-                        //  return ListView.builder(
-                        //         scrollDirection: Axis.horizontal,
-                        //         itemCount:userr.nQ8c9ItMdKP94bJ8GKG!.length,
-                        //         // userr.demosub.length,
-                        //         //snapData.length,
-                        //             // snapshot.data!.snapshot.children.length,
-                        //         itemBuilder: (context, index) {
-                        //           return Column(
-                        //             mainAxisAlignment:
-                        //                 MainAxisAlignment.spaceEvenly,
-                        //             children: [
-                        //               Padding(
-                        //                 padding: EdgeInsets.only(left: 5.sp),
-                        //                 child: CircleAvatar(
-                        //                   radius: 35,
-                        //                    backgroundImage: NetworkImage(
-                        //                   //   // snapData[index].image
-                        //                   //   // list[index]["image"].toString()
-                        //                   //     // userr.demosub[index].image
-                        //                    userr.nQ8c9ItMdKP94bJ8GKG![index].image!
-                        //                       ),
-                        //                 ),
-                        //               ),
-                        //               Padding(
-                        //                 padding: EdgeInsets.only(left: 5.sp),
-                        //                 child: Text(
-                        //                   userr.nQ8c9ItMdKP94bJ8GKG![index].foodname!,
-                        //                   // snapData[index].foodname,
-                        //                   // list[index]["foodname"].toString(),
-                        //                   // userr.demosub[index].foodname,
-                        //                     style: const TextStyle(
-                        //                       fontSize: 12,
-                        //                       fontFamily: 'SpaceGrotesk',
-                        //                       fontWeight: FontWeight.w600,
-                        //                       color: Color(0xFF696969),
-                        //                     )),
-                        //               ),
-                        //             ],
-                        //           );
-                        //         },
-                        //       );
                       }
                       return Container();
                     },
@@ -340,13 +302,14 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                                     snapData.xploreResto[index]
                                                         .hotel,
                                                   ),
-                                                
                                                   Padding(
                                                     padding: EdgeInsets.only(
-                                                        top: 5.sp,),
+                                                      top: 5.sp,
+                                                    ),
                                                     child: Text(
-                                                        // 'Kochi -5km'
-                                                        ' ${snapData.xploreResto[index].place} - ${snapData.xploreResto[index].distance}kms  ',),
+                                                      // 'Kochi -5km'
+                                                      ' ${snapData.xploreResto[index].place} - ${snapData.xploreResto[index].distance}kms  ',
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -362,8 +325,9 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                                     ),
                                                   ),
                                                   Text(
-                                                      // '30 min'
-                                                      '${snapData.xploreResto[index].time} mins',)
+                                                    // '30 min'
+                                                    '${snapData.xploreResto[index].time} mins',
+                                                  )
                                                 ],
                                               )
                                             ],
@@ -375,18 +339,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                       height: 13.h,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.transparent,
-                                            Colors.black87,
-                                          ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          stops: [0, .5, 1.0],
-                                        ),
-                                        //color: Colors.amber,
-                                        //borderRadius: BorderRadius.circular(25)
+                                        gradient: FoodDeliveryColor.gradient,
                                       ),
                                     ),
                                     Positioned(
@@ -394,10 +347,12 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                       left: 20,
                                       child: Text(
                                         // '10 %off',
-                                        '${snapData.xploreResto[index].off} %off',
-                                        style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
-                                          fontSize: 18
-                                        )
+                                        '${snapData.xploreResto[index].off} %Off',
+                                        style: FoodDeliveryTextStyles
+                                            .exploreRestoBanner
+                                            .copyWith(
+                                          fontSize: 18,
+                                        ),
                                       ),
                                     ),
                                     Positioned(
@@ -405,10 +360,11 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                       left: 20,
                                       child: Text(
                                         'upto ${FoodDeliveryConstantText.rupeesSymbol} 125',
-                                        style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
+                                        style: FoodDeliveryTextStyles
+                                            .exploreRestoBanner
+                                            .copyWith(
                                           fontSize: 12,
-                                        )
-                                       
+                                        ),
                                       ),
                                     ),
                                     Positioned(
@@ -444,7 +400,8 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsets.only(
-                                                    right: 2.sp,),
+                                                  right: 2.sp,
+                                                ),
                                                 child: const Icon(
                                                   Icons.star,
                                                   size: 14,
@@ -455,11 +412,10 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                                                 snapData
                                                     .xploreResto[index].rating
                                                     .toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: 'SpaceGrotesk',
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xFFFFFFFF),
+                                                style: FoodDeliveryTextStyles
+                                                    .exploreRestoBanner
+                                                    .copyWith(
+                                                  fontSize: 13,
                                                 ),
                                               ),
                                             ],
@@ -473,7 +429,7 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
                             },
                           );
                         } else {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }

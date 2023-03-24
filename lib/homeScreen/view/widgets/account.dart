@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
+import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class Account extends StatelessWidget {
-   Account({super.key});
-List<String>accList=[
-  'Your orders',
-  'Address book',
-  'Your transactions',
-  'Table reservations',
-  'Notification',
-  'Help'
-];
+  Account({super.key});
+  List<String> accList = [
+    'Your orders',
+    'Address book',
+    'Your transactions',
+    'Table reservations',
+    'Notification',
+    'Help'
+  ];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -54,7 +55,8 @@ List<String>accList=[
                                 ),
                               ),
                               Text(
-                                'kimjongun@gmail.com',  style: TextStyle(
+                                'kimjongun@gmail.com',
+                                style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'SpaceGrotesk',
                                   fontWeight: FontWeight.w400,
@@ -67,8 +69,9 @@ List<String>accList=[
                       ],
                     ),
                     IconButton(
-                        onPressed: () {},
-                        icon: Image.asset('assets/images/editIcon.png'),)
+                      onPressed: () {},
+                      icon: Image.asset('assets/images/editIcon.png'),
+                    )
                   ],
                 ),
               ),
@@ -84,9 +87,9 @@ List<String>accList=[
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Color(0xFF1D9F80),
-            ),child: Row(
+            ),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-             
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -94,22 +97,25 @@ List<String>accList=[
                     const CircleAvatar(
                       radius: 35,
                       backgroundColor: Colors.white,
-                      child:  ImageIcon(AssetImage('assets/icons/fav.png'),color: Color(0xFF1D9F80),),
-
+                      child: ImageIcon(
+                        AssetImage('assets/icons/fav.png'),
+                        color: Color(0xFF1D9F80),
+                      ),
                     ),
                     Padding(
-                       padding: EdgeInsets.only(top: 5.sp),
+                      padding: EdgeInsets.only(top: 5.sp),
                       child: const Text('Liked'),
                     )
                   ],
                 ),
-                 Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CircleAvatar(
-                        radius: 35,
-                         backgroundColor: Colors.white,
-                         child:  ImageIcon(AssetImage('assets/images/favResto.png'),color: Color(0xFF1D9F80)),
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                      child: ImageIcon(AssetImage('assets/images/favResto.png'),
+                          color: Color(0xFF1D9F80),),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5.sp),
@@ -117,45 +123,50 @@ List<String>accList=[
                     )
                   ],
                 ),
-                 Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CircleAvatar(
-                         radius: 35,
-                          backgroundColor: Colors.white,
-                          child:  ImageIcon(AssetImage('assets/images/settingsIcon.png'),color: Color(0xFF1D9F80)),
-                         
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                      child: ImageIcon(
+                          AssetImage('assets/images/settingsIcon.png'),
+                          color: Color(0xFF1D9F80),),
                     ),
                     Padding(
-                         padding: EdgeInsets.only(top: 5.sp),
+                      padding: EdgeInsets.only(top: 5.sp),
                       child: const Text('Settings'),
                     )
                   ],
                 )
-                
               ],
             ),
-          ),SizedBox(height: 2.h,),
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
           SizedBox(
             height: 45.h,
             // color: Colors.amber,
-            child:ListView.builder(
+            child: ListView.builder(
               itemCount: accountNavBarList.length,
               itemBuilder: (context, index) {
-                final accTitles=accountNavBarList[index];
-              return ListTile(
-                leading: accTitles.icon,
-                title:Text(accTitles.accountDetails!,  style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'SpaceGrotesk',
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF1A2C42),
-                                ),) ,
-                                trailing: IconButton(onPressed: (){
-
-                                }, icon: const ImageIcon(AssetImage('assets/images/trailing.png'),),),
-              );
-            },) ,
+                final accTitles = accountNavBarList[index];
+                return ListTile(
+                  leading: accTitles.icon,
+                  title: Text(accTitles.accountDetails!,
+                      style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                        color: const Color(0xFF1A2C42),
+                      ),),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: const ImageIcon(
+                      AssetImage('assets/images/trailing.png'),
+                    ),
+                  ),
+                );
+              },
+            ),
           )
         ],
       ),

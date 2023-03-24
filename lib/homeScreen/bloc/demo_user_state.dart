@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first, must_be_immutable
+
 part of 'demo_user_bloc.dart';
 
 abstract class DemoUserState extends Equatable {}

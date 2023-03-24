@@ -1,3 +1,5 @@
+// ignore_for_file: always_declare_return_types, inference_failure_on_function_return_type, type_annotate_public_apis, lines_longer_than_80_chars, inference_failure_on_instance_creation, body_might_complete_normally_nullable, unnecessary_null_comparison
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -7,8 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:foodieapp/firebase/emailVerify.dart';
-import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
+import 'package:foodieapp/firebase/email_verify.dart';
+import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -37,7 +39,7 @@ class FirebaseServ {
     } on FirebaseAuthException catch (logInErr) {
       errorMsg = logInErr.message!;
       debugPrint(errorMsg);
-      Fluttertoast.showToast(msg: errorMsg);
+     await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
@@ -46,7 +48,7 @@ class FirebaseServ {
   createUser(
       {required BuildContext context,
       required String email,
-      required String password}) async {
+      required String password,}) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -54,7 +56,7 @@ class FirebaseServ {
           //await sendEmailVerification(context);
           .then((value) {
         //Fluttertoast.showToast(msg: 'Account created successfully');
-        print('acc created successfully');
+        // print('acc created successfully');
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -66,7 +68,7 @@ class FirebaseServ {
     } on FirebaseAuthException catch (signUpErr) {
       errorMsg = signUpErr.message!;
       debugPrint(errorMsg);
-      Fluttertoast.showToast(msg: errorMsg);
+     await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
@@ -110,7 +112,7 @@ class FirebaseServ {
             idToken: googleAuth?.idToken,
           );
 
-          UserCredential userCredential =
+        final  UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
            return userCredential;
 
@@ -132,7 +134,7 @@ class FirebaseServ {
   } on FirebaseAuthException catch (googleSignInErr) {
 
     errorMsg = googleSignInErr.message!;
-    Fluttertoast.showToast(msg: errorMsg);
+   await Fluttertoast.showToast(msg: errorMsg);
   }
   }
 
@@ -142,11 +144,11 @@ class FirebaseServ {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: email)
           .then((value) {
-        Fluttertoast.showToast(msg: "We have sent email to recover password");
+        Fluttertoast.showToast(msg: 'We have sent email to recover password');
       });
     } on FirebaseAuthException catch (resetPasswdErr) {
       errorMsg = resetPasswdErr.message!;
-      Fluttertoast.showToast(msg: errorMsg);
+     await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
@@ -157,22 +159,22 @@ class FirebaseServ {
     try {    
 
       final LoginResult loginResult = await FacebookAuth.instance.login();
-      print(loginResult.status);
+      // print(loginResult.status);
 
       // Create a credential from the access token
       if (loginResult.accessToken != null) {
-        print("fb");
+        // print('fb');
         final OAuthCredential facebookAuthCredential =
             FacebookAuthProvider.credential(loginResult.accessToken!.token);
         // Once signed in, return the UserCredential
         return await FirebaseAuth.instance
             .signInWithCredential(facebookAuthCredential);
       } else {
-        print("nullll");
+        // print('nullll');
       }
     } on FirebaseAuthException catch (fbErr) {
       errorMsg = fbErr.message!;
-      Fluttertoast.showToast(msg: errorMsg);
+    await  Fluttertoast.showToast(msg: errorMsg);
     }      
 
   }
@@ -186,7 +188,7 @@ class FirebaseServ {
   
   
   String generateNonce([int length = 32]) {
-  final charset =
+  const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
   final random = Random.secure();
   return List.generate(length, (_) => charset[random.nextInt(charset.length)])
@@ -212,7 +214,7 @@ Future<UserCredential?> signInWithApple() async {
 
   // Request credential for the currently signed in Apple account.
 
-         print("apple");  
+        //  print('apple');  
   final appleCredential = await SignInWithApple.getAppleIDCredential(
     scopes: [
       AppleIDAuthorizationScopes.email,
@@ -222,11 +224,11 @@ Future<UserCredential?> signInWithApple() async {
     
     nonce: nonce,
   );
-    print(appleCredential);  
+    // print(appleCredential);  
   if(appleCredential!=null){
     debugPrint(appleCredential.email);
 // Create an `OAuthCredential` from the credential returned by Apple.
-  final oauthCredential = OAuthProvider("apple.com").credential(
+  final oauthCredential = OAuthProvider('apple.com').credential(
     idToken: appleCredential.identityToken,
     rawNonce: rawNonce,
   );
@@ -235,12 +237,12 @@ Future<UserCredential?> signInWithApple() async {
   // not match the nonce in `appleCredential.identityToken`, sign in will fail.
   return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
   }else{
-    debugPrint("apple null");
+    debugPrint('apple null');
   }
   
-  } on FirebaseAuthException catch (Err) {
-      errorMsg = Err.message!;
-      Fluttertoast.showToast(msg: errorMsg);
+  } on FirebaseAuthException catch (err) {
+      errorMsg = err.message!;
+    await  Fluttertoast.showToast(msg: errorMsg);
     }      
   
 }

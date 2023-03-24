@@ -7,9 +7,10 @@ import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class OfferBanner extends StatelessWidget {
-  OfferBanner({required this.snapData,required this.indexx,super.key,});
+  OfferBanner({required this.snapData,required this.indexx,required this.isButtonBanner, super.key,});
   Nr2VxEfuKw1HWplkxdy snapData;
   int indexx;
+  bool isButtonBanner ;
 
   @override
   Widget build(BuildContext context) {
@@ -83,23 +84,28 @@ class OfferBanner extends StatelessWidget {
                         SizedBox(
                           height: 3.5.h,
                           width: 26.w,
-                          child: 
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(10),
+                          child:
+                          Visibility(
+                            visible:  isButtonBanner,
+                            child: ElevatedButton(
+                                onPressed: () {
+                               
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(10),
+                                  ),
+                          
                                 ),
-
-                              ),
-                              child: const Text('ORDER NOW',
-                              style: TextStyle(fontFamily: 'Poppins',
-                              fontSize: 11.5,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,),
-                              maxLines: 1,),),
+                                child: const Text('ORDER NOW',
+                                style: TextStyle(fontFamily: 'Poppins',
+                                fontSize: 11.5,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,),
+                                maxLines: 1,),),
+                          ),
                         )
                       ],
                     ),)

@@ -18,7 +18,7 @@
 //   }
 // }
 
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, sort_constructors_first
 
 class FoodSpecial{
   FoodSpecial({required this.foodname,required this.id,required this.image});

@@ -1,9 +1,11 @@
+// ignore_for_file: inference_failure_on_instance_creation, use_build_context_synchronously, unawaited_futures, lines_longer_than_80_chars
+
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:foodieapp/homeScreen/view/screens/screenHome.dart';
+import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 
 import 'package:sizer/sizer.dart';
 

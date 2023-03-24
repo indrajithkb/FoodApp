@@ -8,10 +8,11 @@ TextFormField reusableTextField(
     {required String text,
     required IconData icon,
     required TextEditingController controller,
-    Widget? suffixIcon,
+   
     required bool isPasswordType,
     required bool isObscure,
     FocusNode? focusNode,
+     Widget? suffixIcon,
     Function(String)? onFieldSub,
     String? Function(String?)? onValidate,
     }) {

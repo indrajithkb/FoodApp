@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, strict_raw_type, cast_nullable_to_non_nullable
+
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ class ReadExamples extends StatefulWidget {
 }
 
 class _WriteExamplesState extends State<ReadExamples> {
-  String _displayText = 'Results go here';
+  final String _displayText = 'Results go here';
   final _database = FirebaseDatabase.instance.ref();
   late StreamSubscription _dailySpecialStream;
   List<FoodSpecial>foodSpecialList=[];

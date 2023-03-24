@@ -1,9 +1,11 @@
 
+// ignore_for_file: prefer_final_fields, prefer_const_constructors_in_immutables, unused_field, prefer_const_constructors, lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/home_export.dart';
 import 'package:foodieapp/homeScreen/view/widgets/account.dart';
-import 'package:foodieapp/homeScreen/view/widgets/dining_bottomNav.dart';
+import 'package:foodieapp/homeScreen/view/widgets/dining_bottomnav.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home_bottomNav.dart';
 
