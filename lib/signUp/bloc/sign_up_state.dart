@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first
+
 part of 'sign_up_bloc.dart';
 
  class SignUpState {

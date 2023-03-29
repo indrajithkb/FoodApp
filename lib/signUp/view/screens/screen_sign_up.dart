@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, avoid_redundant_argument_values
+// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, avoid_redundant_argument_values, unnecessary_null_comparison, inference_failure_on_instance_creation
 
 import 'dart:io';
 import 'package:flutter/material.dart';

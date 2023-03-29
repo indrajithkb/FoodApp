@@ -3,11 +3,11 @@
 part of 'home_screen_bloc.dart';
 
 class HomeScreenState {
-// int activeIndex;
+int? activeIndex;
   int currentIndex;
-  HomeScreenState({required this.currentIndex});
+  HomeScreenState({required this.currentIndex,this.activeIndex});
 }
 
 class HomeScreenInitial extends HomeScreenState {
-  HomeScreenInitial() : super(currentIndex: 0);
+  HomeScreenInitial() : super(currentIndex: 0,activeIndex: 0);
 }

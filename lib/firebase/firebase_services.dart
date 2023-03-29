@@ -14,41 +14,43 @@ import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-
 class FirebaseServ {
   final _googleSignIn = GoogleSignIn();
   String errorMsg = '';
 
 //user login
-  signInUser(
-      {required BuildContext context,
-      required String email,
-      required String password,}) async {
+  signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
         debugPrint('login');
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScreenHome(),
-            ),);
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScreenHome(),
+          ),
+        );
       });
       errorMsg = '';
     } on FirebaseAuthException catch (logInErr) {
       errorMsg = logInErr.message!;
       debugPrint(errorMsg);
-     await Fluttertoast.showToast(msg: errorMsg);
+      await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
 //user SignUp
 
-  createUser(
-      {required BuildContext context,
-      required String email,
-      required String password,}) async {
+  createUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -58,17 +60,18 @@ class FirebaseServ {
         //Fluttertoast.showToast(msg: 'Account created successfully');
         // print('acc created successfully');
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const EmailVerifyScreen(),
-            ),);
+          context,
+          MaterialPageRoute(
+            builder: (context) => const EmailVerifyScreen(),
+          ),
+        );
       });
 
       errorMsg = '';
     } on FirebaseAuthException catch (signUpErr) {
       errorMsg = signUpErr.message!;
       debugPrint(errorMsg);
-     await Fluttertoast.showToast(msg: errorMsg);
+      await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
@@ -103,39 +106,36 @@ class FirebaseServ {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-        final GoogleSignInAuthentication? googleAuth =
-            await googleUser?.authentication;
-            
-        if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
-          final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth?.accessToken,
-            idToken: googleAuth?.idToken,
-          );
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-        final  UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-           return userCredential;
+      if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
 
-          // if(userCredential.user !=null){
-          //   if(userCredential.additionalUserInfo!.isNewUser){
-          //     //signup data storing
-          //   }
-          //   else{
-          //     //login processes
-          //   }
-          // }
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        return userCredential;
 
-        }else{
-          
-          debugPrint('user cancelled signin');
-        }
+        // if(userCredential.user !=null){
+        //   if(userCredential.additionalUserInfo!.isNewUser){
+        //     //signup data storing
+        //   }
+        //   else{
+        //     //login processes
+        //   }
+        // }
+      } else {
+        debugPrint('user cancelled signin');
+      }
 
-    errorMsg = '';
-  } on FirebaseAuthException catch (googleSignInErr) {
-
-    errorMsg = googleSignInErr.message!;
-   await Fluttertoast.showToast(msg: errorMsg);
-  }
+      errorMsg = '';
+    } on FirebaseAuthException catch (googleSignInErr) {
+      errorMsg = googleSignInErr.message!;
+      await Fluttertoast.showToast(msg: errorMsg);
+    }
   }
 
 //resetpassword
@@ -148,7 +148,7 @@ class FirebaseServ {
       });
     } on FirebaseAuthException catch (resetPasswdErr) {
       errorMsg = resetPasswdErr.message!;
-     await Fluttertoast.showToast(msg: errorMsg);
+      await Fluttertoast.showToast(msg: errorMsg);
     }
   }
 
@@ -156,8 +156,7 @@ class FirebaseServ {
 
   Future<UserCredential?> signInWithFacebook() async {
     // Trigger the sign-in flow
-    try {    
-
+    try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
       // print(loginResult.status);
 
@@ -174,9 +173,8 @@ class FirebaseServ {
       }
     } on FirebaseAuthException catch (fbErr) {
       errorMsg = fbErr.message!;
-    await  Fluttertoast.showToast(msg: errorMsg);
-    }      
-
+      await Fluttertoast.showToast(msg: errorMsg);
+    }
   }
 
   signOut() async {
@@ -185,67 +183,61 @@ class FirebaseServ {
   }
 
   //apple signIN
-  
-  
+
   String generateNonce([int length = 32]) {
-  const charset =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-  final random = Random.secure();
-  return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-      .join();
-}
-
-/// Returns the sha256 hash of [input] in hex notation.
-String sha256ofString(String input) {
-  final bytes = utf8.encode(input);
-  final digest = sha256.convert(bytes);
-  return digest.toString();
-}
-
-Future<UserCredential?> signInWithApple() async {
-  // To prevent replay attacks with the credential returned from Apple, we
-  // include a nonce in the credential request. When signing in with
-  // Firebase, the nonce in the id token returned by Apple, is expected to
-  // match the sha256 hash of `rawNonce`.
-  debugPrint('stage1');
-  try {
-    final rawNonce = generateNonce();
-  final nonce = sha256ofString(rawNonce);
-
-  // Request credential for the currently signed in Apple account.
-
-        //  print('apple');  
-  final appleCredential = await SignInWithApple.getAppleIDCredential(
-    scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName,
-      
-    ],
-    
-    nonce: nonce,
-  );
-    // print(appleCredential);  
-  if(appleCredential!=null){
-    debugPrint(appleCredential.email);
-// Create an `OAuthCredential` from the credential returned by Apple.
-  final oauthCredential = OAuthProvider('apple.com').credential(
-    idToken: appleCredential.identityToken,
-    rawNonce: rawNonce,
-  );
-
-  // Sign in the user with Firebase. If the nonce we generated earlier does
-  // not match the nonce in `appleCredential.identityToken`, sign in will fail.
-  return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-  }else{
-    debugPrint('apple null');
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
   }
-  
-  } on FirebaseAuthException catch (err) {
+
+  /// Returns the sha256 hash of [input] in hex notation.
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<UserCredential?> signInWithApple() async {
+    // To prevent replay attacks with the credential returned from Apple, we
+    // include a nonce in the credential request. When signing in with
+    // Firebase, the nonce in the id token returned by Apple, is expected to
+    // match the sha256 hash of `rawNonce`.
+    debugPrint('stage1');
+    try {
+      final rawNonce = generateNonce();
+      final nonce = sha256ofString(rawNonce);
+
+      // Request credential for the currently signed in Apple account.
+
+      //  print('apple');
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+      // print(appleCredential);
+      if (appleCredential != null) {
+        debugPrint(appleCredential.email);
+// Create an `OAuthCredential` from the credential returned by Apple.
+        final oauthCredential = OAuthProvider('apple.com').credential(
+          idToken: appleCredential.identityToken,
+          rawNonce: rawNonce,
+        );
+
+        // Sign in the user with Firebase. If the nonce we generated earlier does
+        // not match the nonce in `appleCredential.identityToken`, sign in will fail.
+        return await FirebaseAuth.instance
+            .signInWithCredential(oauthCredential);
+      } else {
+        debugPrint('apple null');
+      }
+    } on FirebaseAuthException catch (err) {
       errorMsg = err.message!;
-    await  Fluttertoast.showToast(msg: errorMsg);
-    }      
-  
-}
-
-
+      await Fluttertoast.showToast(msg: errorMsg);
+    }
+  }
 }

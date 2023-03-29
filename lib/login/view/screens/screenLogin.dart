@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, unnecessary_null_comparison, inference_failure_on_instance_creation, file_names
 
 import 'dart:io';
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/firebase/firebase_services.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
-import 'package:foodieapp/l10n/l10n.dart';
+// import 'package:foodieapp/l10n/l10n.dart';
 import 'package:foodieapp/login/bloc/login_bloc.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
 import 'package:foodieapp/utils/constants.dart';
@@ -34,7 +34,7 @@ class ScreenLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    // final l10n = context.l10n;
     final height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -81,7 +81,7 @@ class ScreenLogin extends StatelessWidget {
                 ),
                 Positioned.fill(
                   top: 30.h,
-                  bottom: 0,
+                  // bottom: 0,
                   child: SizedBox(
                     height: 40.h,
                     //color: Colors.red,

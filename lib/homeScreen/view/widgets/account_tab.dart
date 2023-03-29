@@ -1,10 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class Account extends StatelessWidget {
-  Account({super.key});
+class AccountTab extends StatelessWidget {
+  AccountTab({super.key});
   List<String> accList = [
     'Your orders',
     'Address book',
@@ -114,8 +116,10 @@ class Account extends StatelessWidget {
                     const CircleAvatar(
                       radius: 35,
                       backgroundColor: Colors.white,
-                      child: ImageIcon(AssetImage('assets/images/favResto.png'),
-                          color: Color(0xFF1D9F80),),
+                      child: ImageIcon(
+                        AssetImage('assets/images/favResto.png'),
+                        color: Color(0xFF1D9F80),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5.sp),
@@ -130,8 +134,9 @@ class Account extends StatelessWidget {
                       radius: 35,
                       backgroundColor: Colors.white,
                       child: ImageIcon(
-                          AssetImage('assets/images/settingsIcon.png'),
-                          color: Color(0xFF1D9F80),),
+                        AssetImage('assets/images/settingsIcon.png'),
+                        color: Color(0xFF1D9F80),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 5.sp),
@@ -154,10 +159,12 @@ class Account extends StatelessWidget {
                 final accTitles = accountNavBarList[index];
                 return ListTile(
                   leading: accTitles.icon,
-                  title: Text(accTitles.accountDetails!,
-                      style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
-                        color: const Color(0xFF1A2C42),
-                      ),),
+                  title: Text(
+                    accTitles.accountDetails!,
+                    style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                      color: const Color(0xFF1A2C42),
+                    ),
+                  ),
                   trailing: IconButton(
                     onPressed: () {},
                     icon: const ImageIcon(

@@ -72,4 +72,7 @@ class FoodDeliveryConstantText {
   static String titleText = 'Sign In';
   static String titleSignUpText = 'Sign Up';
   static String rupeesSymbol = '\u{20B9}';
+  static String foodBannerTitle='Whats on your mind?';
+  static String orderNowButton='ORDER NOW';
+  static String exploreRestoTitle='restaurants to explore';
 }

@@ -62,11 +62,12 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScreenHome(),
-          ),);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScreenHome(),
+        ),
+      );
     }
   }
 }
