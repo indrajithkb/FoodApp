@@ -56,7 +56,7 @@ class OfferBanner extends StatelessWidget {
                   style: 
                   FoodDeliveryTextStyles.componentBoxStyle.copyWith(
                     fontSize: 11.5,color: Colors.black,fontWeight: FontWeight.w500,
-                  )
+                  ),
                   
                 ),
               ),

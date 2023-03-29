@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, lines_longer_than_80_chars
 
 import 'package:bloc/bloc.dart';
 

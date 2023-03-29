@@ -90,14 +90,14 @@ class HomeModel {
     factory HomeModel.fromJson(dynamic json) => HomeModel(
         banners: List<Banner>.from((json['banners']as List).map((x) => Banner.fromJson(x as dynamic))),
         foodBanners: List<FoodBanner>.from((json['foodBanners']as List).map((x) => FoodBanner.fromJson(x as dynamic))),
-         hotelCount: json["hotel_count"]as int,
+         hotelCount: json['hotel_count']as int,
         xploreResto: List<XploreResto>.from((json['xploreResto']as List).map((x) => XploreResto.fromJson(x as dynamic))),
     );
 
     Map<String, dynamic> toJson() => {
         'banners': List<dynamic>.from(banners.map((x) => x.toJson())),
         'foodBanners': List<dynamic>.from(foodBanners.map((x) => x.toJson())),
-         "hotel_count": hotelCount,
+         'hotel_count': hotelCount,
         'xploreResto': List<dynamic>.from(xploreResto.map((x) => x.toJson())),
     };
 }

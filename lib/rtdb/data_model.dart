@@ -2,7 +2,9 @@
 //
 //     final rtdbDemoModel = rtdbDemoModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
+// ignore_for_file: sort_constructors_first, avoid_dynamic_calls, lines_longer_than_80_chars
+
+
 import 'dart:convert';
 
 RtdbDemoModel rtdbDemoModelFromJson(String str) => RtdbDemoModel.fromJson(json.decode(str));
@@ -17,11 +19,11 @@ class RtdbDemoModel {
     NRaVoQe73HYhDhJpzUb nRaVoQe73HYhDhJpzUb;
 
     factory RtdbDemoModel.fromJson(dynamic json) => RtdbDemoModel(
-        nRaVoQe73HYhDhJpzUb: NRaVoQe73HYhDhJpzUb.fromJson(json["-NRaVoQE73hYhDhJpzUB"]as Map<String,dynamic>),
+        nRaVoQe73HYhDhJpzUb: NRaVoQe73HYhDhJpzUb.fromJson(json['-NRaVoQE73hYhDhJpzUB']as Map<String,dynamic>),
     );
 
     Map<String, dynamic> toJson() => {
-        "-NRaVoQE73hYhDhJpzUB": nRaVoQe73HYhDhJpzUb.toJson(),
+        '-NRaVoQE73hYhDhJpzUB': nRaVoQe73HYhDhJpzUb.toJson(),
     };
 }
 
@@ -39,17 +41,17 @@ class NRaVoQe73HYhDhJpzUb {
     List<XploreResto> xploreResto;
 
     factory NRaVoQe73HYhDhJpzUb.fromJson(dynamic json) => NRaVoQe73HYhDhJpzUb(
-        banners: List<Banner>.from((json["banners"]as List).map((x) => Banner.fromJson(x  as dynamic))),
-        foodBanners: List<FoodBanner>.from((json["foodBanners"]as List).map((x) => FoodBanner.fromJson(x  as dynamic))),
-        hotelCount: json["hotel_count"]as int,
-        xploreResto: List<XploreResto>.from((json["xploreResto"]as List).map((x) => XploreResto.fromJson(x  as dynamic))),
+        banners: List<Banner>.from((json['banners']as List).map((x) => Banner.fromJson(x  as dynamic))),
+        foodBanners: List<FoodBanner>.from((json['foodBanners']as List).map((x) => FoodBanner.fromJson(x  as dynamic))),
+        hotelCount: json['hotel_count']as int,
+        xploreResto: List<XploreResto>.from((json['xploreResto']as List).map((x) => XploreResto.fromJson(x  as dynamic))),
     );
 
     Map<String, dynamic> toJson() => {
-        "banners": List<dynamic>.from(banners.map((x) => x.toJson())),
-        "foodBanners": List<dynamic>.from(foodBanners.map((x) => x.toJson())),
-        "hotel_count": hotelCount,
-        "xploreResto": List<dynamic>.from(xploreResto.map((x) => x.toJson())),
+        'banners': List<dynamic>.from(banners.map((x) => x.toJson())),
+        'foodBanners': List<dynamic>.from(foodBanners.map((x) => x.toJson())),
+        'hotel_count': hotelCount,
+        'xploreResto': List<dynamic>.from(xploreResto.map((x) => x.toJson())),
     };
 }
 
@@ -63,13 +65,13 @@ class Banner {
     String image;
 
     factory Banner.fromJson(dynamic json) => Banner(
-        id: json["id"]as int,
-        image: json["image"]as String,
+        id: json['id']as int,
+        image: json['image']as String,
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "image": image,
+        'id': id,
+        'image': image,
     };
 }
 
@@ -85,15 +87,15 @@ class FoodBanner {
     String image;
 
     factory FoodBanner.fromJson(dynamic json) => FoodBanner(
-        foodname: json["foodname"]as String,
-        id: json["id"]as int,
-        image: json["image"]as String,
+        foodname: json['foodname']as String,
+        id: json['id']as int,
+        image: json['image']as String,
     );
 
     Map<String, dynamic> toJson() => {
-        "foodname": foodname,
-        "id": id,
-        "image": image,
+        'foodname': foodname,
+        'id': id,
+        'image': image,
     };
 }
 
@@ -119,24 +121,24 @@ class XploreResto {
     int time;
 
     factory XploreResto.fromJson(dynamic json) => XploreResto(
-        distance: json["distance"]as int,
-        hotel: json["hotel"]as String,
-        id: json["id"]as int,
-        image: json["image"]as String,
-        off: json["off"]as int,
-        place: json["place"]as String,
-        rating: json["rating"]as double,
-        time: json["time"]as int,
+        distance: json['distance']as int,
+        hotel: json['hotel']as String,
+        id: json['id']as int,
+        image: json['image']as String,
+        off: json['off']as int,
+        place: json['place']as String,
+        rating: json['rating']as double,
+        time: json['time']as int,
     );
 
     Map<String, dynamic> toJson() => {
-        "distance": distance,
-        "hotel": hotel,
-        "id": id,
-        "image": image,
-        "off": off,
-        "place": place,
-        "rating": rating,
-        "time": time,
+        'distance': distance,
+        'hotel': hotel,
+        'id': id,
+        'image': image,
+        'off': off,
+        'place': place,
+        'rating': rating,
+        'time': time,
     };
 }

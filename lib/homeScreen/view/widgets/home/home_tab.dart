@@ -1,23 +1,15 @@
 // ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, avoid_bool_literals_in_conditional_expressions, file_names
 
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:foodieapp/homeScreen/bloc/demo_user_bloc.dart';
-
-import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/bottom_home_components.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/center_home_components.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/top_home_components.dart';
-import 'package:foodieapp/homeScreen/view/widgets/home/offer_banner.dart';
-
 import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
-
-import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

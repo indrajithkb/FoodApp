@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FoodModel {
-  FoodModel({required this.imgg, required this.foodName});
-  String? imgg;
-  String? foodName;
-}
+// class FoodModel {
+//   FoodModel({required this.imgg, required this.foodName});
+//   String? imgg;
+//   String? foodName;
+// }
 
-List<FoodModel> foodModelList = [
-  FoodModel(imgg: 'assets/images/food1.png', foodName: 'Biriyani'),
-  FoodModel(imgg: 'assets/images/food2.png', foodName: 'Porotta'),
-  FoodModel(imgg: 'assets/images/food3.png', foodName: 'Chapathy'),
-  FoodModel(imgg: 'assets/images/food1.png', foodName: 'Dosa'),
-  FoodModel(imgg: 'assets/images/food2.png', foodName: 'Idli'),
-  FoodModel(imgg: 'assets/images/food3.png', foodName: 'Poori'),
-  FoodModel(imgg: 'assets/images/food1.png', foodName: 'Idiyapam'),
-];
+// List<FoodModel> foodModelList = [
+//   FoodModel(imgg: 'assets/images/food1.png', foodName: 'Biriyani'),
+//   FoodModel(imgg: 'assets/images/food2.png', foodName: 'Porotta'),
+//   FoodModel(imgg: 'assets/images/food3.png', foodName: 'Chapathy'),
+//   FoodModel(imgg: 'assets/images/food1.png', foodName: 'Dosa'),
+//   FoodModel(imgg: 'assets/images/food2.png', foodName: 'Idli'),
+//   FoodModel(imgg: 'assets/images/food3.png', foodName: 'Poori'),
+//   FoodModel(imgg: 'assets/images/food1.png', foodName: 'Idiyapam'),
+// ];
 
 class AccountNavBar {
   AccountNavBar({required this.accountDetails, required this.icon});
@@ -29,6 +29,7 @@ List<AccountNavBar> accountNavBarList = [
         AssetImage('assets/images/yourOrders.png'),
       ),),
   AccountNavBar(
+    
       accountDetails: 'Address book',
       icon: const ImageIcon(
         AssetImage('assets/images/addressBook.png'),

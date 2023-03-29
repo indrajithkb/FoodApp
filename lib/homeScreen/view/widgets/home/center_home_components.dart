@@ -1,14 +1,11 @@
+// ignore_for_file: lines_longer_than_80_chars, prefer_const_constructors, cast_nullable_to_non_nullable
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
+import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../../utils/constants.dart';
-import '../../../bloc/demo_user_bloc.dart';
 
 class CenterHomeComponents extends StatelessWidget {
   CenterHomeComponents({super.key});
@@ -92,56 +89,58 @@ class CenterHomeComponents extends StatelessWidget {
           );
         } else {
           return Shimmer.fromColors(
-              baseColor: Colors.grey.shade400,
-              highlightColor: Colors.grey.shade300,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(left: 22.sp),
-                          child: Container(
-                            color: Colors.white,
-                            height: 2.h,
-                            width: 42.w,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 14.sp),
-                    child: SizedBox(
-                      height: 12.h,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 5.sp),
-                                child: CircleAvatar(
-                                  radius: 35,
-                                  backgroundColor: Colors.white70,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
+            baseColor: Colors.grey.shade400,
+            highlightColor: Colors.grey.shade300,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 1.h,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 22.sp),
+                      child: Container(
+                        color: Colors.white,
+                        height: 2.h,
+                        width: 42.w,
                       ),
                     ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 14.sp),
+                  child: SizedBox(
+                    height: 12.h,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 5.sp),
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundColor: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                ],
-              ));
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+              ],
+            ),
+          );
         }
       },
     );

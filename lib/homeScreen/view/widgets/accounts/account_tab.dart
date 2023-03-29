@@ -2,19 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/your_orders.dart';
 import 'package:foodieapp/utils/constants.dart';
+import 'package:foodieapp/utils/image_assets.dart';
 import 'package:sizer/sizer.dart';
 
 class AccountTab extends StatelessWidget {
   AccountTab({super.key});
-  List<String> accList = [
-    'Your orders',
-    'Address book',
-    'Your transactions',
-    'Table reservations',
-    'Notification',
-    'Help'
-  ];
+  // List<String> accList = [
+  //   'Your orders',
+  //   'Address book',
+  //   'Your transactions',
+  //   'Table reservations',
+  //   'Notification',
+  //   'Help'
+  // ];
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -157,18 +159,31 @@ class AccountTab extends StatelessWidget {
               itemCount: accountNavBarList.length,
               itemBuilder: (context, index) {
                 final accTitles = accountNavBarList[index];
-                return ListTile(
-                  leading: accTitles.icon,
-                  title: Text(
-                    accTitles.accountDetails!,
-                    style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
-                      color: const Color(0xFF1A2C42),
+                return InkWell(
+                  onTap: () {
+                    if(accountNavBarList[index]==0){
+                      print(index);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => YourOrders(),));
+                    }
+
+                  },
+                  child: ListTile(
+                    leading: accTitles.icon,
+                    title: Text(
+                      accTitles.accountDetails!,
+                      style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF1A2C42,
+                        ),
+                      ),
                     ),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: const ImageIcon(
-                      AssetImage('assets/images/trailing.png'),
+                    trailing: IconButton(
+                      onPressed: () {
+                        
+                      },
+                      icon: const ImageIcon(
+                        AssetImage(ImageAssets.accountTrailing),
+                      ),
                     ),
                   ),
                 );

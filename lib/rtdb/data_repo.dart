@@ -1,6 +1,9 @@
+// ignore_for_file: camel_case_types, strict_raw_type
+
+import 'dart:convert';
+
 import 'package:foodieapp/rtdb/data_model.dart';
 import 'package:http/http.dart';
-import 'dart:convert';
 
 
 class rtdbRepository{
@@ -12,7 +15,7 @@ String endpoint =
       
           if(response.statusCode==200 || response.statusCode==201){
             return RtdbDemoModel.fromJson(
-               json.decode(response.body) as Map<String, dynamic>
+               json.decode(response.body) as Map<String, dynamic>,
             );
 
           }else {

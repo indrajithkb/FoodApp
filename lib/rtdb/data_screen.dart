@@ -1,7 +1,8 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:foodieapp/rtdb/data_model.dart';
 
 class DataScreen extends StatelessWidget {
@@ -21,9 +22,9 @@ class DataScreen extends StatelessWidget {
                   snapshot.data!.snapshot.value != null) {
                     final snap = snapshot.data!.snapshot.value
                                   as Map<Object?, Object?>;
-                                  print(snap);
+                                  //print(snap);
                      final snapData=NRaVoQe73HYhDhJpzUb.fromJson(snap);
-                     print(snapData.hotelCount);
+                    //  print(snapData.hotelCount);
                                           
                 return Column(
                   children: [
@@ -40,11 +41,11 @@ class DataScreen extends StatelessWidget {
                   ],
                 );
               }else{
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-            }
+            },
             ),
       ),
     );

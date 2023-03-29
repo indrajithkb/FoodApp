@@ -14,6 +14,3 @@ class PageChange extends HomeScreenEvent{
   final int idx;
   PageChange({required this.idx});
 }
-
-
-

@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable, avoid_bool_literals_in_conditional_expressions, lines_longer_than_80_chars
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

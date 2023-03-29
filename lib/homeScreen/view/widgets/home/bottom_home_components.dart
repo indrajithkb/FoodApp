@@ -1,7 +1,7 @@
+// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
@@ -224,7 +224,7 @@ class BottomHomeComponents extends StatelessWidget {
                             color: Colors.white,
                             height: 2.h,
                             width: 55.w,
-                          )),
+                          ),),
                     ],
                   ),
                   SizedBox(
