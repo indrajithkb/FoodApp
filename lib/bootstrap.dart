@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foodieapp/firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -29,9 +30,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
+
    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // ignore: unused_local_variable
+  SharedPreferences pref;
+  pref=await SharedPreferences.getInstance();
 
   await runZonedGuarded(
     () async => runApp(await builder()),

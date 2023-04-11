@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodieapp/utils/constants.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:sizer/sizer.dart';
 
 class TopBar extends StatelessWidget {
@@ -46,20 +47,25 @@ class TopBar extends StatelessWidget {
             )
           ],
         ),
-        Padding(
-          padding: EdgeInsets.only(right: 2.h),
-          child: Container(
-            height: 6.h,
-            width: 6.h,
-            decoration: const BoxDecoration(
-              color: Color(0xFF1D9F80),
-              shape: BoxShape.circle,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(14),
-              child: Image.asset(
-                'assets/images/searchLoc.png',
-                fit: BoxFit.contain,
+        InkWell(
+          onTap: (){
+            clearToken(context: context);
+          },
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.h),
+            child: Container(
+              height: 6.h,
+              width: 6.h,
+              decoration: const BoxDecoration(
+                color: Color(0xFF1D9F80),
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Image.asset(
+                  'assets/images/searchLoc.png',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),

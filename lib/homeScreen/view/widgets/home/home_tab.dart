@@ -44,7 +44,7 @@ class _HomeTabState extends State<HomeTab> {
           SizedBox(
             height: 2.h,
           ),
-          TopHomeComponents(),
+          const TopHomeComponents(),
           // Column(
           //   children: [
           //     Container(
@@ -226,7 +226,7 @@ class _HomeTabState extends State<HomeTab> {
               // SizedBox(
               //   height: 2.h,
               // ),
-              BottomHomeComponents()
+              const BottomHomeComponents()
               // Column(
               //   children: [
               //     Row(

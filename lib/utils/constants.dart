@@ -49,11 +49,24 @@ class FoodDeliveryTextStyles {
     fontWeight: FontWeight.w600,
     color: Color(0xFFFFFFFF),
   );
+ static TextStyle editProfileTexts =  TextStyle(
+    fontSize: 11.sp,
+    fontFamily: 'SpaceGrotesk',
+    fontWeight: FontWeight.w400,
+    color: const Color(0xFF696969),
+  );
+static TextStyle addressBookButtons=const TextStyle(
+  fontSize: 12,
+  fontFamily: 'SpaceGrotesk',
+    fontWeight: FontWeight.w500,
+    color: Color(0xFF1D9F80),
+);
 }
 
 //colors
 class FoodDeliveryColor {
   static Color buttonColor = const Color(0xFF1D9F80);
+  static Color logoutButtonColor=const Color(0xFFE6556F);
 
   static LinearGradient gradient =const LinearGradient(
                                           colors: [
@@ -75,4 +88,25 @@ class FoodDeliveryConstantText {
   static String foodBannerTitle='Whats on your mind?';
   static String orderNowButton='ORDER NOW';
   static String exploreRestoTitle='restaurants to explore';
+  static String editProfile='Edit Profile';
+  static String changePhoto='Change photo';
+  static String name='Name';
+  static String phone='Phone number';
+  static String email='Email';
+  static String dob='Date of Birth';
+  static String gender='Gender';
+  static String settings='Settings';
+  static String addressBook='Address book';
+  static String notifications='Notifications';
+  static String logoutCommand='''
+Are you sure you want to logout
+               your account?''';
+  static String deleteCommand=   '''
+Are you sure you want to delete
+               your account?''';   
+
+}
+
+class SizedBoxx{
+  static SizedBox heightSize=SizedBox(height: 15.sp,);
 }

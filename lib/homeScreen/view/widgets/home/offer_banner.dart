@@ -1,8 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:foodieapp/homeScreen/view/model/demo_model.dart';
-
+import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,7 +12,7 @@ class OfferBanner extends StatelessWidget {
     this.isButtonBanner = false,
     super.key,
   });
-  HomeModel snapData;
+  HomeApiModel snapData;
   int indexx;
   bool isButtonBanner;
 
@@ -29,7 +28,7 @@ class OfferBanner extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
           child: Image.network(
-            snapData.banners[indexx].image,
+            snapData.data.nrWifmDJwiwH8WwvlhV.banners[indexx].image,
           ),
           
         ),

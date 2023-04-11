@@ -1,22 +1,21 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unrelated_type_equality_checks, lines_longer_than_80_chars, inference_failure_on_instance_creation
 
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/address_book.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/edit_profile.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/help.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/notifications.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/settings_edit_profile.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/table_reservations.dart';
 import 'package:foodieapp/homeScreen/view/widgets/accounts/your_orders.dart';
+import 'package:foodieapp/homeScreen/view/widgets/accounts/your_transactions.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:foodieapp/utils/image_assets.dart';
 import 'package:sizer/sizer.dart';
 
 class AccountTab extends StatelessWidget {
-  AccountTab({super.key});
-  // List<String> accList = [
-  //   'Your orders',
-  //   'Address book',
-  //   'Your transactions',
-  //   'Table reservations',
-  //   'Notification',
-  //   'Help'
-  // ];
+  const AccountTab({super.key});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -73,7 +72,13 @@ class AccountTab extends StatelessWidget {
                       ],
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfile(),
+                            ),);
+                      },
                       icon: Image.asset('assets/images/editIcon.png'),
                     )
                   ],
@@ -132,12 +137,21 @@ class AccountTab extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Colors.white,
-                      child: ImageIcon(
-                        AssetImage('assets/images/settingsIcon.png'),
-                        color: Color(0xFF1D9F80),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Settings(),
+                            ),);
+                      },
+                      child: const CircleAvatar(
+                        radius: 35,
+                        backgroundColor: Colors.white,
+                        child: ImageIcon(
+                          AssetImage('assets/images/settingsIcon.png'),
+                          color: Color(0xFF1D9F80),
+                        ),
                       ),
                     ),
                     Padding(
@@ -161,11 +175,27 @@ class AccountTab extends StatelessWidget {
                 final accTitles = accountNavBarList[index];
                 return InkWell(
                   onTap: () {
-                    if(accountNavBarList[index]==0){
-                      print(index);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => YourOrders(),));
+                    if(index==0){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => const YourOrders(),));
+                    }else if(index==1){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => const AddressBook(),));
+                    }else if(index==2){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => const YourTransactions(),));
                     }
-
+                    else if(index==3){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => const TableReservations(),));
+                    }
+                    else if(index==4){
+                       Navigator.push(context,MaterialPageRoute(builder: (context) => const Notifications(),));
+                    }else{
+                       Navigator.push(context,MaterialPageRoute(builder: (context) => const Help(),));
+                    }
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           DetailedScreen(detailedData: accTitles),
+                    //     ));
                   },
                   child: ListTile(
                     leading: accTitles.icon,
@@ -173,14 +203,13 @@ class AccountTab extends StatelessWidget {
                       accTitles.accountDetails!,
                       style: FoodDeliveryTextStyles.homeScreenTitles.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: const Color(0xFF1A2C42,
+                        color: const Color(
+                          0xFF1A2C42,
                         ),
                       ),
                     ),
                     trailing: IconButton(
-                      onPressed: () {
-                        
-                      },
+                      onPressed: () {},
                       icon: const ImageIcon(
                         AssetImage(ImageAssets.accountTrailing),
                       ),

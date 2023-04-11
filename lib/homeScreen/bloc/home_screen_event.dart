@@ -14,3 +14,8 @@ class PageChange extends HomeScreenEvent{
   final int idx;
   PageChange({required this.idx});
 }
+
+// class SelectGender extends HomeScreenEvent{
+//   final String selectedGender;
+//   SelectGender({required this.selectedGender});
+// }

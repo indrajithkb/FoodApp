@@ -18,5 +18,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<PageChange>((event, emit) {
       return emit(HomeScreenState(currentIndex: state.currentIndex,activeIndex: event.idx));
     },);
+
+    // on<SelectGender>((event, emit) {
+    //   return emit(HomeScreenState(currentIndex:state.currentIndex,activeIndex: state.activeIndex,dropdownvalue: event.selectedGender));
+
+    // });
   }
 }

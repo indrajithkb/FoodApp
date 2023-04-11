@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/home_export.dart';
 import 'package:foodieapp/homeScreen/view/widgets/accounts/account_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/dining_tab.dart';
@@ -9,16 +10,25 @@ import 'package:foodieapp/homeScreen/view/widgets/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/home_tab.dart';
 import 'package:foodieapp/utils/image_assets.dart';
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   ScreenHome({super.key});
 
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
   List<Widget> tabs = [
     HomeTab(),
     DiningTab(),
     FavoritesTab(),
     AccountTab()
   ];
-
+@override
+  void initState() {
+     context.read<ApiHomeBloc>().add(FetchHomeData());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

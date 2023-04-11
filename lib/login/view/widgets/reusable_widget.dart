@@ -1,9 +1,7 @@
 // ignore_for_file: inference_failure_on_function_return_type, avoid_positional_boolean_parameters, avoid_dynamic_calls, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
-
 import 'package:foodieapp/utils/constants.dart';
-
 import 'package:sizer/sizer.dart';
 
 TextFormField reusableTextField({
@@ -55,8 +53,9 @@ TextFormField reusableTextField({
 
 SizedBox signInSignUpButton(
   BuildContext context,
-  bool isLogin,
+  // bool isLogin,
   Function onTap,
+  Widget text,
 ) {
   return SizedBox(
     height: 6.5.h,
@@ -65,6 +64,7 @@ SizedBox signInSignUpButton(
       padding: EdgeInsets.only(top: 1.h, left: 2.h, right: 2.h),
       child: ElevatedButton(
         onPressed: () {
+          // print("signup");
           onTap();
         },
         style: ElevatedButton.styleFrom(
@@ -73,12 +73,7 @@ SizedBox signInSignUpButton(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: Text(
-          isLogin
-              ? FoodDeliveryConstantText.titleText
-              : FoodDeliveryConstantText.titleSignUpText,
-          style: FoodDeliveryTextStyles.buttonTextStyle,
-        ),
+        child: text,
       ),
     ),
   );

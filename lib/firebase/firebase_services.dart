@@ -2,11 +2,9 @@
 
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodieapp/firebase/email_verify.dart';
@@ -110,6 +108,8 @@ class FirebaseServ {
           await googleUser?.authentication;
 
       if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+        // print(googleAuth?.accessToken);
+
         final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken,
           idToken: googleAuth?.idToken,

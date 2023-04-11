@@ -66,7 +66,7 @@ class DiningTab extends StatelessWidget {
                               margin: EdgeInsets.only(
                                 left: 16.sp,
                               ),
-                              height: 15.h,
+                              height: 14.h,
                               // width: 165,
                               width: 45.w,
                               decoration: BoxDecoration(

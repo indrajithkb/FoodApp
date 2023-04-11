@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, unnecessary_null_comparison, inference_failure_on_instance_creation, file_names
+// ignore_for_file: lines_longer_than_80_chars, must_be_immutable, unnecessary_null_comparison, inference_failure_on_instance_creation, file_names, noop_primitive_operations
 
 import 'dart:io';
 
@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/firebase/firebase_services.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
+import 'package:foodieapp/login/bloc/bloc/api_login_bloc.dart';
 // import 'package:foodieapp/l10n/l10n.dart';
 import 'package:foodieapp/login/bloc/login_bloc.dart';
 import 'package:foodieapp/login/view/widgets/reusable_widget.dart';
+import 'package:foodieapp/signUp/view/screens/screen_sign_up.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-bool onActive = true;
+
 
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({super.key});
@@ -30,7 +32,7 @@ class ScreenLogin extends StatelessWidget {
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
-  BuildContext? ctx;
+  // BuildContext? ctx;
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +154,11 @@ class ScreenLogin extends StatelessWidget {
                                       return 'Password required';
                                     } else if (value.length < 8) {
                                       return 'Enter valid password of atleast 8 letters';
+                                    } else if (!RegExp(
+                                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                    ).hasMatch(value)) {
+                                      return 'uppercase,lowercase,digit,and special character must be included';
                                     }
-                                    // else if (!RegExp(
-                                    //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                    //     .hasMatch(value)) {
-                                    //   return "uppercase,lowercase,digit,and special character must be included";
-                                    // }
                                     return null;
                                   },
                                   isObscure: state.onActive,
@@ -181,15 +182,50 @@ class ScreenLogin extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                        signInSignUpButton(context, true, () {
-                          if (validateForm()) {
-                            FirebaseServ().signInUser(
-                              context: context,
-                              email: _emailTextController.text,
-                              password: _passwordTextController.text,
-                            );
-                          }
-                        }),
+                        signInSignUpButton(
+                          context,
+                          () {
+                            if (validateForm()) {
+                              // FirebaseServ().signInUser(
+                              //   context: context,
+                              //   email: _emailTextController.text,
+                              //   password: _passwordTextController.text,
+                              // );
+                              context.read<ApiLoginBloc>().add(
+                                    LoginSendData(
+                                      _emailTextController.text.toString(),
+                                      _passwordTextController.text.toString(),
+                                      context,
+                                    ),
+                                  );
+                            }
+                          },
+                          BlocConsumer<ApiLoginBloc, ApiLoginState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              if (state is ApiLoginLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                );
+                              } else if (state is ApiLoginErr) {
+                                return Center(
+                                  child: Text(
+                                    'Error!!!',
+                                    style:
+                                        FoodDeliveryTextStyles.buttonTextStyle,
+                                  ),
+                                );
+                              } else {
+                                return Text(
+                                  FoodDeliveryConstantText.titleText,
+                                  style: FoodDeliveryTextStyles.buttonTextStyle,
+                                );
+                              }
+                            },
+                          ),
+                        ),
                         SizedBox(
                           height: 2.h,
                         ),
@@ -207,9 +243,10 @@ class ScreenLogin extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ScreenHome(),
+                                      builder: (context) =>
+                                          // ScreenHome(),
 
-                                      //ScreenSignUp(),
+                                          ScreenSignUp(),
                                     ),
                                   );
                                 },
@@ -341,6 +378,7 @@ class ScreenLogin extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            
                             Padding(
                               padding: EdgeInsets.only(right: 2.h),
                               child: InkWell(
@@ -348,6 +386,8 @@ class ScreenLogin extends StatelessWidget {
                                   await FirebaseServ()
                                       .signInWithGoogle()
                                       .then((value) {
+                                        // print(value!.user!.displayName);
+                                      
                                     if (value != null) {
                                       debugPrint('google login');
                                       Navigator.push(
@@ -400,4 +440,13 @@ class ScreenLogin extends StatelessWidget {
     }
     return false;
   }
+
+  // void loginButton(BuildContext context) {
+  //   // context.read<ApiLoginBloc>().add(LoginSendData(
+  //   //     _emailTextController.text.toString(),
+  //   //     _passwordTextController.text.toString(),
+  //   //     context));
+
+  //   // context.read<DemoApiHomeBloc>().add(FetchHomeData());
+  // }
 }
