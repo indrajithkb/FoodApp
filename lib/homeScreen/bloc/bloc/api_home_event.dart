@@ -12,7 +12,16 @@ class FetchHomeData extends ApiHomeEvent{
 
 }
 
-class IsDropDownSelected extends ApiHomeEvent{
-  String dropValue;
-  IsDropDownSelected(this.dropValue);
+class FetchAddressData extends ApiHomeEvent{
+   @override
+  List<Object> get props => [];
+}
+
+class FetchTransactionData extends ApiHomeEvent{
+   @override
+  List<Object> get props => [];
+}
+class FetchOrdersData extends ApiHomeEvent{
+   @override
+  List<Object> get props => [];
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, unrelated_type_equality_checks, lines_longer_than_80_chars, inference_failure_on_instance_creation
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/food_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/accounts/address_book.dart';
 import 'package:foodieapp/homeScreen/view/widgets/accounts/edit_profile.dart';
@@ -176,11 +178,14 @@ class AccountTab extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     if(index==0){
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => const YourOrders(),));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) =>YourOrders(),));
+                       context.read<ApiHomeBloc>().add(FetchOrdersData());
                     }else if(index==1){
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => const AddressBook(),));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => AddressBook(),));
+                      context.read<ApiHomeBloc>().add(FetchAddressData());
                     }else if(index==2){
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => const YourTransactions(),));
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => YourTransactions(),));
+                       context.read<ApiHomeBloc>().add(FetchTransactionData());
                     }
                     else if(index==3){
                       Navigator.push(context,MaterialPageRoute(builder: (context) => const TableReservations(),));

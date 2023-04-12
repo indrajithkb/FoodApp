@@ -3,7 +3,7 @@
 //     final addAddressModel = addAddressModelFromJson(jsonString);
 
 
-// ignore_for_file: lines_longer_than_80_chars, sort_constructors_first
+// ignore_for_file: lines_longer_than_80_chars, sort_constructors_first, avoid_dynamic_calls
 
 import 'dart:convert';
 
@@ -18,8 +18,8 @@ class AddAddressModel {
 
     NSiXed7CbVvNdVbbnky nSiXed7CbVvNdVbbnky;
 
-    factory AddAddressModel.fromJson(Map<String, dynamic> json) => AddAddressModel(
-        nSiXed7CbVvNdVbbnky: NSiXed7CbVvNdVbbnky.fromJson(json['-NSiXED7cbVvNDVbbnky'] as Map<String, dynamic>),
+    factory AddAddressModel.fromJson(dynamic json) => AddAddressModel(
+        nSiXed7CbVvNdVbbnky: NSiXed7CbVvNdVbbnky.fromJson(json['-NSiXED7cbVvNDVbbnky'] as dynamic),
     );
 
     Map<String, dynamic> toJson() => {
@@ -34,8 +34,8 @@ class NSiXed7CbVvNdVbbnky {
 
     List<AddressBook> addressBook;
 
-    factory NSiXed7CbVvNdVbbnky.fromJson(Map<String, dynamic> json) => NSiXed7CbVvNdVbbnky(
-        addressBook: List<AddressBook>.from((json['address_book']as List).map((x) => AddressBook.fromJson(x as Map<String, dynamic>))),
+    factory NSiXed7CbVvNdVbbnky.fromJson(dynamic json) => NSiXed7CbVvNdVbbnky(
+        addressBook: List<AddressBook>.from((json['address_book']as List).map((x) => AddressBook.fromJson(x as dynamic))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -56,7 +56,7 @@ class AddressBook {
     String locationType;
     int phone;
 
-    factory AddressBook.fromJson(Map<String, dynamic> json) => AddressBook(
+    factory AddressBook.fromJson(dynamic json) => AddressBook(
         id: json['id']as int,
         location: json['location']as String,
         locationType: json['location_type']as String,

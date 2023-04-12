@@ -1,11 +1,14 @@
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
+import 'package:foodieapp/homeScreen/repo/address_repo.dart';
 import 'package:foodieapp/homeScreen/repo/home_repo.dart';
+import 'package:foodieapp/homeScreen/repo/orders_repo.dart';
 import 'package:foodieapp/homeScreen/repo/repository.dart';
+import 'package:foodieapp/homeScreen/repo/transaction_repo.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:foodieapp/l10n/l10n.dart';
 import 'package:foodieapp/login/bloc/bloc/api_login_bloc.dart';
@@ -36,7 +39,10 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => ApiHomeRepo(),
-        )
+        ),
+        RepositoryProvider(create: (context) => AddressRepository(),),
+         RepositoryProvider(create: (context) => TransactionRepository(),),
+          RepositoryProvider(create: (context) => OrdersRepository(),),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -59,7 +65,11 @@ class App extends StatelessWidget {
           ),
           BlocProvider<ApiHomeBloc>(
             create: (context) => ApiHomeBloc(
-                apiHomeRepo: RepositoryProvider.of<ApiHomeRepo>(context),),
+                apiHomeRepo: RepositoryProvider.of<ApiHomeRepo>(context),
+                addressRepository: RepositoryProvider.of<AddressRepository>(context),
+                transactionRepository: RepositoryProvider.of<TransactionRepository>(context),
+                ordersRepository:  RepositoryProvider.of<OrdersRepository>(context),
+                ),
           ),
 
           // BlocProvider(create: (context) => DemoUserBloc(

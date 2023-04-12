@@ -25,3 +25,60 @@ class ApiHomeError extends ApiHomeState {
   @override
   List<Object> get props => [err];
 }
+//address loading
+class AddressBookLoading extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+
+}
+//address loaded
+class AddressBookLoaded extends ApiHomeState{
+  final AddAddressModel res;
+  AddressBookLoaded(this.res);
+   @override
+  List<Object> get props => [res];
+}
+
+//address error
+class AddressBookError extends ApiHomeState{
+  @override
+  List<Object> get props => [];
+}
+
+//transaction data loading
+class TransactionLoading extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}
+
+//transaction data loaded
+class TransactionLoaded extends ApiHomeState{
+  final TransactionModel res;
+  TransactionLoaded(this.res);
+   @override
+  List<Object> get props => [res];
+}
+//transaction data error
+class TransactionError extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}
+//orders data loading
+class OrdersLoadingData extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}
+
+//orders data loaded
+class OrdersLoadedData extends ApiHomeState{
+  final OrdersModel res;
+  OrdersLoadedData(this.res);
+   @override
+  List<Object> get props => [res];
+}
+
+//orders data error
+class OrdersError extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}
