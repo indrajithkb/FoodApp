@@ -82,3 +82,21 @@ class OrdersError extends ApiHomeState{
    @override
   List<Object> get props => [];
 }
+
+//selected resto details loading
+class RecommendedDishDataLoading extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}
+//selected resto details loaded
+class RecommendedDishDataLoaded extends ApiHomeState{
+  final RecommendedDishesModel result;
+  RecommendedDishDataLoaded(this.result);
+   @override
+  List<Object> get props => [result];
+}
+//selected resto details loading Error
+class RecommendedDishDataError extends ApiHomeState{
+   @override
+  List<Object> get props => [];
+}

@@ -77,7 +77,7 @@ class Settings extends StatelessWidget {
   builder: (context) {
     return AlertDialog(
       content: SizedBox(
-        height: 13.h,
+        height: 14.h,
         width: 100.w,
         child: Column(
           children: [

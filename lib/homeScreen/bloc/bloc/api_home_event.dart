@@ -25,3 +25,8 @@ class FetchOrdersData extends ApiHomeEvent{
    @override
   List<Object> get props => [];
 }
+
+class FetchRecommendedDishDetails extends ApiHomeEvent{
+   @override
+  List<Object> get props => [];
+}

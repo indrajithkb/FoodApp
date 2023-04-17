@@ -7,6 +7,7 @@ import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/repo/address_repo.dart';
 import 'package:foodieapp/homeScreen/repo/home_repo.dart';
 import 'package:foodieapp/homeScreen/repo/orders_repo.dart';
+import 'package:foodieapp/homeScreen/repo/recommended_dishes.dart';
 import 'package:foodieapp/homeScreen/repo/repository.dart';
 import 'package:foodieapp/homeScreen/repo/transaction_repo.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
@@ -43,6 +44,7 @@ class App extends StatelessWidget {
         RepositoryProvider(create: (context) => AddressRepository(),),
          RepositoryProvider(create: (context) => TransactionRepository(),),
           RepositoryProvider(create: (context) => OrdersRepository(),),
+          RepositoryProvider(create: (context) => RecommendedDishesRepository (),)
       ],
       child: MultiBlocProvider(
         providers: [
@@ -69,6 +71,7 @@ class App extends StatelessWidget {
                 addressRepository: RepositoryProvider.of<AddressRepository>(context),
                 transactionRepository: RepositoryProvider.of<TransactionRepository>(context),
                 ordersRepository:  RepositoryProvider.of<OrdersRepository>(context),
+                recommendedDishesRepository: RepositoryProvider.of<RecommendedDishesRepository >(context)
                 ),
           ),
 

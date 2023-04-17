@@ -3,10 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:foodieapp/homeScreen/repo/address_repo.dart';
 import 'package:foodieapp/homeScreen/repo/home_repo.dart';
 import 'package:foodieapp/homeScreen/repo/orders_repo.dart';
+import 'package:foodieapp/homeScreen/repo/recommended_dishes.dart';
 import 'package:foodieapp/homeScreen/repo/transaction_repo.dart';
 import 'package:foodieapp/homeScreen/view/model/add_address_model.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/model/orders_model.dart';
+import 'package:foodieapp/homeScreen/view/model/recommended_dishes.dart';
 import 'package:foodieapp/homeScreen/view/model/transaction_model.dart';
 
 part 'api_home_event.dart';
@@ -17,10 +19,12 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
   final AddressRepository addressRepository;
   final TransactionRepository transactionRepository;
   final OrdersRepository ordersRepository;
+  final RecommendedDishesRepository recommendedDishesRepository;
   ApiHomeBloc({required this.apiHomeRepo,
   required this.addressRepository,
   required this.transactionRepository,
   required this.ordersRepository,
+  required this.recommendedDishesRepository
   }) : super(ApiHomeLoading()) {
     on<FetchHomeData>((event, emit)async {
        emit(ApiHomeLoading());
@@ -30,7 +34,7 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
      emit(ApiHomeLoaded(result));
    } catch (e) {
    throw Exception(e);
-    //  print(e.toString());
+      print(e.toString());
    }
      
     });
@@ -68,6 +72,19 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
       } catch (e) {
          throw Exception(e); 
       }
+
+    });
+
+    on<FetchRecommendedDishDetails>((event, emit) async {
+      emit(RecommendedDishDataLoading());
+  await Future.delayed(const Duration(microseconds:1));
+  try {
+    final res=await recommendedDishesRepository.recommendedDishData();
+    emit(RecommendedDishDataLoaded(res));
+  } catch (e) {
+    throw Exception(e);
+  }
+
 
     });
 

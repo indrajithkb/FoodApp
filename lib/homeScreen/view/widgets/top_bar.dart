@@ -54,8 +54,8 @@ class TopBar extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(right: 2.h),
             child: Container(
-              height: 6.h,
-              width: 6.h,
+              height: 5.h,
+              width: 5.h,
               decoration: const BoxDecoration(
                 color: Color(0xFF1D9F80),
                 shape: BoxShape.circle,
