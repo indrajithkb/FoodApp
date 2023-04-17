@@ -1,5 +1,7 @@
 // ignore_for_file: inference_failure_on_instance_creation
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -36,7 +38,7 @@ class TopBarRestaurants extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ScreenHome(),
-                      ));
+                      ),);
                 },
                 child: Container(
                   height: 5.h,
@@ -56,41 +58,93 @@ class TopBarRestaurants extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 20,
-              bottom: 32,
-              child: Container(
-                height: 5.h,
-                width: 5.h,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.50),
-                  shape: BoxShape.circle,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Image.asset(
-                    'assets/images/settings.png',
-                    fit: BoxFit.contain,
+               right: 20,
+                bottom: 32,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: Container(
+                    height: 5.h,
+                    width: 5.h,
+                     color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        BackdropFilter(
+                          filter:
+                              ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                            
+                          ),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(color: Colors.white70),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.15),
+                                Colors.white.withOpacity(0.05),
+                              ],
+                            ),
+                          ),
+                            child: SizedBox(
+                              height: 5.h,
+                              width: 5.h,
+                              child:  Padding(
+                      padding: EdgeInsets.only(bottom: 8.sp, top: 8.sp),
+                      child: Image.asset(
+                        'assets/images/settings.png',color: Colors.white70,
+                        // fit: BoxFit.contain,
+                      ),
+                    ),
+                            ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              right: 70,
-              bottom: 32,
-              child: Container(
-                height: 5.h,
-                width: 18.h,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.45),
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
                 ),
-                child: TextFormField(
+           
+            Positioned(
+                right: 70,
+                bottom: 32,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: Container(
+                    height: 5.h,
+                    width: 40.w,
+                     color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        BackdropFilter(
+                          filter:
+                              ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                          child: Container(
+                            
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(color: Colors.white70),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.15),
+                                Colors.white.withOpacity(0.05),
+                              ],
+                            ),
+                          ),
+                            child: TextFormField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     hintText: 'Search menu',
                     hintStyle: FoodDeliveryTextStyles.editProfileTexts.copyWith(
                       fontWeight: FontWeight.w600,
+                      color: Colors.white60,
                     ),
                     prefixIcon: Padding(
                       padding: EdgeInsets.only(bottom: 8.sp, top: 8.sp),
@@ -102,9 +156,14 @@ class TopBarRestaurants extends StatelessWidget {
                     contentPadding: EdgeInsets.only(bottom: 8.sp, top: 8.sp),
                   ),
                 ),
-              ),
-            ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                )
+           
           ],
-        ));
+        ),);
   }
 }

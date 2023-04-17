@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, unused_local_variable, prefer_if_elements_to_conditional_expressions
 
+import 'dart:ui';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +29,7 @@ class SelectedRestaurants extends StatefulWidget {
 class _SelectedRestaurantsState extends State<SelectedRestaurants> {
   bool isVeg = false;
   bool isNonVeg = false;
+  bool isExpand = false;
   final ref =
       FirebaseDatabase.instance.ref('recommendeddish/-NSu2Qk_NJNeKiuv3-yX');
   @override
@@ -36,7 +39,10 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TopBarRestaurants(userDatas: widget.userDatas, index: widget.index),
+            TopBarRestaurants(
+              userDatas: widget.userDatas,
+              index: widget.index,
+            ),
             SizedBox(
               height: 2.5.h,
             ),
@@ -368,7 +374,6 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                     ),
                                                                   ),
                                                                   Text(
-                                                                    
                                                                     snapData
                                                                         .dishDetails[
                                                                             index]
@@ -384,7 +389,10 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
-                                                                    ),overflow: TextOverflow.clip,
+                                                                    ),
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .clip,
                                                                   ),
                                                                 ],
                                                               ),
@@ -423,39 +431,145 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                             ),
                                             Stack(
                                               children: [
-                                                SizedBox(
-                                                  height: 17.h,
-                                                  child: Image.network(
-                                                    snapData.dishDetails[index]
-                                                        .image,
-                                                    fit: BoxFit.cover,
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      isExpand = !isExpand;
+                                                    });
+                                                  },
+                                                  child: SizedBox(
+                                                    height: 17.h,
+                                                    child: Image.network(
+                                                      snapData
+                                                          .dishDetails[index]
+                                                          .image,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  right: -12,
+                                                  right: -9,
                                                   bottom: 5,
                                                   child: Padding(
                                                     padding: EdgeInsets.only(
                                                       right: 2.h,
                                                     ),
-                                                    child: Container(
-                                                      height: 4.5.h,
-                                                      width: 4.5.h,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        color:
-                                                            Color(0xFF1D9F80),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(14),
-                                                        child: Image.asset(
-                                                          'assets/images/add.png',
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                      ),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isExpand = !isExpand;
+                                                        });
+                                                      },
+                                                      child: isExpand
+                                                          ? AnimatedContainer(
+                                                              duration:
+                                                                  const Duration(
+                                                                seconds: 1,
+                                                              ),
+                                                              // width: 5,height: 2,color: Colors.amber,
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                  25,
+                                                                ),
+                                                                child:
+                                                                    Container(
+                                                                  height: 5.h,
+                                                                  width: 25.w,
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  child: Stack(
+                                                                    children: [
+                                                                      BackdropFilter(
+                                                                        filter: ImageFilter.blur(
+                                                                            sigmaX:
+                                                                                4,
+                                                                            sigmaY:
+                                                                                4),
+                                                                        child:
+                                                                            Container(),
+                                                                      ),
+                                                                      DecoratedBox(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(25),
+                                                                          border:
+                                                                              Border.all(color: Colors.white70),
+                                                                          gradient:
+                                                                              LinearGradient(
+                                                                            begin:
+                                                                                Alignment.topLeft,
+                                                                            end:
+                                                                                Alignment.bottomRight,
+                                                                            colors: [
+                                                                              Colors.white.withOpacity(0.15),
+                                                                              Colors.white.withOpacity(0.05),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            SizedBox(
+                                                                          height:
+                                                                              5.h,
+                                                                          width:
+                                                                              25.w,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(bottom: 8.sp, top: 8.sp),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              children: [
+                                                                                Image.asset(
+                                                                                  'assets/images/minusButton.png', color: Colors.white70,
+                                                                                  // fit: BoxFit.contain,
+                                                                                ),
+                                                                                const Text(
+                                                                                  '0',
+                                                                                  style: TextStyle(fontSize: 20, color: Colors.white),
+                                                                                ),
+                                                                                Image.asset(
+                                                                                  'assets/images/add.png', color: Colors.white70,
+                                                                                  // fit: BoxFit.contain,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Container(
+                                                              height: 4.5.h,
+                                                              width: 4.5.h,
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                color: Color(
+                                                                  0xFF1D9F80,
+                                                                ),
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                  14,
+                                                                ),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/add.png',
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                            ),
                                                     ),
                                                   ),
                                                 )
@@ -569,6 +683,97 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        isExtended: true,
+        onPressed: () {},
+        child: Container(
+          height: 7.h,
+          width: 7.h,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(35)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black54,
+                blurRadius: 10,
+                offset: Offset(0, 0.7),
+              )
+            ],
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/menuButton.png',
+                // fit:  BoxFit.contain,
+              ),
+              Text(
+                FoodDeliveryConstantText.menu,
+                style: FoodDeliveryTextStyles.addressBookButtons.copyWith(
+                  fontSize: 12,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      bottomNavigationBar: isExpand
+          ? Container(
+              height: 56,
+              decoration: BoxDecoration(
+                color: FoodDeliveryColor.buttonColor,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              margin: EdgeInsets.only(bottom: 12.sp, left: 10.sp, right: 10.sp),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.sp),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          '0 ITEM',
+                          style: FoodDeliveryTextStyles.exploreRestoBanner
+                              .copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '${FoodDeliveryConstantText.rupeesSymbol} 0',
+                          style: FoodDeliveryTextStyles.exploreRestoBanner,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 5.sp),
+                    child: SizedBox(
+                      height: 5.h,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          'view cart',
+                          style: FoodDeliveryTextStyles.addressBookButtons
+                              .copyWith(
+                            fontSize: 15,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          : null,
     );
   }
 }

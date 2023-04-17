@@ -100,6 +100,7 @@ class FoodDeliveryConstantText {
     static String transaction='Your transactions';
      static String orders='Your orders';  
   static String notifications='Notifications';
+  static String menu='menu';
   static String logoutCommand='''
 Are you sure you want to logout
                your account?''';
