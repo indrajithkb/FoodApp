@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, unused_local_variable, prefer_if_elements_to_conditional_expressions
+// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, unused_local_variable, prefer_if_elements_to_conditional_expressions, inference_failure_on_instance_creation
 
 import 'dart:ui';
 
@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+import 'package:foodieapp/homeScreen/view/model/cart_model.dart';
 import 'package:foodieapp/homeScreen/view/model/recommended_dishes.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/top_bar_restaurants.dart';
+import 'package:foodieapp/homeScreen/view/widgets/home/view_cart.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
@@ -30,8 +32,13 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
   bool isVeg = false;
   bool isNonVeg = false;
   bool isExpand = false;
+  bool isCartButtonVisible = false;
   final ref =
       FirebaseDatabase.instance.ref('recommendeddish/-NSu2Qk_NJNeKiuv3-yX');
+
+  Map<String, CartModel> cartData = {};
+  late List<CartModel> cartDataList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,6 +279,17 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                       padding: EdgeInsets.zero,
                                       itemCount: snapData.dishDetails.length,
                                       itemBuilder: (context, index) {
+//                                         final List<CartModel> cartDataList = cartData.values.toList();
+//  print(cartDataList[index].dishName);
+                                        final cartDetails = cartData[snapData
+                                            .dishDetails[index].id
+                                            .toString()];
+
+                                        isExpand = cartData.containsKey(
+                                          snapData.dishDetails[index].id
+                                              .toString(),
+                                        );
+
                                         return Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -429,15 +447,13 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                 ],
                                               ),
                                             ),
-                                            Stack(
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isExpand = !isExpand;
-                                                    });
-                                                  },
-                                                  child: SizedBox(
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                bottom: 12.sp,
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  SizedBox(
                                                     height: 17.h,
                                                     child: Image.network(
                                                       snapData
@@ -446,35 +462,27 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
-                                                ),
-                                                Positioned(
-                                                  right: -9,
-                                                  bottom: 5,
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                      right: 2.h,
-                                                    ),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          isExpand = !isExpand;
-                                                        });
-                                                      },
-                                                      child: isExpand
-                                                          ? AnimatedContainer(
-                                                              duration:
-                                                                  const Duration(
-                                                                seconds: 1,
-                                                              ),
-                                                              // width: 5,height: 2,color: Colors.amber,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                  25,
-                                                                ),
-                                                                child:
-                                                                    Container(
+                                                  Positioned(
+                                                    right: -9,
+                                                    bottom: 5,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                        right: 2.h,
+                                                      ),
+                                                      child: AnimatedContainer(
+                                                        duration:
+                                                            const Duration(
+                                                          seconds: 1,
+                                                        ),
+                                                        // width: 5,height: 2,color: Colors.amber,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            25,
+                                                          ),
+                                                          child: isExpand
+                                                              ? Container(
                                                                   height: 5.h,
                                                                   width: 25.w,
                                                                   color: Colors
@@ -482,11 +490,13 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                   child: Stack(
                                                                     children: [
                                                                       BackdropFilter(
-                                                                        filter: ImageFilter.blur(
-                                                                            sigmaX:
-                                                                                4,
-                                                                            sigmaY:
-                                                                                4),
+                                                                        filter:
+                                                                            ImageFilter.blur(
+                                                                          sigmaX:
+                                                                              4,
+                                                                          sigmaY:
+                                                                              4,
+                                                                        ),
                                                                         child:
                                                                             Container(),
                                                                       ),
@@ -496,7 +506,10 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                           borderRadius:
                                                                               BorderRadius.circular(25),
                                                                           border:
-                                                                              Border.all(color: Colors.white70),
+                                                                              Border.all(
+                                                                            color:
+                                                                                Colors.white70,
+                                                                          ),
                                                                           gradient:
                                                                               LinearGradient(
                                                                             begin:
@@ -518,22 +531,80 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                           child:
                                                                               Padding(
                                                                             padding:
-                                                                                EdgeInsets.only(bottom: 8.sp, top: 8.sp),
+                                                                                EdgeInsets.only(
+                                                                              bottom: 8.sp,
+                                                                              top: 8.sp,
+                                                                            ),
                                                                             child:
                                                                                 Row(
                                                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                               children: [
-                                                                                Image.asset(
-                                                                                  'assets/images/minusButton.png', color: Colors.white70,
-                                                                                  // fit: BoxFit.contain,
+                                                                                InkWell(
+                                                                                  onTap: () {
+                                                                                    if (cartDetails!.quantity <= 1) {
+                                                                                      setState(() {
+                                                                                        cartData.remove(snapData.dishDetails[index].id.toString());
+                                                                                        if (cartData.isEmpty) {
+                                                                                          isCartButtonVisible = false;
+                                                                                        }
+                                                                                        //
+                                                                                      });
+                                                                                    } else {
+                                                                                      setState(() {
+                                                                                        cartData.update(snapData.dishDetails[index].id.toString(), (value) {
+                                                                                          return CartModel(
+                                                                                            content: value.content,
+                                                                                            dishName: value.dishName,
+                                                                                            id: value.id,
+                                                                                            image: value.image,
+                                                                                            price: value.price,
+                                                                                            rating: value.rating,
+                                                                                            vegStatus: value.vegStatus,
+                                                                                            quantity: value.quantity - 1,
+                                                                                          );
+                                                                                        });
+                                                                                      });
+                                                                                    }
+                                                                                  },
+                                                                                  child: SizedBox(
+                                                                                    height: 4.h,
+                                                                                    width: 4.h,
+                                                                                    child: Image.asset(
+                                                                                      'assets/images/minusButton.png', color: Colors.white70,
+                                                                                      // fit: BoxFit.contain,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
-                                                                                const Text(
-                                                                                  '0',
-                                                                                  style: TextStyle(fontSize: 20, color: Colors.white),
+                                                                                Text(
+                                                                                  // '0',
+                                                                                  cartDetails!.quantity.toString(),
+                                                                                  style: const TextStyle(fontSize: 20, color: Colors.white),
                                                                                 ),
-                                                                                Image.asset(
-                                                                                  'assets/images/add.png', color: Colors.white70,
-                                                                                  // fit: BoxFit.contain,
+                                                                                InkWell(
+                                                                                  onTap: () {
+                                                                                    setState(() {
+                                                                                      cartData.update(snapData.dishDetails[index].id.toString(), (value) {
+                                                                                        return CartModel(
+                                                                                          content: value.content,
+                                                                                          dishName: value.dishName,
+                                                                                          id: value.id,
+                                                                                          image: value.image,
+                                                                                          price: value.price,
+                                                                                          rating: value.rating,
+                                                                                          vegStatus: value.vegStatus,
+                                                                                          quantity: value.quantity + 1,
+                                                                                        );
+                                                                                      });
+                                                                                    });
+                                                                                  },
+                                                                                  child: SizedBox(
+                                                                                    height: 4.h,
+                                                                                    width: 4.h,
+                                                                                    child: Image.asset(
+                                                                                      'assets/images/add.png', color: Colors.white70,
+                                                                                      // fit: BoxFit.contain,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -542,38 +613,89 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                       )
                                                                     ],
                                                                   ),
+                                                                )
+                                                              : InkWell(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      cartData[snapData
+                                                                          .dishDetails[
+                                                                              index]
+                                                                          .id
+                                                                          .toString()] = CartModel(
+                                                                        content: snapData
+                                                                            .dishDetails[index]
+                                                                            .content,
+                                                                        dishName: snapData
+                                                                            .dishDetails[index]
+                                                                            .dishName,
+                                                                        id: snapData
+                                                                            .dishDetails[index]
+                                                                            .id,
+                                                                        image: snapData
+                                                                            .dishDetails[index]
+                                                                            .image,
+                                                                        price: snapData
+                                                                            .dishDetails[index]
+                                                                            .price,
+                                                                        rating: snapData
+                                                                            .dishDetails[index]
+                                                                            .rating,
+                                                                        vegStatus: snapData
+                                                                            .dishDetails[index]
+                                                                            .vegStatus,
+                                                                        quantity:
+                                                                            1,
+                                                                      );
+                                                                      if (cartData
+                                                                          .isNotEmpty) {
+                                                                        isCartButtonVisible =
+                                                                            true;
+                                                                      }
+
+                                                                      // isCartButtonVisible = true;
+                                                                      //
+                                                                    });
+                                                                    // print(cartData
+                                                                    //     .length);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        4.5.h,
+                                                                    width:
+                                                                        4.5.h,
+                                                                    decoration:
+                                                                        const BoxDecoration(
+                                                                      color:
+                                                                          Color(
+                                                                        0xFF1D9F80,
+                                                                      ),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(
+                                                                        14,
+                                                                      ),
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/add.png',
+                                                                        fit: BoxFit
+                                                                            .contain,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            )
-                                                          : Container(
-                                                              height: 4.5.h,
-                                                              width: 4.5.h,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Color(
-                                                                  0xFF1D9F80,
-                                                                ),
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                  14,
-                                                                ),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/add.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                              ),
-                                                            ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                )
-                                              ],
+                                                  )
+                                                ],
+                                              ),
                                             )
                                           ],
                                         );
@@ -718,62 +840,72 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: isExpand
-          ? Container(
-              height: 56,
-              decoration: BoxDecoration(
-                color: FoodDeliveryColor.buttonColor,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              margin: EdgeInsets.only(bottom: 12.sp, left: 10.sp, right: 10.sp),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 8.sp),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          '0 ITEM',
-                          style: FoodDeliveryTextStyles.exploreRestoBanner
-                              .copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '${FoodDeliveryConstantText.rupeesSymbol} 0',
-                          style: FoodDeliveryTextStyles.exploreRestoBanner,
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 5.sp),
-                    child: SizedBox(
-                      height: 5.h,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          'view cart',
-                          style: FoodDeliveryTextStyles.addressBookButtons
-                              .copyWith(
-                            fontSize: 15,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
+      bottomNavigationBar: Visibility(
+        visible: isCartButtonVisible,
+        child: Container(
+          height: 56,
+          decoration: BoxDecoration(
+            color: FoodDeliveryColor.buttonColor,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          ),
+          margin: EdgeInsets.only(bottom: 12.sp, left: 10.sp, right: 10.sp),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 8.sp),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      //  cartData.values.first.quantity. toString(),
+                      '0 ITEM',
+                      // cartData,
+                      style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  )
-                ],
+                    Text(
+                      '${FoodDeliveryConstantText.rupeesSymbol} 0',
+                      style: FoodDeliveryTextStyles.exploreRestoBanner,
+                    )
+                  ],
+                ),
               ),
-            )
-          : null,
+              Padding(
+                padding: EdgeInsets.only(right: 5.sp),
+                child: SizedBox(
+                  height: 5.h,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewCart(
+                            viewCartDatas: cartData,
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: Text(
+                      'view cart',
+                      style: FoodDeliveryTextStyles.addressBookButtons.copyWith(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
