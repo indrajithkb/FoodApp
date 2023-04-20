@@ -30,7 +30,9 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
        emit(ApiHomeLoading());
        await Future.delayed(const Duration(microseconds:1));
       try {
+        print("apiLoading");
      final result=await apiHomeRepo.apiHomeInn();
+     print("apiLoaded");
      emit(ApiHomeLoaded(result));
    } catch (e) {
    throw Exception(e);

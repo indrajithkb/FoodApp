@@ -37,10 +37,22 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
       FirebaseDatabase.instance.ref('recommendeddish/-NSu2Qk_NJNeKiuv3-yX');
 
   Map<String, CartModel> cartData = {};
-  late List<CartModel> cartDataList;
+  // late List<CartModel> cartDataList;
 
   @override
   Widget build(BuildContext context) {
+
+    List<CartModel>cartDataList=cartData.values.toList();
+    int totalItems=0;
+cartDataList.map((e) {
+totalItems +=e.quantity;
+}).toList();
+
+int grandTotal=0;
+cartDataList.map((e) {
+grandTotal += e.quantity *e.price;
+}).toList();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -279,8 +291,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                       padding: EdgeInsets.zero,
                                       itemCount: snapData.dishDetails.length,
                                       itemBuilder: (context, index) {
-//                                         final List<CartModel> cartDataList = cartData.values.toList();
-//  print(cartDataList[index].dishName);
+                                  
                                         final cartDetails = cartData[snapData
                                             .dishDetails[index].id
                                             .toString()];
@@ -289,7 +300,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                           snapData.dishDetails[index].id
                                               .toString(),
                                         );
-
+                                       
                                         return Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -857,16 +868,18 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                     
                     Text(
+
                       //  cartData.values.first.quantity. toString(),
-                      '0 ITEM',
+                      '${totalItems} ITEMS',
                       // cartData,
                       style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      '${FoodDeliveryConstantText.rupeesSymbol} 0',
+                      '${FoodDeliveryConstantText.rupeesSymbol} ${grandTotal}',
                       style: FoodDeliveryTextStyles.exploreRestoBanner,
                     )
                   ],
@@ -883,6 +896,8 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                         MaterialPageRoute(
                           builder: (context) => ViewCart(
                             viewCartDatas: cartData,
+                            userDatas:  widget.userDatas[widget.index],
+                            
                           ),
                         ),
                       );
@@ -908,4 +923,5 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
       ),
     );
   }
+  
 }

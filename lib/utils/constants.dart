@@ -100,7 +100,29 @@ class FoodDeliveryConstantText {
     static String transaction='Your transactions';
      static String orders='Your orders';  
   static String notifications='Notifications';
+  static String offerBenefits='Offers & Benefits';
+  static String tip='Tip your deliver partner';
+  static String addCoupon='Apply coupon';
   static String menu='menu';
+   static String billdetails='Bill details';
+   static String govtTax='Govt Taxes & Other Charges';
+   static String deliveryTip='Delivery tip';
+    static String itemTotal='Item total';
+     static String deliveryFee='Delivery Fee';
+   static String rs='₹';
+   static String cancelDescription='''
+Lorem Ipsum is simply dummy text of the printing  
+and typesetting industry. Lorem Ipsum has been 
+the industry's standard dummy text.''';
+
+   static String saveDeliveryFee='''
+Save ₹10 on Delivery fee by 
+ordering above ₹159''';
+
+  static String tipDescription='''
+Lorem Ipsum is simply dummy text of the printing
+ and typesetting industry.''';
+
   static String logoutCommand='''
 Are you sure you want to logout
                your account?''';

@@ -17,7 +17,7 @@ Future<HomeApiModel> apiHomeInn()async{
  
     if(response.statusCode==200 || response.statusCode==201){
       // print(response.body);
-      // print("google response");
+      //  print("google response");
       return homeApiModelFromJson(response.body);
     } else{
       //  print('errrr');

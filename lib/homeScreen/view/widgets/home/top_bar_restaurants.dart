@@ -78,7 +78,7 @@ class TopBarRestaurants extends StatelessWidget {
                         DecoratedBox(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: Colors.white70),
+                            border: Border.all(color: Colors.white24),
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -127,7 +127,7 @@ class TopBarRestaurants extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: Colors.white70),
+                              border: Border.all(color: Colors.white24),
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -153,7 +153,7 @@ class TopBarRestaurants extends StatelessWidget {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    contentPadding: EdgeInsets.only(bottom: 8.sp, top: 8.sp),
+                    contentPadding: EdgeInsets.only(bottom: 8.sp, top: 6.sp),
                   ),
                 ),
                         )
