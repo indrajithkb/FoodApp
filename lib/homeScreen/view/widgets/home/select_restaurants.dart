@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
+import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/model/cart_model.dart';
 import 'package:foodieapp/homeScreen/view/model/recommended_dishes.dart';
@@ -29,8 +30,6 @@ class SelectedRestaurants extends StatefulWidget {
 }
 
 class _SelectedRestaurantsState extends State<SelectedRestaurants> {
-  bool isVeg = false;
-  bool isNonVeg = false;
   bool isExpand = false;
   bool isCartButtonVisible = false;
   final ref =
@@ -41,17 +40,16 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
 
   @override
   Widget build(BuildContext context) {
+    List<CartModel> cartDataList = cartData.values.toList();
+    int totalItems = 0;
+    cartDataList.map((e) {
+      totalItems += e.quantity;
+    }).toList();
 
-    List<CartModel>cartDataList=cartData.values.toList();
-    int totalItems=0;
-cartDataList.map((e) {
-totalItems +=e.quantity;
-}).toList();
-
-int grandTotal=0;
-cartDataList.map((e) {
-grandTotal += e.quantity *e.price;
-}).toList();
+    int grandTotal = 0;
+    cartDataList.map((e) {
+      grandTotal += e.quantity * e.price;
+    }).toList();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -223,35 +221,43 @@ grandTotal += e.quantity *e.price;
                     children: [
                       Transform.scale(
                         scale: 1,
-                        child: Switch(
-                          activeThumbImage:
-                              const AssetImage('assets/images/vegIcon.png'),
-                          inactiveThumbImage: const AssetImage(
-                            'assets/images/veg.png',
-                          ),
-                          value: isVeg,
-                          activeColor: const Color(0xFF1D9F80),
-                          onChanged: (value) {
-                            setState(() {
-                              isVeg = !isVeg;
-                            });
+                        child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
+                          builder: (context, state) {
+                            return Switch(
+                              activeThumbImage:
+                                  const AssetImage('assets/images/vegIcon.png'),
+                              inactiveThumbImage: const AssetImage(
+                                'assets/images/veg.png',
+                              ),
+                              value: state.isVeg,
+                              activeColor: const Color(0xFF1D9F80),
+                              onChanged: (value) {
+                                context
+                                    .read<HomeScreenBloc>()
+                                    .add(VegSwitch(res: value));
+                              },
+                            );
                           },
                         ),
                       ),
                       Transform.scale(
                         scale: 1,
-                        child: Switch(
-                          activeThumbImage:
-                              const AssetImage('assets/images/Non veg.png'),
-                          inactiveThumbImage: const AssetImage(
-                            'assets/images/nonVegIcon.png',
-                          ),
-                          value: isNonVeg,
-                          activeColor: FoodDeliveryColor.logoutButtonColor,
-                          onChanged: (value) {
-                            setState(() {
-                              isNonVeg = !isNonVeg;
-                            });
+                        child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
+                          builder: (context, state) {
+                            return Switch(
+                              activeThumbImage:
+                                  const AssetImage('assets/images/Non veg.png'),
+                              inactiveThumbImage: const AssetImage(
+                                'assets/images/nonVegIcon.png',
+                              ),
+                              value: state.isNonVeg,
+                              activeColor: FoodDeliveryColor.logoutButtonColor,
+                              onChanged: (value) {
+                               context
+                                    .read<HomeScreenBloc>()
+                                    .add(NonVegSwitch(res: value));
+                              },
+                            );
                           },
                         ),
                       )
@@ -291,7 +297,6 @@ grandTotal += e.quantity *e.price;
                                       padding: EdgeInsets.zero,
                                       itemCount: snapData.dishDetails.length,
                                       itemBuilder: (context, index) {
-                                  
                                         final cartDetails = cartData[snapData
                                             .dishDetails[index].id
                                             .toString()];
@@ -300,7 +305,7 @@ grandTotal += e.quantity *e.price;
                                           snapData.dishDetails[index].id
                                               .toString(),
                                         );
-                                       
+
                                         return Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -868,18 +873,16 @@ grandTotal += e.quantity *e.price;
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                     
                     Text(
-
                       //  cartData.values.first.quantity. toString(),
-                      '${totalItems} ITEMS',
+                      '$totalItems ITEMS',
                       // cartData,
                       style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      '${FoodDeliveryConstantText.rupeesSymbol} ${grandTotal}',
+                      '${FoodDeliveryConstantText.rupeesSymbol} $grandTotal',
                       style: FoodDeliveryTextStyles.exploreRestoBanner,
                     )
                   ],
@@ -896,8 +899,7 @@ grandTotal += e.quantity *e.price;
                         MaterialPageRoute(
                           builder: (context) => ViewCart(
                             viewCartDatas: cartData,
-                            userDatas:  widget.userDatas[widget.index],
-                            
+                            userDatas: widget.userDatas[widget.index],
                           ),
                         ),
                       );
@@ -923,5 +925,4 @@ grandTotal += e.quantity *e.price;
       ),
     );
   }
-  
 }

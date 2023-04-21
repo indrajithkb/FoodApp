@@ -82,14 +82,10 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
             ],
             onTap: (index) {
-              // context
-              //     .read<HomeScreenBloc>()
-              //     .add(NavBarChange(currentInd: index));
+             
               BlocProvider.of<HomeScreenBloc>(context)
                   .add(NavBarChange(currentInd: index));
-              // setState(() {
-              //   _currentIndex = index;
-              // });
+              
             },
           );
         },

@@ -1,10 +1,8 @@
-// ignore_for_file: inference_failure_on_instance_creation
+// ignore_for_file: inference_failure_on_instance_creation, must_be_immutable
 
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:foodieapp/utils/constants.dart';
@@ -124,7 +122,7 @@ class TopBarRestaurants extends StatelessWidget {
                             
                           ),
                         ),
-                        Container(
+                       DecoratedBox(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                               border: Border.all(color: Colors.white24),

@@ -24,7 +24,7 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
   required this.addressRepository,
   required this.transactionRepository,
   required this.ordersRepository,
-  required this.recommendedDishesRepository
+  required this.recommendedDishesRepository,
   }) : super(ApiHomeLoading()) {
     on<FetchHomeData>((event, emit)async {
        emit(ApiHomeLoading());
@@ -36,7 +36,7 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
      emit(ApiHomeLoaded(result));
    } catch (e) {
    throw Exception(e);
-      print(e.toString());
+      
    }
      
     });

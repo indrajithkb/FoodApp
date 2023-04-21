@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable
+// ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, inference_failure_on_instance_creation
 
 
 import 'package:flutter/material.dart';

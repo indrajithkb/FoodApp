@@ -2,10 +2,12 @@
 //
 //     final viewCartModel = viewCartModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
-import 'dart:convert';
 
 
+
+
+
+// ignore_for_file: sort_constructors_first, avoid_dynamic_calls
 
 class CartModel {
     CartModel({
@@ -16,7 +18,7 @@ class CartModel {
         required this.price,
         required this.rating,
         required this.vegStatus,
-        required this.quantity
+        required this.quantity,
     });
 
     String content;
@@ -36,7 +38,7 @@ class CartModel {
         price: json['price']as int,
         rating: json['rating']as double,
         vegStatus: json['veg_status']as String,
-        quantity: json['quantity']as int
+        quantity: json['quantity']as int,
     );
 
     Map<String, dynamic> toJson() => {

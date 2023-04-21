@@ -6,14 +6,21 @@ import 'package:foodieapp/homeScreen/view/model/cart_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class ViewCart extends StatelessWidget {
+class ViewCart extends StatefulWidget {
   ViewCart({required this.viewCartDatas, required this.userDatas, super.key});
   Map<String, CartModel> viewCartDatas;
   XploreResto userDatas;
 
   @override
+  State<ViewCart> createState() => _ViewCartState();
+}
+
+class _ViewCartState extends State<ViewCart> {
+  @override
   Widget build(BuildContext context) {
-    final List<CartModel> viewCartDataList = viewCartDatas.values.toList();
+    final List<CartModel> viewCartDataList =
+        widget.viewCartDatas.values.toList();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,7 +40,7 @@ class ViewCart extends StatelessWidget {
                       icon: Image.asset('assets/images/backButton.png'),
                     ),
                     Text(
-                      userDatas.hotel,
+                      widget.userDatas.hotel,
                       style: FoodDeliveryTextStyles.homeScreenTitles,
                     ),
                   ],
@@ -52,7 +59,7 @@ class ViewCart extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    'Delivery in ${userDatas.time} mins',
+                    'Delivery in ${widget.userDatas.time} mins',
                     style: FoodDeliveryTextStyles.homeScreenTitles
                         .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
@@ -68,6 +75,7 @@ class ViewCart extends StatelessWidget {
               padding: EdgeInsets.zero,
               itemCount: viewCartDataList.length,
               itemBuilder: (context, index) {
+
                 return Padding(
                   padding: EdgeInsets.only(left: 20.sp, bottom: 10.sp),
                   child: Row(
@@ -118,38 +126,95 @@ class ViewCart extends StatelessWidget {
                                         color: FoodDeliveryColor.buttonColor,
                                       ),
                                       borderRadius: const BorderRadius.all(
-                                          Radius.circular(25)),
+                                          Radius.circular(25),),
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        SizedBox(
-                                          height: 3.h,
-                                          width: 3.h,
-                                          child: Image.asset(
-                                            'assets/images/minusButton.png',
-                                            color:
-                                                FoodDeliveryColor.buttonColor,
-                                            // fit: BoxFit.contain,
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              if (viewCartDataList[index].quantity<=1
+                                                            ) {
+                                                setState(() {
+                                                  widget.viewCartDatas.remove(
+                                                      viewCartDataList[index]
+                                                          .id
+                                                          .toString(),);
+                                                });
+                                              } else {
+                                                widget.viewCartDatas.update(
+                                                    viewCartDataList[index]
+                                                        .id
+                                                        .toString(), (value) {
+                                                  return CartModel(
+                                                      content: value.content,
+                                                      dishName: value.dishName,
+                                                      id: value.id,
+                                                      image: value.image,
+                                                      price: value.price,
+                                                      rating: value.rating,
+                                                      vegStatus:
+                                                          value.vegStatus,
+                                                      quantity:
+                                                          value.quantity - 1,);
+                                                });
+                                              
+                                              }
+                                            });
+                                          },
+                                          child: SizedBox(
+                                            height: 3.h,
+                                            width: 3.h,
+                                            child: Image.asset(
+                                              'assets/images/minusButton.png',
+                                              color:
+                                                  FoodDeliveryColor.buttonColor,
+                                              // fit: BoxFit.contain,
+                                            ),
                                           ),
                                         ),
                                         Text(
-                                          '0',
+                                          viewCartDataList[index]
+                                              .quantity
+                                              .toString(),
                                           style: TextStyle(
                                             fontSize: 20,
                                             color:
                                                 FoodDeliveryColor.buttonColor,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 3.h,
-                                          width: 3.h,
-                                          child: Image.asset(
-                                            'assets/images/add.png',
-                                            color:
-                                                FoodDeliveryColor.buttonColor,
-                                            // fit: BoxFit.contain,
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              widget.viewCartDatas.update(
+                                                  viewCartDataList[index]
+                                                      .id
+                                                      .toString(), (value) {
+                                                return CartModel(
+                                                    content: value.content,
+                                                    dishName: value.dishName,
+                                                    id: value.id,
+                                                    image: value.image,
+                                                    price: value.price,
+                                                    rating: value.rating,
+                                                    vegStatus: value.vegStatus,
+                                                    quantity:
+                                                        value.quantity + 1,);
+                                              });
+                                          
+                                            });
+                                          },
+                                          child: SizedBox(
+                                            height: 3.h,
+                                            width: 3.h,
+                                            child: Image.asset(
+                                              'assets/images/add.png',
+                                              color:
+                                                  FoodDeliveryColor.buttonColor,
+                                              // fit: BoxFit.contain,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -161,7 +226,7 @@ class ViewCart extends StatelessWidget {
                                 height: 1.h,
                               ),
                               Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                
                                 children: [
                                   Text(
                                     viewCartDataList[index].dishName,
@@ -297,7 +362,7 @@ class ViewCart extends StatelessWidget {
                                 height: 4.h,
                                 width: 4.h,
                                 child: Image.asset(
-                                    'assets/images/offerpercent.png')),
+                                    'assets/images/offerpercent.png',),),
                             Text(
                               FoodDeliveryConstantText.addCoupon,
                               style: FoodDeliveryTextStyles.homeScreenTitles
@@ -417,20 +482,23 @@ class ViewCart extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text(FoodDeliveryConstantText.itemTotal,style: FoodDeliveryTextStyles
-                                          .homeScreenTitles
-                                          .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),), 
-                        
-                        Text('${FoodDeliveryConstantText.rupeesSymbol}140',
-                        style: FoodDeliveryTextStyles
-                                          .homeScreenTitles
-                                          .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),)
+                        children: [
+                          Text(
+                            FoodDeliveryConstantText.itemTotal,
+                            style: FoodDeliveryTextStyles.homeScreenTitles
+                                .copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '${FoodDeliveryConstantText.rupeesSymbol}140',
+                            style: FoodDeliveryTextStyles.homeScreenTitles
+                                .copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
                         ],
                       ),
                       SizedBox(
@@ -439,48 +507,52 @@ class ViewCart extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${FoodDeliveryConstantText.deliveryFee} ~ 4.6 km',style: FoodDeliveryTextStyles
-                                          .homeScreenTitles
-                                          .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),),
-                          Text('${FoodDeliveryConstantText.rupeesSymbol}45',style: FoodDeliveryTextStyles
-                                          .homeScreenTitles
-                                          .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),)
+                          Text(
+                            '${FoodDeliveryConstantText.deliveryFee} ~ 4.6 km',
+                            style: FoodDeliveryTextStyles.homeScreenTitles
+                                .copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '${FoodDeliveryConstantText.rupeesSymbol}45',
+                            style: FoodDeliveryTextStyles.homeScreenTitles
+                                .copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
                         ],
                       ),
                       SizedBox(
                         height: 2.5.h,
                       ),
-                      Text(FoodDeliveryConstantText.saveDeliveryFee,style: FoodDeliveryTextStyles.homeScreenTitles
-                                .copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            )),
+                      Text(FoodDeliveryConstantText.saveDeliveryFee,
+                          style:
+                              FoodDeliveryTextStyles.homeScreenTitles.copyWith(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                          ),),
                       SizedBox(
                         height: 2.5.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(FoodDeliveryConstantText.deliveryTip,style: FoodDeliveryTextStyles.homeScreenTitles
-                                .copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            )),
-                          Text(
-                            'Add tip',
-                            style: FoodDeliveryTextStyles.homeScreenTitles
-                                .copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                              color: FoodDeliveryColor.logoutButtonColor
-                            )
-                          )
+                          Text(FoodDeliveryConstantText.deliveryTip,
+                              style: FoodDeliveryTextStyles.homeScreenTitles
+                                  .copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),),
+                          Text('Add tip',
+                              style: FoodDeliveryTextStyles.homeScreenTitles
+                                  .copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color:
+                                          FoodDeliveryColor.logoutButtonColor,),)
                         ],
                       ),
                       SizedBox(
@@ -489,18 +561,20 @@ class ViewCart extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(FoodDeliveryConstantText.govtTax,style: FoodDeliveryTextStyles.homeScreenTitles
-                                .copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            ),),
                           Text(
-                            '${FoodDeliveryConstantText.rupeesSymbol}6.64',style: FoodDeliveryTextStyles.homeScreenTitles
+                            FoodDeliveryConstantText.govtTax,
+                            style: FoodDeliveryTextStyles.homeScreenTitles
                                 .copyWith(
                               fontSize: 13,
                               fontWeight: FontWeight.w400,
-                            )
+                            ),
                           ),
+                          Text('${FoodDeliveryConstantText.rupeesSymbol}6.64',
+                              style: FoodDeliveryTextStyles.homeScreenTitles
+                                  .copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),),
                         ],
                       ),
                       SizedBox(

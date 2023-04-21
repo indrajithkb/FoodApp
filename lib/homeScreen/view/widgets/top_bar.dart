@@ -1,8 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:foodieapp/homeScreen/view/widgets/home/search_bar.dart';
 import 'package:foodieapp/utils/constants.dart';
-import 'package:foodieapp/utils/sharedpref.dart';
+
 import 'package:sizer/sizer.dart';
 
 class TopBar extends StatelessWidget {
@@ -49,7 +50,7 @@ class TopBar extends StatelessWidget {
         ),
         InkWell(
           onTap: (){
-            clearToken(context: context);
+            Navigator.push(context,MaterialPageRoute(builder: (context) => SearchBar(),));
           },
           child: Padding(
             padding: EdgeInsets.only(right: 2.h),
