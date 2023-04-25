@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
+import 'package:foodieapp/homeScreen/bloc/bloc/cart_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/model/cart_model.dart';
@@ -30,17 +31,19 @@ class SelectedRestaurants extends StatefulWidget {
 }
 
 class _SelectedRestaurantsState extends State<SelectedRestaurants> {
-  bool isExpand = false;
-  bool isCartButtonVisible = false;
+  // bool isExpand = false;
+  // bool isCartButtonVisible = false;
   final ref =
       FirebaseDatabase.instance.ref('recommendeddish/-NSu2Qk_NJNeKiuv3-yX');
 
   Map<String, CartModel> cartData = {};
-  // late List<CartModel> cartDataList;
 
+  List<DishDetail> filterVegNonList = [];
+  bool isFilterVeg = false;
+bool isFilterNonVeg = false;
   @override
   Widget build(BuildContext context) {
-    List<CartModel> cartDataList = cartData.values.toList();
+    final List<CartModel> cartDataList = cartData.values.toList();
     int totalItems = 0;
     cartDataList.map((e) {
       totalItems += e.quantity;
@@ -232,6 +235,14 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                               value: state.isVeg,
                               activeColor: const Color(0xFF1D9F80),
                               onChanged: (value) {
+                                setState(() {
+                                  isFilterVeg = value;
+                                  // print(value);
+                                  // print(isFilterVeg);
+                                });
+                               
+                               
+
                                 context
                                     .read<HomeScreenBloc>()
                                     .add(VegSwitch(res: value));
@@ -253,9 +264,14 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                               value: state.isNonVeg,
                               activeColor: FoodDeliveryColor.logoutButtonColor,
                               onChanged: (value) {
-                               context
+                                setState(() {
+                                  isFilterNonVeg=value;
+                                });
+                                context
                                     .read<HomeScreenBloc>()
                                     .add(NonVegSwitch(res: value));
+                                   
+                                    
                               },
                             );
                           },
@@ -278,6 +294,20 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                               final snap = snapshot.data!.snapshot.value
                                   as Map<Object?, Object?>;
                               final snapData = NSu2QkNjNeKiuv3YX.fromJson(snap);
+                            // List<DishDetail>  fullMenuList=snapData.dishDetails;
+                              List<DishDetail>  fullMenuList=snapData.dishDetails;
+
+                            if(isFilterVeg==true && isFilterNonVeg==false){
+                              filterVegNonList=fullMenuList.where((e) =>e.vegStatus.contains('true') ).toList();
+
+                            }else if(isFilterVeg==false && isFilterNonVeg==true){
+                               filterVegNonList=fullMenuList.where((e) =>e.vegStatus.contains('false') ).toList();
+
+                            }else{
+                              filterVegNonList=fullMenuList;
+
+                            }
+
 
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,427 +323,422 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                   SizedBox(
                                     height: 65.h,
                                     // color: Colors.amber,
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      itemCount: snapData.dishDetails.length,
-                                      itemBuilder: (context, index) {
-                                        final cartDetails = cartData[snapData
-                                            .dishDetails[index].id
-                                            .toString()];
+                                    child: BlocBuilder<CartBloc, CartState>(
+                                      builder: (context, state) {
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          itemCount: 
+                                          // isFilterVeg
+                                          //     ? 1
+                                          //     : 
+                                             filterVegNonList.length,
+                                          itemBuilder: (context, index) {
+                                            final cartDetails = cartData[
+                                               filterVegNonList[index].id
+                                                    .toString()];
 
-                                        isExpand = cartData.containsKey(
-                                          snapData.dishDetails[index].id
-                                              .toString(),
-                                        );
+                                            state.isExpand =
+                                                cartData.containsKey(
+                                             filterVegNonList[index].id
+                                                  .toString(),
+                                            );
+                                            
+                                           
+                                            
 
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: 51.w,
-                                              // color: Colors.amber,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  snapData.dishDetails[index]
-                                                          .vegStatus
-                                                          .contains('false')
-                                                      ? Image.asset(
-                                                          'assets/images/Non veg.png',
-                                                        )
-                                                      : Image.asset(
-                                                          'assets/images/vegIcon.png',
-                                                        ),
-                                                  SizedBox(
-                                                    height: 1.h,
-                                                  ),
-                                                  Text(
-                                                    snapData.dishDetails[index]
-                                                        .dishName,
-                                                    style:
-                                                        FoodDeliveryTextStyles
-                                                            .homeScreenTitles
-                                                            .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.h,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 3.h,
-                                                    width: 25.w,
-                                                    // color: Colors.red,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Stack(
-                                                          children: [
-                                                            SizedBox(
-                                                              height: 2.5.h,
-                                                              width: 13.w,
-                                                              child:
-                                                                  ElevatedButton(
-                                                                onPressed:
-                                                                    () {},
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  backgroundColor:
-                                                                      const Color(
-                                                                    0xFFFFFFFF,
-                                                                  ),
-                                                                  shape:
-                                                                      RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                      20,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                child:
-                                                                    Container(),
-                                                              ),
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                SizedBox(
+                                                  width: 51.w,
+                                                  // color: Colors.amber,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                     filterVegNonList
+                                                              [
+                                                                  index]
+                                                              .vegStatus
+                                                              .contains('false')
+                                                          ? Image.asset(
+                                                              'assets/images/Non veg.png',
+                                                            )
+                                                          : Image.asset(
+                                                              'assets/images/vegIcon.png',
                                                             ),
-                                                            Positioned(
-                                                              left: 4,
-                                                              bottom: 2,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .only(
-                                                                      right:
-                                                                          2.sp,
+                                                      SizedBox(
+                                                        height: 1.h,
+                                                      ),
+                                                      Text(
+                                                       filterVegNonList
+                                                            [index]
+                                                            .dishName,
+                                                        style:
+                                                            FoodDeliveryTextStyles
+                                                                .homeScreenTitles
+                                                                .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 1.h,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 3.h,
+                                                        width: 25.w,
+                                                        // color: Colors.red,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Stack(
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: 2.5.h,
+                                                                  width: 13.w,
+                                                                  child:
+                                                                      ElevatedButton(
+                                                                    onPressed:
+                                                                        () {},
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      backgroundColor:
+                                                                          const Color(
+                                                                        0xFFFFFFFF,
+                                                                      ),
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                          20,
+                                                                        ),
+                                                                      ),
                                                                     ),
                                                                     child:
-                                                                        const Icon(
-                                                                      Icons
-                                                                          .star,
-                                                                      size: 15,
-                                                                      color:
-                                                                          Color(
-                                                                        0xFF1D9F80,
-                                                                      ),
-                                                                    ),
+                                                                        Container(),
                                                                   ),
-                                                                  Text(
-                                                                    snapData
-                                                                        .dishDetails[
-                                                                            index]
-                                                                        .rating
-                                                                        .toString(),
-
-                                                                    // '4.5',
-                                                                    style: FoodDeliveryTextStyles
-                                                                        .addressBookButtons
-                                                                        .copyWith(
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                    ),
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .clip,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          '${FoodDeliveryConstantText.rupeesSymbol} ${snapData.dishDetails[index].price}',
-                                                          style: FoodDeliveryTextStyles
-                                                              .homeScreenTitles
-                                                              .copyWith(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.h,
-                                                  ),
-                                                  Text(
-                                                    snapData.dishDetails[index]
-                                                        .content,
-                                                    maxLines: 2,
-                                                    style:
-                                                        FoodDeliveryTextStyles
-                                                            .editProfileTexts,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5.h,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                bottom: 12.sp,
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 17.h,
-                                                    child: Image.network(
-                                                      snapData
-                                                          .dishDetails[index]
-                                                          .image,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: -9,
-                                                    bottom: 5,
-                                                    child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                        right: 2.h,
-                                                      ),
-                                                      child: AnimatedContainer(
-                                                        duration:
-                                                            const Duration(
-                                                          seconds: 1,
-                                                        ),
-                                                        // width: 5,height: 2,color: Colors.amber,
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                            25,
-                                                          ),
-                                                          child: isExpand
-                                                              ? Container(
-                                                                  height: 5.h,
-                                                                  width: 25.w,
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  child: Stack(
+                                                                ),
+                                                                Positioned(
+                                                                  left: 4,
+                                                                  bottom: 2,
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
                                                                     children: [
-                                                                      BackdropFilter(
-                                                                        filter:
-                                                                            ImageFilter.blur(
-                                                                          sigmaX:
-                                                                              4,
-                                                                          sigmaY:
-                                                                              4,
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(
+                                                                          right:
+                                                                              2.sp,
                                                                         ),
                                                                         child:
-                                                                            Container(),
+                                                                            const Icon(
+                                                                          Icons
+                                                                              .star,
+                                                                          size:
+                                                                              15,
+                                                                          color:
+                                                                              Color(
+                                                                            0xFF1D9F80,
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                      DecoratedBox(
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(25),
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                Colors.white70,
-                                                                          ),
-                                                                          gradient:
-                                                                              LinearGradient(
-                                                                            begin:
-                                                                                Alignment.topLeft,
-                                                                            end:
-                                                                                Alignment.bottomRight,
-                                                                            colors: [
-                                                                              Colors.white.withOpacity(0.15),
-                                                                              Colors.white.withOpacity(0.05),
-                                                                            ],
-                                                                          ),
+                                                                      Text(
+                                                                       filterVegNonList
+                                                                            [index]
+                                                                            .rating
+                                                                            .toString(),
+
+                                                                        // '4.5',
+                                                                        style: FoodDeliveryTextStyles
+                                                                            .addressBookButtons
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
                                                                         ),
-                                                                        child:
-                                                                            SizedBox(
-                                                                          height:
-                                                                              5.h,
-                                                                          width:
-                                                                              25.w,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                EdgeInsets.only(
-                                                                              bottom: 8.sp,
-                                                                              top: 8.sp,
-                                                                            ),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                              children: [
-                                                                                InkWell(
-                                                                                  onTap: () {
-                                                                                    if (cartDetails!.quantity <= 1) {
-                                                                                      setState(() {
-                                                                                        cartData.remove(snapData.dishDetails[index].id.toString());
-                                                                                        if (cartData.isEmpty) {
-                                                                                          isCartButtonVisible = false;
-                                                                                        }
-                                                                                        //
-                                                                                      });
-                                                                                    } else {
-                                                                                      setState(() {
-                                                                                        cartData.update(snapData.dishDetails[index].id.toString(), (value) {
-                                                                                          return CartModel(
-                                                                                            content: value.content,
-                                                                                            dishName: value.dishName,
-                                                                                            id: value.id,
-                                                                                            image: value.image,
-                                                                                            price: value.price,
-                                                                                            rating: value.rating,
-                                                                                            vegStatus: value.vegStatus,
-                                                                                            quantity: value.quantity - 1,
-                                                                                          );
-                                                                                        });
-                                                                                      });
-                                                                                    }
-                                                                                  },
-                                                                                  child: SizedBox(
-                                                                                    height: 4.h,
-                                                                                    width: 4.h,
-                                                                                    child: Image.asset(
-                                                                                      'assets/images/minusButton.png', color: Colors.white70,
-                                                                                      // fit: BoxFit.contain,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  // '0',
-                                                                                  cartDetails!.quantity.toString(),
-                                                                                  style: const TextStyle(fontSize: 20, color: Colors.white),
-                                                                                ),
-                                                                                InkWell(
-                                                                                  onTap: () {
-                                                                                    setState(() {
-                                                                                      cartData.update(snapData.dishDetails[index].id.toString(), (value) {
-                                                                                        return CartModel(
-                                                                                          content: value.content,
-                                                                                          dishName: value.dishName,
-                                                                                          id: value.id,
-                                                                                          image: value.image,
-                                                                                          price: value.price,
-                                                                                          rating: value.rating,
-                                                                                          vegStatus: value.vegStatus,
-                                                                                          quantity: value.quantity + 1,
-                                                                                        );
-                                                                                      });
-                                                                                    });
-                                                                                  },
-                                                                                  child: SizedBox(
-                                                                                    height: 4.h,
-                                                                                    width: 4.h,
-                                                                                    child: Image.asset(
-                                                                                      'assets/images/add.png', color: Colors.white70,
-                                                                                      // fit: BoxFit.contain,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      )
+                                                                        overflow:
+                                                                            TextOverflow.clip,
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 )
-                                                              : InkWell(
-                                                                  onTap: () {
-                                                                    setState(
-                                                                        () {
-                                                                      cartData[snapData
-                                                                          .dishDetails[
-                                                                              index]
-                                                                          .id
-                                                                          .toString()] = CartModel(
-                                                                        content: snapData
-                                                                            .dishDetails[index]
-                                                                            .content,
-                                                                        dishName: snapData
-                                                                            .dishDetails[index]
-                                                                            .dishName,
-                                                                        id: snapData
-                                                                            .dishDetails[index]
-                                                                            .id,
-                                                                        image: snapData
-                                                                            .dishDetails[index]
-                                                                            .image,
-                                                                        price: snapData
-                                                                            .dishDetails[index]
-                                                                            .price,
-                                                                        rating: snapData
-                                                                            .dishDetails[index]
-                                                                            .rating,
-                                                                        vegStatus: snapData
-                                                                            .dishDetails[index]
-                                                                            .vegStatus,
-                                                                        quantity:
-                                                                            1,
-                                                                      );
-                                                                      if (cartData
-                                                                          .isNotEmpty) {
-                                                                        isCartButtonVisible =
-                                                                            true;
-                                                                      }
-
-                                                                      // isCartButtonVisible = true;
-                                                                      //
-                                                                    });
-                                                                    // print(cartData
-                                                                    //     .length);
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        4.5.h,
-                                                                    width:
-                                                                        4.5.h,
-                                                                    decoration:
-                                                                        const BoxDecoration(
-                                                                      color:
-                                                                          Color(
-                                                                        0xFF1D9F80,
-                                                                      ),
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                              .all(
-                                                                        14,
-                                                                      ),
-                                                                      child: Image
-                                                                          .asset(
-                                                                        'assets/images/add.png',
-                                                                        fit: BoxFit
-                                                                            .contain,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                              ],
+                                                            ),
+                                                            Text(
+                                                              '${FoodDeliveryConstantText.rupeesSymbol} ${filterVegNonList[index].price}',
+                                                              style: FoodDeliveryTextStyles
+                                                                  .homeScreenTitles
+                                                                  .copyWith(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
+                                                      SizedBox(
+                                                        height: 1.h,
+                                                      ),
+                                                      Text(
+                                                       filterVegNonList
+                                                            [index]
+                                                            .content,
+                                                        maxLines: 2,
+                                                        style:
+                                                            FoodDeliveryTextStyles
+                                                                .editProfileTexts,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5.h,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    bottom: 12.sp,
+                                                  ),
+                                                  child: Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 17.h,
+                                                        child: Image.network(
+                                                         filterVegNonList
+                                                              [
+                                                                  index]
+                                                              .image,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Positioned(
+                                                        right: -9,
+                                                        bottom: 5,
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                            right: 2.h,
+                                                          ),
+                                                          child:
+                                                              AnimatedContainer(
+                                                            duration:
+                                                                const Duration(
+                                                              seconds: 1,
+                                                            ),
+                                                            // width: 5,height: 2,color: Colors.amber,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                25,
+                                                              ),
+                                                              child: state
+                                                                      .isExpand
+                                                                  ? Container(
+                                                                      height:
+                                                                          5.h,
+                                                                      width:
+                                                                          25.w,
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      child:
+                                                                          Stack(
+                                                                        children: [
+                                                                          BackdropFilter(
+                                                                            filter:
+                                                                                ImageFilter.blur(
+                                                                              sigmaX: 4,
+                                                                              sigmaY: 4,
+                                                                            ),
+                                                                            child:
+                                                                                Container(),
+                                                                          ),
+                                                                          DecoratedBox(
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(25),
+                                                                              border: Border.all(
+                                                                                color: Colors.white70,
+                                                                              ),
+                                                                              gradient: LinearGradient(
+                                                                                begin: Alignment.topLeft,
+                                                                                end: Alignment.bottomRight,
+                                                                                colors: [
+                                                                                  Colors.white.withOpacity(0.15),
+                                                                                  Colors.white.withOpacity(0.05),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            child:
+                                                                                SizedBox(
+                                                                              height: 5.h,
+                                                                              width: 25.w,
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.only(
+                                                                                  bottom: 8.sp,
+                                                                                  top: 8.sp,
+                                                                                ),
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  children: [
+                                                                                    InkWell(
+                                                                                      onTap: () {
+                                                                                        if (cartDetails!.quantity <= 1) {
+                                                                                          setState(() {
+                                                                                            cartData.remove(filterVegNonList[index].id.toString());
+                                                                                            if (cartData.isEmpty) {
+                                                                                              state.isCartButtonVisible = false;
+                                                                                            }
+                                                                                          });
+                                                                                        } else {
+                                                                                          setState(() {
+                                                                                            cartData.update(filterVegNonList[index].id.toString(), (value) {
+                                                                                              return CartModel(
+                                                                                                content: value.content,
+                                                                                                dishName: value.dishName,
+                                                                                                id: value.id,
+                                                                                                image: value.image,
+                                                                                                price: value.price,
+                                                                                                rating: value.rating,
+                                                                                                vegStatus: value.vegStatus,
+                                                                                                quantity: value.quantity - 1,
+                                                                                              );
+                                                                                            });
+                                                                                          });
+                                                                                        }
+                                                                                      },
+                                                                                      child: SizedBox(
+                                                                                        height: 4.h,
+                                                                                        width: 4.h,
+                                                                                        child: Image.asset(
+                                                                                          'assets/images/minusButton.png', color: Colors.white70,
+                                                                                          // fit: BoxFit.contain,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      // '0',
+                                                                                      cartDetails!.quantity.toString(),
+                                                                                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                                                                                    ),
+                                                                                    InkWell(
+                                                                                      onTap: () {
+                                                                                        setState(() {
+                                                                                          cartData.update(filterVegNonList[index].id.toString(), (value) {
+                                                                                            return CartModel(
+                                                                                              content: value.content,
+                                                                                              dishName: value.dishName,
+                                                                                              id: value.id,
+                                                                                              image: value.image,
+                                                                                              price: value.price,
+                                                                                              rating: value.rating,
+                                                                                              vegStatus: value.vegStatus,
+                                                                                              quantity: value.quantity + 1,
+                                                                                            );
+                                                                                          });
+                                                                                        });
+                                                                                      },
+                                                                                      child: SizedBox(
+                                                                                        height: 4.h,
+                                                                                        width: 4.h,
+                                                                                        child: Image.asset(
+                                                                                          'assets/images/add.png', color: Colors.white70,
+                                                                                          // fit: BoxFit.contain,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  : InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          cartData[filterVegNonList
+                                                                              [index]
+                                                                              .id
+                                                                              .toString()] = CartModel(
+                                                                            content:
+                                                                               filterVegNonList[index].content,
+                                                                            dishName:
+                                                                               filterVegNonList[index].dishName,
+                                                                            id:filterVegNonList[index].id,
+                                                                            image:
+                                                                               filterVegNonList[index].image,
+                                                                            price:
+                                                                               filterVegNonList[index].price,
+                                                                            rating:
+                                                                               filterVegNonList[index].rating,
+                                                                            vegStatus:
+                                                                               filterVegNonList[index].vegStatus,
+                                                                            quantity:
+                                                                                1,
+                                                                          );
+                                                                          if (cartData
+                                                                              .isNotEmpty) {
+                                                                            // print('add item');
+                                                                            state.isCartButtonVisible =
+                                                                                true;
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            4.5.h,
+                                                                        width:
+                                                                            4.5.h,
+                                                                        decoration:
+                                                                            const BoxDecoration(
+                                                                          color:
+                                                                              Color(
+                                                                            0xFF1D9F80,
+                                                                          ),
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(
+                                                                            14,
+                                                                          ),
+                                                                          child:
+                                                                              Image.asset(
+                                                                            'assets/images/add.png',
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          },
                                         );
                                       },
                                     ),
@@ -738,7 +763,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                             // color: Colors.amber,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
-                              // itemCount: snapData.dishDetails.length,
+                              // itemCount:filterVegNonList.length,
                               itemBuilder: (context, index) {
                                 return Row(
                                   mainAxisAlignment:
@@ -856,72 +881,78 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: Visibility(
-        visible: isCartButtonVisible,
-        child: Container(
-          height: 56,
-          decoration: BoxDecoration(
-            color: FoodDeliveryColor.buttonColor,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-          ),
-          margin: EdgeInsets.only(bottom: 12.sp, left: 10.sp, right: 10.sp),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 8.sp),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      //  cartData.values.first.quantity. toString(),
-                      '$totalItems ITEMS',
-                      // cartData,
-                      style: FoodDeliveryTextStyles.exploreRestoBanner.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      '${FoodDeliveryConstantText.rupeesSymbol} $grandTotal',
-                      style: FoodDeliveryTextStyles.exploreRestoBanner,
-                    )
-                  ],
-                ),
+      bottomNavigationBar: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          return Visibility(
+            visible: state.isCartButtonVisible,
+            child: Container(
+              height: 56,
+              decoration: BoxDecoration(
+                color: FoodDeliveryColor.buttonColor,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 5.sp),
-                child: SizedBox(
-                  height: 5.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewCart(
-                            viewCartDatas: cartData,
-                            userDatas: widget.userDatas[widget.index],
+              margin: EdgeInsets.only(bottom: 12.sp, left: 10.sp, right: 10.sp),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.sp),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          //  cartData.values.first.quantity. toString(),
+                          '$totalItems ITEMS',
+                          // cartData,
+                          style: FoodDeliveryTextStyles.exploreRestoBanner
+                              .copyWith(
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    child: Text(
-                      'view cart',
-                      style: FoodDeliveryTextStyles.addressBookButtons.copyWith(
-                        fontSize: 15,
-                      ),
+                        Text(
+                          '${FoodDeliveryConstantText.rupeesSymbol} $grandTotal',
+                          style: FoodDeliveryTextStyles.exploreRestoBanner,
+                        )
+                      ],
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 5.sp),
+                    child: SizedBox(
+                      height: 5.h,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ViewCart(
+                                viewCartDatas: cartData,
+                                userDatas: widget.userDatas[widget.index],
+                              ),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: Text(
+                          'view cart',
+                          style: FoodDeliveryTextStyles.addressBookButtons
+                              .copyWith(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

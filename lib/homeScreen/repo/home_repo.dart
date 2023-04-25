@@ -7,9 +7,9 @@ class ApiHomeRepo{
 String homeUrl='https://food-delivery-rv21.onrender.com/api/home';
 
 Future<HomeApiModel> apiHomeInn()async{
-  
+  // print('apirepo');
   final String? token=await getToken();
-
+// print('gottoken');
     final response =await get(Uri.parse(homeUrl),headers: {
       'Authorization':'Bearer $token',
       // "Content-Type": 'application/json'

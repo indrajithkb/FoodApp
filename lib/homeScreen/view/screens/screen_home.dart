@@ -8,6 +8,7 @@ import 'package:foodieapp/homeScreen/view/widgets/accounts/account_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/dining_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/home_tab.dart';
+import 'package:foodieapp/utils/constants.dart';
 import 'package:foodieapp/utils/image_assets.dart';
 
 class ScreenHome extends StatefulWidget {
@@ -45,16 +46,16 @@ class _ScreenHomeState extends State<ScreenHome> {
           return BottomNavigationBar(
             currentIndex: state.currentIndex,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: const Color(0xFF1D9F80),
+            selectedItemColor: FoodDeliveryColor.buttonColor,
             // unselectedItemColor: Colors.white,
-            items: const [
+            items:  [
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.all(8),
                   child: ImageIcon(AssetImage(ImageAssets.homeIcon)),
                 ),
                 label: 'Home',
-                backgroundColor: Color(0xFF1D9F80),
+                backgroundColor: FoodDeliveryColor.buttonColor,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -62,7 +63,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: ImageIcon(AssetImage(ImageAssets.diningIcon)),
                 ),
                 label: 'Dining',
-                backgroundColor: Color(0xFF1D9F80),
+                backgroundColor: FoodDeliveryColor.buttonColor,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -70,7 +71,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: ImageIcon(AssetImage(ImageAssets.favIcon)),
                 ),
                 label: 'Favorites',
-                backgroundColor: Color(0xFF1D9F80),
+                backgroundColor: FoodDeliveryColor.buttonColor,
               ),
               BottomNavigationBarItem(
                 icon: Padding(
@@ -78,13 +79,14 @@ class _ScreenHomeState extends State<ScreenHome> {
                   child: ImageIcon(AssetImage(ImageAssets.accountIcon)),
                 ),
                 label: 'Account',
-                backgroundColor: Color(0xFF1D9F80),
+                backgroundColor: FoodDeliveryColor.buttonColor,
               ),
             ],
             onTap: (index) {
              
               BlocProvider.of<HomeScreenBloc>(context)
                   .add(NavBarChange(currentInd: index));
+                // print(  BlocProvider.of<HomeScreenBloc>(context).state.currentIndex);
               
             },
           );

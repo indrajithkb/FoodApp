@@ -6,6 +6,8 @@ import 'package:foodieapp/login/view/screens/screenLogin.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+//shared pref -token
+
 saveToken(String token) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //  print(token);
@@ -29,3 +31,18 @@ Future<void>clearToken({required BuildContext context})async{
   // Navigator.push(context,MaterialPageRoute(builder: (context) => ScreenLogin(),));
   
 }
+
+//shared pref - notification
+
+// setNotification(String notificationKey,bool value)async{
+// final SharedPreferences prefs = await SharedPreferences.getInstance();
+// prefs.setBool(notificationKey, value);
+// print(prefs.setBool(notificationKey, value));
+// }
+// Future<bool?>getNotification(String notificationKey)async{
+//    final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   final notificationFetched= prefs.getBool(notificationKey);
+//   print(notificationFetched);
+//   return notificationFetched;
+// }
+

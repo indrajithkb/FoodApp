@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foodieapp/firebase_options.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -30,7 +31,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-
+  // print(getNotification('promoPush'));
+// await getNotification('promoPush');
    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

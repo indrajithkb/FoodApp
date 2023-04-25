@@ -28,7 +28,7 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
   }) : super(ApiHomeLoading()) {
     on<FetchHomeData>((event, emit)async {
        emit(ApiHomeLoading());
-       await Future.delayed(const Duration(microseconds:1));
+       await Future<void>.delayed(const Duration(microseconds:1));
       try {
         print("apiLoading");
      final result=await apiHomeRepo.apiHomeInn();
@@ -43,7 +43,7 @@ class ApiHomeBloc extends Bloc<ApiHomeEvent, ApiHomeState> {
 
     on<FetchAddressData>((event, emit)async {
        emit(AddressBookLoading());
-      await Future.delayed(const Duration(microseconds:1));
+      await Future<void>.delayed(const Duration(microseconds:1));
       try {
         final res=await addressRepository.addressData();
         emit(AddressBookLoaded(res));

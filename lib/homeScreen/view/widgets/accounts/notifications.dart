@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:foodieapp/utils/constants.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class Notifications extends StatefulWidget {
@@ -16,6 +18,19 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   @override
+//   void initState(){
+//   //  final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   // final notificationFetched= prefs.getBool('promoPush');
+// getNotified();
+//     // super.initState();
+//   }
+
+//   getNotified()async{
+//     final SharedPreferences prefs = await SharedPreferences.getInstance();
+// final notificationFetched= prefs.getBool('promoPush');
+//   }
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -65,8 +80,7 @@ class _NotificationsState extends State<Notifications> {
                       style: FoodDeliveryTextStyles.homeScreenTitles
                           .copyWith(fontWeight: FontWeight.w600),
                     ),
-                    //switch button
-                    // Text('switch')
+                    
                     BlocBuilder<HomeScreenBloc, HomeScreenState>(
                       builder: (context, state) {
                         return Switch(
@@ -143,7 +157,9 @@ class _NotificationsState extends State<Notifications> {
                         return Switch(
                           value: state.isPromoPush,
                           activeColor: const Color(0xFF1D9F80),
-                          onChanged: (value) {
+                          onChanged: (value) async{
+                           
+                             
                             context
                                 .read<HomeScreenBloc>()
                                 .add(PromoSwitch(res: value));

@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, lines_longer_than_80_chars
 
 import 'package:bloc/bloc.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
 
 import 'package:meta/meta.dart';
 
@@ -46,6 +47,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     );
 
     on<PromoSwitch>((event, emit) {
+    //   print(event.res);
+    //  setNotification('promoPush', event.res);
       if(event.res==true && 
       state.isPromoWhatsapp==true && 
       state.isSocialPush==true &&
@@ -314,6 +317,7 @@ emit(HomeScreenState(
     });
 
     on<VegSwitch>((event, emit) {
+      // print(event.res);
   return emit(HomeScreenState(
         currentIndex: state.currentIndex,
         isPromoPush: state.isPromoPush,
