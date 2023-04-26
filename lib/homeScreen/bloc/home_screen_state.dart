@@ -4,6 +4,7 @@ part of 'home_screen_bloc.dart';
 
 class HomeScreenState {
 int? activeIndex;
+
   int currentIndex;
  final bool isPromoPush;
  final bool isPromoWhatsapp;

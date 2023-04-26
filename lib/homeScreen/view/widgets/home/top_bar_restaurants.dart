@@ -9,9 +9,16 @@ import 'package:foodieapp/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class TopBarRestaurants extends StatelessWidget {
-  TopBarRestaurants({required this.userDatas, required this.index, super.key});
+  TopBarRestaurants({
+    required this.userDatas,
+    required this.searchController,
+     required this.index,
+     required this.onChanged,
+      super.key});
   List<XploreResto> userDatas;
   int index;
+  String? Function(String)? onChanged;
+TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -136,6 +143,8 @@ class TopBarRestaurants extends StatelessWidget {
                             ),
                           ),
                             child: TextFormField(
+                               controller: searchController,
+                              onChanged:onChanged,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -151,7 +160,7 @@ class TopBarRestaurants extends StatelessWidget {
                         fit: BoxFit.contain,
                       ),
                     ),
-                    contentPadding: EdgeInsets.only(bottom: 8.sp, top: 6.sp),
+                    contentPadding: EdgeInsets.only(bottom: 8.sp, top: 8.sp),
                   ),
                 ),
                         )

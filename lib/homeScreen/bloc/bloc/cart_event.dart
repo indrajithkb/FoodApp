@@ -6,6 +6,17 @@ abstract class CartEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-class CartIncrementItem extends CartEvent{
-  
+class CartFirstIncrementItem extends CartEvent{
+
+  final  Map<String, CartModel>   res;
+  CartFirstIncrementItem({required this.res});
+    @override
+  List<Object> get props => [res];
+}
+
+class isExpandEvent extends CartEvent{
+  bool res;
+  isExpandEvent({required this.res});
+   @override
+  List<Object> get props => [res];
 }

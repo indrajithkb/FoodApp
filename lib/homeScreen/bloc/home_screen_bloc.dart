@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, lines_longer_than_80_chars
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:foodieapp/utils/sharedpref.dart';
 
 import 'package:meta/meta.dart';
@@ -13,6 +14,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<NavBarChange>(
       (event, emit) {
         return emit(HomeScreenState(
+          
             currentIndex: event.currentInd,
             isPromoPush: state.isPromoPush,
             isPromoWhatsapp: state.isPromoWhatsapp,

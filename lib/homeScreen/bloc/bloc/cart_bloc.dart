@@ -7,8 +7,21 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
-    on<CartIncrementItem >((event, emit) {
-     return emit(CartState(isCartButtonVisible: true,isExpand: true));
+    on<CartFirstIncrementItem >((event, emit) {
+      print(event.res.values);
+      if(event.res.isNotEmpty){
+        emit(CartState(cartData: state.cartData, isExpand: true));
+      }
+        return emit(CartState(cartData: event.res,isExpand: state.isExpand));
+      
+     
     });
+    on<isExpandEvent>((event, emit){
+       print(event.res);
+
+      emit(CartState(cartData: state.cartData, isExpand: event.res));
+
+    });
+
   }
 }

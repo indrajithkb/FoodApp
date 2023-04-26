@@ -1,16 +1,16 @@
 part of 'cart_bloc.dart';
 
  class CartState extends Equatable {
-   bool isCartButtonVisible ;
+   
    bool isExpand ;
-   Map<String, CartModel>? cartData ;
-   CartState({required this.isCartButtonVisible,required this.isExpand,this.cartData});
+   Map<String, CartModel> cartData;
+   CartState({required this.cartData,required this.isExpand});
   
   @override
-  List<Object> get props => [];
+  List<Object> get props => [cartData,isExpand];
 }
 
 class CartInitial extends CartState {
-  CartInitial():super(isCartButtonVisible: false,isExpand: false,);
+  CartInitial():super(cartData: {},isExpand: false );
 
 }
