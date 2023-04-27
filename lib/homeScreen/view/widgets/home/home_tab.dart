@@ -9,7 +9,7 @@ import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+   HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();

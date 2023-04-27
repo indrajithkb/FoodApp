@@ -9,7 +9,7 @@ import 'package:foodieapp/homeScreen/view/widgets/home/select_restaurants.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
-
+List<XploreResto>hotelList=[];
 class BottomHomeComponents extends StatelessWidget {
   const BottomHomeComponents({super.key});
   // final ref = FirebaseDatabase.instance.ref('post/-NRWifmDJwiwH8wwvlhV');
@@ -52,6 +52,7 @@ class BottomHomeComponents extends StatelessWidget {
                             //  imgList.length,
                             itemBuilder: (context, index) {
                               final userData=userRes.data.nrWifmDJwiwH8WwvlhV.xploreResto;
+                              hotelList=userData;
                               // final img = imgList[index];
                               return Padding(
                                 padding: EdgeInsets.only(

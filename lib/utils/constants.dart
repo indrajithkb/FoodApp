@@ -109,7 +109,7 @@ class FoodDeliveryConstantText {
    static String deliveryTip='Delivery tip';
     static String itemTotal='Item total';
      static String deliveryFee='Delivery Fee';
-     static String searchNote='Search for dishes, restaurants';
+     static String searchNote='Search for dishes';
    static String rs='₹';
    static String cancelDescription='''
 Lorem Ipsum is simply dummy text of the printing  

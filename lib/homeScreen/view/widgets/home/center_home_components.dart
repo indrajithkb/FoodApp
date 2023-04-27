@@ -8,7 +8,7 @@ import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
-
+List<FoodBanner>foodList=[];
 class CenterHomeComponents extends StatelessWidget {
   CenterHomeComponents({super.key});
   // final ref = FirebaseDatabase.instance.ref('post/-NRWifmDJwiwH8wwvlhV');
@@ -17,9 +17,9 @@ class CenterHomeComponents extends StatelessWidget {
     // return StreamBuilder(
     //   stream: ref.onValue,
     //   builder: (context, snapshot) {
-    //     if (snapshot.hasData &&
-    //         !snapshot.hasError &&
-    //         snapshot.data!.snapshot.value != null) {
+        // if (snapshot.hasData &&
+        //     !snapshot.hasError &&
+        //     snapshot.data!.snapshot.value != null) {
     //       final snap = snapshot.data!.snapshot.value as Map<Object?, Object?>;
     //       final snapData = HomeModel.fromJson(snap);
 
@@ -57,6 +57,7 @@ final HomeApiModel userRes=state.result;
                               // snapshot.data!.snapshot.children.length,
                               itemBuilder: (context, index) {
                                  final userData=userRes.data.nrWifmDJwiwH8WwvlhV.foodBanners;
+                                 foodList=userData;
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
