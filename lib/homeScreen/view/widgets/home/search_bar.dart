@@ -219,10 +219,7 @@ class _SearchBarState extends State<SearchBar> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.alarm_outlined,
-                                    color: const Color(0xFF696969),
-                                  ),
+                                  ImageIcon(AssetImage('assets/images/3.0x/recent.png'),size: 20,   color: const Color(0xFF696969)),
                                   Padding(
                                     padding: EdgeInsets.only(
                                       left: 10.sp,
