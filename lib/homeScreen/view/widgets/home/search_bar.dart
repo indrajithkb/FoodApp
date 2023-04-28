@@ -26,7 +26,7 @@ class _SearchBarState extends State<SearchBar> {
   void initState() {
     filterFood = foodList;
 
-     getRecent();
+    getRecent();
 
     super.initState();
   }
@@ -34,9 +34,9 @@ class _SearchBarState extends State<SearchBar> {
   Future<List<String>> getRecent() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final List<String> getRecentItems =await prefs.getStringList('searchKey')!;
-  
-    return getRecentItems;
+    final List<String>? getRecentItems = prefs.getStringList('searchKey');
+    print('${getRecentItems} gett');
+    return getRecentItems ?? [];
   }
 
   void filterFoodSearch(String query) {
@@ -66,9 +66,10 @@ class _SearchBarState extends State<SearchBar> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Navigator.pop(context);
-                
+                      //  final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      //  prefs.clear();
                     },
                     icon: const Icon(
                       Icons.close,
@@ -100,16 +101,21 @@ class _SearchBarState extends State<SearchBar> {
                     final SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
-                    setState(() {
-                      if(searchItemController.text.isEmpty){
-                        return null;
-                      }else{
-                        recentSearch.add(searchItemController.text);
+                    if (searchItemController.text.isEmpty) {
+                      return null;
+                    } else {
+                      recentSearch = prefs.getStringList('searchKey') ?? [];
+                      recentSearch.add(searchItemController.text);
+
                       prefs.setStringList('searchKey', recentSearch);
+                      if (recentSearch.length >= 4) {
+                        recentSearch.removeAt(0);
                       }
-                   
-                      //  print( prefs.getStringList('searchKey'));
-                    });
+                    }
+
+                    print(
+                        '${prefs.setStringList('searchKey', recentSearch)} sett');
+                    setState(() {});
                   }
                 },
                 child: TextFormField(
@@ -177,22 +183,34 @@ class _SearchBarState extends State<SearchBar> {
                   .copyWith(fontWeight: FontWeight.w500),
             ),
           ),
+          // Expanded(
+          //   flex: 4,
+          //   child:ListView.builder(itemBuilder: (context, index) {
+
+          //   },)
+          // ),
           Expanded(
               flex: 4,
               child: FutureBuilder(
                 future: getRecent(),
                 builder: (context, snapshot) {
-                  // if(snapshot.data!.isEmpty){
-                  //   print('object');
-                  // }
-                    print(snapshot.data);
-                  if (snapshot.hasData &&
-            !snapshot.hasError ){
+                  if (snapshot.data == null || snapshot.data!.isEmpty) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
+                      child: Text(
+                        'no search found !!',
+                        style: FoodDeliveryTextStyles.editProfileTexts,
+                      ),
+                    );
+                  }
+                  print(snapshot.data);
+                  if (snapshot.hasData && !snapshot.hasError) {
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                         print(snapshot.data! .length);
+                      itemBuilder: (context, idx) {
+                        //  print(snapshot.data! .length);
+                        int index = snapshot.data!.length - idx - 1;
 
                         return Padding(
                           padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
