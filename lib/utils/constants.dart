@@ -136,4 +136,3 @@ Are you sure you want to delete
 class SizedBoxx{
   static SizedBox heightSize=SizedBox(height: 15.sp,);
 }
-

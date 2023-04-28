@@ -5,16 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+import 'package:foodieapp/homeScreen/view/widgets/favorites/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/select_restaurants.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
-List<XploreResto>hotelList=[];
-class BottomHomeComponents extends StatelessWidget {
+
+class BottomHomeComponents extends StatefulWidget {
   const BottomHomeComponents({super.key});
+
+  @override
+  State<BottomHomeComponents> createState() => _BottomHomeComponentsState();
+}
+
+class _BottomHomeComponentsState extends State<BottomHomeComponents> {
+ 
   // final ref = FirebaseDatabase.instance.ref('post/-NRWifmDJwiwH8wwvlhV');
+  Map<String,XploreResto>favData={};
   @override
   Widget build(BuildContext context) {
+    List<XploreResto>favDataList=favData.values.toList();
     // return StreamBuilder(
     //   stream: ref.onValue,
     //   builder: (context, snapshot) {
@@ -52,7 +62,7 @@ class BottomHomeComponents extends StatelessWidget {
                             //  imgList.length,
                             itemBuilder: (context, index) {
                               final userData=userRes.data.nrWifmDJwiwH8WwvlhV.xploreResto;
-                              hotelList=userData;
+                             
                               // final img = imgList[index];
                               return Padding(
                                 padding: EdgeInsets.only(
@@ -166,7 +176,28 @@ class BottomHomeComponents extends StatelessWidget {
                                         top: 3,
                                         right: 5,
                                         child: IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            // print(favDataList);
+                                            
+                                            setState(() {
+                                              // favList.add(userData[index].id.toString());
+                                           favData[userData[index].id.toString()]=XploreResto(
+                                            distance: userData[index].distance,
+                                             hotel: userData[index].hotel, 
+                                             id: userData[index].id, 
+                                             image: userData[index].image,
+                                              off: userData[index].off, 
+                                              place: userData[index].place, 
+                                              rating: userData[index].rating,
+                                               time: userData[index].time,);
+                                            });
+                                       bool data=favData.containsKey(userData[index].id.toString());
+                                         if(data){
+favList.addAll(favDataList);
+print(favList[index].id);
+                                         }
+                                        
+                                          },
                                           icon: const Icon(
                                             Icons.favorite,
                                             color: Color(0xFFFFFFFF),
@@ -284,8 +315,4 @@ class BottomHomeComponents extends StatelessWidget {
             },
           );
         } 
-        
-        
-    //   },
-    // );
-  }
+}

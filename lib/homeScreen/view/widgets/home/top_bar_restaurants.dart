@@ -14,7 +14,7 @@ class TopBarRestaurants extends StatelessWidget {
     required this.searchController,
      required this.index,
      required this.onChanged,
-      super.key});
+      super.key,});
   List<XploreResto> userDatas;
   int index;
   String? Function(String)? onChanged;

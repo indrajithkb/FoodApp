@@ -1,9 +1,8 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, unawaited_futures, avoid_returning_null_for_void
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
-import 'package:foodieapp/homeScreen/view/widgets/home/bottom_home_components.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/center_home_components.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +34,7 @@ class _SearchBarState extends State<SearchBar> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final List<String>? getRecentItems = prefs.getStringList('searchKey');
-    print('${getRecentItems} gett');
+    // print('${getRecentItems} gett');
     return getRecentItems ?? [];
   }
 
@@ -106,15 +105,14 @@ class _SearchBarState extends State<SearchBar> {
                     } else {
                       recentSearch = prefs.getStringList('searchKey') ?? [];
                       recentSearch.add(searchItemController.text);
-
-                      prefs.setStringList('searchKey', recentSearch);
                       if (recentSearch.length >= 4) {
                         recentSearch.removeAt(0);
                       }
+                      prefs.setStringList('searchKey', recentSearch);
                     }
 
-                    print(
-                        '${prefs.setStringList('searchKey', recentSearch)} sett');
+                    // print(
+                    //     '${prefs.setStringList('searchKey', recentSearch)} sett');
                     setState(() {});
                   }
                 },
@@ -153,28 +151,29 @@ class _SearchBarState extends State<SearchBar> {
             ),
           ),
           Expanded(
-              child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.zero,
-            itemCount: filterFood.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(filterFood[index].image),
-                    ),
-                    Text(
-                      filterFood[index].foodname,
-                      style: FoodDeliveryTextStyles.editProfileTexts,
-                    )
-                  ],
-                ),
-              );
-            },
-          )),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.zero,
+              itemCount: filterFood.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(filterFood[index].image),
+                      ),
+                      Text(
+                        filterFood[index].foodname,
+                        style: FoodDeliveryTextStyles.editProfileTexts,
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
           Padding(
             padding: EdgeInsets.only(left: 15.sp, top: 15.sp),
             child: Text(
@@ -190,61 +189,68 @@ class _SearchBarState extends State<SearchBar> {
           //   },)
           // ),
           Expanded(
-              flex: 4,
-              child: FutureBuilder(
-                future: getRecent(),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null || snapshot.data!.isEmpty) {
-                    return Padding(
-                      padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
-                      child: Text(
-                        'no search found !!',
-                        style: FoodDeliveryTextStyles.editProfileTexts,
-                      ),
-                    );
-                  }
-                  print(snapshot.data);
-                  if (snapshot.hasData && !snapshot.hasError) {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, idx) {
-                        //  print(snapshot.data! .length);
-                        int index = snapshot.data!.length - idx - 1;
+            flex: 4,
+            child: FutureBuilder(
+              future: getRecent(),
+              builder: (context, snapshot) {
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
+                    child: Text(
+                      'no search found !!',
+                      style: FoodDeliveryTextStyles.editProfileTexts,
+                    ),
+                  );
+                }
+                // print(snapshot.data);
+                if (snapshot.hasData && !snapshot.hasError) {
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, idx) {
+                      //  print(snapshot.data! .length);
+                      final int index = snapshot.data!.length - idx - 1;
 
-                        return Padding(
-                          padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  ImageIcon(AssetImage('assets/images/3.0x/recent.png'),size: 20,   color: const Color(0xFF696969)),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 10.sp,
-                                    ),
-                                    child: Text(
-                                      snapshot.data![index],
-                                      style: FoodDeliveryTextStyles
-                                          .editProfileTexts
-                                          .copyWith(fontSize: 13.sp),
-                                    ),
+                      return Padding(
+                        padding: EdgeInsets.only(left: 15.sp, top: 10.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const ImageIcon(
+                                  AssetImage(
+                                    'assets/images/3.0x/recent.png',
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ))
+                                  size: 20,
+                                  color: Color(0xFF696969),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.sp,
+                                  ),
+                                  child: Text(
+                                    snapshot.data![index],
+                                    style: FoodDeliveryTextStyles
+                                        .editProfileTexts
+                                        .copyWith(fontSize: 13.sp),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          )
         ],
       ),
     );

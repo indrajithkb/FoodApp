@@ -38,7 +38,7 @@ class _HomeTabState extends State<HomeTab> {
           Column(
             children: [
               CenterHomeComponents(),
-             const BottomHomeComponents()],
+          const BottomHomeComponents()],
           )
         ],
       ),

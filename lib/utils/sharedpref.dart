@@ -1,8 +1,8 @@
-// ignore_for_file: use_build_context_synchronously, inference_failure_on_instance_creation, lines_longer_than_80_chars, unawaited_futures
+// ignore_for_file: use_build_context_synchronously, inference_failure_on_instance_creation, lines_longer_than_80_chars, unawaited_futures, inference_failure_on_function_return_type
 
 import 'package:flutter/material.dart';
 
-import 'package:foodieapp/login/view/screens/screenLogin.dart';
+
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,4 +45,3 @@ Future<void>clearToken({required BuildContext context})async{
 //   print(notificationFetched);
 //   return notificationFetched;
 // }
-

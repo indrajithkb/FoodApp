@@ -11,7 +11,6 @@ import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/model/cart_model.dart';
 import 'package:foodieapp/homeScreen/view/model/recommended_dishes.dart';
-import 'package:foodieapp/homeScreen/view/screens/screen_home.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/top_bar_restaurants.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/view_cart.dart';
 import 'package:foodieapp/utils/constants.dart';
@@ -38,7 +37,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
   bool isExpand = false;
   bool isCartButtonVisible = false;
   Map<String, CartModel> cartData = {};
- 
+
   List<DishDetail> filterVegNonList = [];
   List<DishDetail> searchList = [];
 
@@ -47,11 +46,11 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
       searchList = filterVegNonList
           .where((e) => e.dishName.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      print(searchList);
+      // print(searchList);
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
@@ -249,7 +248,8 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                               builder: (context, state) {
                                 return Switch(
                                   activeThumbImage: const AssetImage(
-                                      'assets/images/vegIcon.png'),
+                                    'assets/images/vegIcon.png',
+                                  ),
                                   inactiveThumbImage: const AssetImage(
                                     'assets/images/veg.png',
                                   ),
@@ -270,7 +270,8 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                               builder: (context, state) {
                                 return Switch(
                                   activeThumbImage: const AssetImage(
-                                      'assets/images/Non veg.png'),
+                                    'assets/images/Non veg.png',
+                                  ),
                                   inactiveThumbImage: const AssetImage(
                                     'assets/images/nonVegIcon.png',
                                   ),

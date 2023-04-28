@@ -6,7 +6,7 @@ import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/home_export.dart';
 import 'package:foodieapp/homeScreen/view/widgets/accounts/account_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/dining_tab.dart';
-import 'package:foodieapp/homeScreen/view/widgets/favorites_tab.dart';
+import 'package:foodieapp/homeScreen/view/widgets/favorites/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/home_tab.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:foodieapp/utils/image_assets.dart';
