@@ -5,6 +5,7 @@ import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/bottom_home_components.dart';
 import 'package:foodieapp/homeScreen/view/widgets/top_bar.dart';
 import 'package:foodieapp/utils/constants.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 List<XploreResto>favList=[];
@@ -19,12 +20,13 @@ class _FavoritesTabState extends State<FavoritesTab> {
  
  @override
   void initState() {
-    initPrefs();
+  getFavorites();
+  // print(getFavorites());
     super.initState();
   }
-    void initPrefs() async {
-   final SharedPreferences prefs = await SharedPreferences.getInstance();
-}
+
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -53,162 +55,183 @@ class _FavoritesTabState extends State<FavoritesTab> {
           ),
           SizedBox(
             height: 72.h,
-            // child: ListView.builder(
-            //   itemCount: favList.length,
-            //   itemBuilder: (context, index) {
-            //     return Text(favList[index].hotel);
-              
-            // },),
-            child: ListView.builder(
-              itemCount:favList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 15.sp,
-                    left: 20.sp,
-                    right: 20.sp,
-                  ),
-                  child: Stack(
-                    children: [
-                      Column(
+            
+            child:FutureBuilder(
+              future: getFavorites(),
+
+              builder: (context, snapshot) {
+             
+
+                 if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'no favorites added!!',
+                      style: FoodDeliveryTextStyles.editProfileTexts,
+                    ),
+                  );
+                }
+                   if (snapshot.hasData && !snapshot.hasError){
+                   
+                     return ListView.builder(
+                  itemCount:snapshot.data!.length ,
+                  itemBuilder: (context, index) {
+                    
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 15.sp,
+                        left: 20.sp,
+                        right: 20.sp,
+                      ),
+                      child: Stack(
                         children: [
-                          DecoratedBox(
-                            decoration: const BoxDecoration(),
-                            child: ClipRRect(
+                          Column(
+                            children: [
+                              DecoratedBox(
+                                decoration: const BoxDecoration(),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.network(
+                                    // snapshot.data[index]
+                                 snapshot.data![index].image,
+                                    height: 13.h,
+                                    width: 87.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: 5.sp,
+                                  right: 5.sp,
+                                  top: 5.sp,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text( snapshot.data![index].hotel),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 5.sp),
+                                          child: Text(
+                                              '${ snapshot.data![index].place} - ${ snapshot.data![index].distance}kms'),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            right: 1.5.sp,
+                                            bottom: 2.sp,
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/deliveryBike.png',
+                                          ),
+                                        ),
+                                        Text('${ snapshot.data![index].time} mins')
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            height: 13.h,
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              child: Image.network(
-                              favList[index].image,
-                                height: 13.h,
-                                width: 87.w,
-                                fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 70,
+                            left: 20,
+                            child: Text(
+                              '${ snapshot.data![index].off} %off',
+                              style: FoodDeliveryTextStyles.exploreRestoBanner
+                                  .copyWith(
+                                fontSize: 18,
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 5.sp,
-                              right: 5.sp,
-                              top: 5.sp,
+                          Positioned(
+                            bottom: 55,
+                            left: 20,
+                            child: Text(
+                              'upto ${FoodDeliveryConstantText.rupeesSymbol} 125',
+                              style: FoodDeliveryTextStyles.exploreRestoBanner
+                                  .copyWith(
+                                fontSize: 12,
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text( favList[index].hotel),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 5.sp),
-                                      child: Text(
-                                          '${ favList[index].place} - ${ favList[index].distance}kms'),
-                                    ),
-                                  ],
+                          ),
+                          Positioned(
+                            top: 3,
+                            right: 5,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.favorite,
+                                color: Color(0xFFE6556F),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 15,
+                            bottom: 58,
+                            child: SizedBox(
+                              height: 2.7.h,
+                              width: 13.w,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFFE6556F),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        right: 1.5.sp,
-                                        bottom: 2.sp,
-                                      ),
-                                      child: Image.asset(
-                                        'assets/images/deliveryBike.png',
-                                      ),
-                                    ),
-                                    Text('${ favList[index].time} mins')
-                                  ],
-                                )
+                                child: Container(),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 22,
+                            bottom: 60,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 2.sp),
+                                  child: const Icon(
+                                    Icons.star,
+                                    size: 15,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                                Text(
+                                   snapshot.data![index].rating.toString(),
+                                  style: FoodDeliveryTextStyles.exploreRestoBanner
+                                      .copyWith(
+                                    fontSize: 14,
+                                  ),
+                                  // maxLines: 1,
+                                ),
                               ],
                             ),
                           )
                         ],
                       ),
-                      Container(
-                        height: 13.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 70,
-                        left: 20,
-                        child: Text(
-                          '${ favList[index].off} %off',
-                          style: FoodDeliveryTextStyles.exploreRestoBanner
-                              .copyWith(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 55,
-                        left: 20,
-                        child: Text(
-                          'upto ${FoodDeliveryConstantText.rupeesSymbol} 125',
-                          style: FoodDeliveryTextStyles.exploreRestoBanner
-                              .copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 3,
-                        right: 5,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite,
-                            color: Color(0xFFE6556F),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 15,
-                        bottom: 58,
-                        child: SizedBox(
-                          height: 2.7.h,
-                          width: 13.w,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFE6556F),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            child: Container(),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 22,
-                        bottom: 60,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 2.sp),
-                              child: const Icon(
-                                Icons.star,
-                                size: 15,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                            ),
-                            Text(
-                               favList[index].rating.toString(),
-                              style: FoodDeliveryTextStyles.exploreRestoBanner
-                                  .copyWith(
-                                fontSize: 14,
-                              ),
-                              // maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    );
+                  },
                 );
+                   }else{
+                    return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                   }
+               
               },
             ),
           )

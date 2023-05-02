@@ -1,12 +1,16 @@
 // ignore_for_file: lines_longer_than_80_chars, cast_nullable_to_non_nullable, inference_failure_on_instance_creation
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+import 'package:foodieapp/homeScreen/view/widgets/favorites/fav_manager.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/select_restaurants.dart';
 import 'package:foodieapp/utils/constants.dart';
+import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
@@ -19,20 +23,24 @@ class BottomHomeComponents extends StatefulWidget {
 }
 
 class _BottomHomeComponentsState extends State<BottomHomeComponents> {
- 
-  // Map<String, XploreResto> favData = {};
+  //  List<String>favorites=[];
   @override
   void initState() {
-    initPrefs();
+    // getFavorites();
+    // print(getFavorites());
     super.initState();
   }
-  void initPrefs() async {
-   final SharedPreferences prefs = await SharedPreferences.getInstance();
-   prefs.getBool('favKey');
-}
+
+// Future<List<String>> getFavorites() async {
+//     final SharedPreferences prefs =await SharedPreferences.getInstance();
+//     final List<String> favorites = prefs.getStringList('favKey') ?? [];
+//     print(favorites);
+//     return favorites;
+//   }
+
   @override
   Widget build(BuildContext context) {
-   return BlocBuilder<ApiHomeBloc, ApiHomeState>(
+    return BlocBuilder<ApiHomeBloc, ApiHomeState>(
       builder: (context, state) {
         if (state is ApiHomeLoaded) {
           final HomeApiModel userRes = state.result;
@@ -182,19 +190,33 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
                                 top: 10,
                                 right: 15,
                                 child: InkWell(
-                                  onTap: () async{
-                                     final SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    setState(() async {
-                                      if (favList.contains(userData[index])) {
-                                        favList.remove(userData[index]);
-                                         
-                                      } else {
-                                        favList.add(userData[index]);
-                                        prefs.getBool('favKey');
-                                      bool isfav=await prefs.setBool('favKey', true);
-                                     print(isfav);
-                                      }
-                                    });
+                                  onTap: () async {
+                                    final SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+
+                                    if (favList.contains(userData[index])) {
+                                      favList.remove(userData[index]);
+                                      List<String> favorites = favList
+                                          .map((e) => e.toJson().toString())
+                                          .toList();
+                                      // print(favorites);
+                                      prefs.setStringList('favKey', favorites);
+                                      getFavorites();
+                                    } else {
+                                      favList.add(userData[index]);
+//                                     final  List<String> favorites=jsonEncode(favList.map((e)  => e.toJson()).toList()).toString() as List<String>;
+// print(favorites);
+                                      List<String> favorites = favList
+                                          .map((e) => jsonEncode(e.toJson()))
+                                          .toList();
+                                      // print(favorites);
+                                      // getFavorites();
+                                      String favoritesJson = jsonEncode(favorites);
+
+                                      prefs.setStringList('favKey', favorites);
+                                      //  getFavorites();
+                                    }
+                                    setState(() {});
                                   },
                                   child: favList.contains(userData[index])
                                       ? Icon(
@@ -202,7 +224,7 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
                                           color: FoodDeliveryColor
                                               .logoutButtonColor,
                                         )
-                                      : Icon(
+                                      : const Icon(
                                           Icons.favorite_border_outlined,
                                           color: Colors.white,
                                         ),

@@ -1,6 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, inference_failure_on_instance_creation, lines_longer_than_80_chars, unawaited_futures, inference_failure_on_function_return_type
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 
 
 
@@ -45,3 +48,11 @@ Future<void>clearToken({required BuildContext context})async{
 //   print(notificationFetched);
 //   return notificationFetched;
 // }
+Future<List<XploreResto>> getFavorites() async {
+    final SharedPreferences prefs =await SharedPreferences.getInstance();
+    final List<String> favorites = prefs.getStringList('favKey') ?? [];
+// final List favData=XploreResto.fromJson(favorites);
+final fav = favorites.map((e) => XploreResto.fromJson(jsonDecode(e) as Map<String,dynamic>)).toList();
+    print(favorites);
+    return fav;
+  }
