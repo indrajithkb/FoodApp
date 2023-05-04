@@ -16,7 +16,7 @@ class TopBar extends StatefulWidget {
 }
 
 class _TopBarState extends State<TopBar> {
-  String? _value='Relevance';
+  String? _value = 'Relevance';
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,6 @@ class _TopBarState extends State<TopBar> {
                                 _value = value!;
                               });
                             },
-                            
                           ),
                         ],
                       ),
@@ -136,13 +135,12 @@ class _TopBarState extends State<TopBar> {
                           Text('Rating : High to Low'),
                           Radio(
                             value: 'Rating : High to Low',
-                             groupValue: _value,
+                            groupValue: _value,
                             onChanged: (String? value) {
                               setState(() {
                                 _value = value!;
                               });
                             },
-                           
                           ),
                         ],
                       ),
@@ -152,13 +150,12 @@ class _TopBarState extends State<TopBar> {
                           Text('Rating : Low to High'),
                           Radio(
                             value: 'Rating : Low to High',
-                                groupValue: _value,
+                            groupValue: _value,
                             onChanged: (String? value) {
                               setState(() {
                                 _value = value!;
                               });
                             },
-                        
                           ),
                         ],
                       ),
@@ -171,10 +168,9 @@ class _TopBarState extends State<TopBar> {
                             groupValue: _value,
                             onChanged: (String? value) {
                               setState(() {
-                               _value = value!;
+                                _value = value!;
                               });
                             },
-                            
                           ),
                         ],
                       ),
@@ -184,13 +180,12 @@ class _TopBarState extends State<TopBar> {
                           Text('Cost Low to High'),
                           Radio(
                             value: 'Cost Low to High',
-                              groupValue: _value,
+                            groupValue: _value,
                             onChanged: (String? value) {
                               setState(() {
-                              _value = value!;
+                                _value = value!;
                               });
                             },
-                          
                           ),
                         ],
                       ),
@@ -200,13 +195,12 @@ class _TopBarState extends State<TopBar> {
                           Text('Cost High to Low'),
                           Radio(
                             value: 'Cost High to Low',
-                              groupValue: _value,
+                            groupValue: _value,
                             onChanged: (String? value) {
                               setState(() {
-                                 _value = value!;
+                                _value = value!;
                               });
                             },
-                          
                           ),
                         ],
                       ),

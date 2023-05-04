@@ -148,6 +148,7 @@ class _ViewCartState extends State<ViewCart> {
                                                     viewCartDataList[index]
                                                         .id
                                                         .toString(), (value) {
+                                                        // print(value.dishName);
                                                   return CartModel(
                                                       content: value.content,
                                                       dishName: value.dishName,
@@ -159,6 +160,7 @@ class _ViewCartState extends State<ViewCart> {
                                                           value.vegStatus,
                                                       quantity:
                                                           value.quantity - 1,);
+                                                          
                                                 });
                                               
                                               }

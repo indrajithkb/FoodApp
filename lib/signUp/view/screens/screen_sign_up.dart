@@ -230,6 +230,7 @@ class ScreenSignUp extends StatelessWidget {
                               //     context: context,
                               //     email: _emailTextController.text,
                               //     password: _passwordTextController.text,);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ScreenHome(),));
                             }
                           }, BlocBuilder<ApiSignUpBloc, ApiSignUpState>(
                             builder: (context, state) {

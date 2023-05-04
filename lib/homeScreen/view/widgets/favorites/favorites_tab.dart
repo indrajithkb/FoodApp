@@ -9,6 +9,7 @@ import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 List<XploreResto>favList=[];
+List<XploreResto>viewFavList=[];
 class FavoritesTab extends StatefulWidget {
   FavoritesTab({super.key});
 
@@ -55,11 +56,13 @@ class _FavoritesTabState extends State<FavoritesTab> {
           ),
           SizedBox(
             height: 72.h,
+          
             
             child:FutureBuilder(
               future: getFavorites(),
 
               builder: (context, snapshot) {
+                // viewFavList=await getFavorites();
              
 
                  if (snapshot.data == null || snapshot.data!.isEmpty) {
@@ -75,7 +78,8 @@ class _FavoritesTabState extends State<FavoritesTab> {
                      return ListView.builder(
                   itemCount:snapshot.data!.length ,
                   itemBuilder: (context, index) {
-                    
+                    print(snapshot.data![index].hotel);
+                  
                     return Padding(
                       padding: EdgeInsets.only(
                         bottom: 15.sp,
@@ -172,7 +176,9 @@ class _FavoritesTabState extends State<FavoritesTab> {
                             top: 3,
                             right: 5,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () async{
+                             
+                              },
                               icon: const Icon(
                                 Icons.favorite,
                                 color: Color(0xFFE6556F),

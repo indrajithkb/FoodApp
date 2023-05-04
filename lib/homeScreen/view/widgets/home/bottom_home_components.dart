@@ -9,6 +9,7 @@ import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites/fav_manager.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/select_restaurants.dart';
+import 'package:foodieapp/homeScreen/view/widgets/home/open_restaurants.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:foodieapp/utils/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -82,12 +83,19 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
                           context
                               .read<ApiHomeBloc>()
                               .add(FetchRecommendedDishDetails());
-                          Navigator.push(
+                              Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SelectedRestaurants(
-                                    userDatas: userData, index: index),
+                                builder: (context) => OpenSelectedRestaurant(
+                                     userDatas: userData, index: index
+                                    ),
                               ));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => SelectedRestaurants(
+                          //           userDatas: userData, index: index),
+                          //     ));
                         },
                         child: Stack(
                           children: [
@@ -211,7 +219,7 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
                                           .toList();
                                       // print(favorites);
                                       // getFavorites();
-                                      String favoritesJson = jsonEncode(favorites);
+                                      // String favoritesJson = jsonEncode(favorites);
 
                                       prefs.setStringList('favKey', favorites);
                                       //  getFavorites();

@@ -46,27 +46,29 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
       searchList = filterVegNonList
           .where((e) => e.dishName.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      // print(searchList);
     });
   }
 
   final TextEditingController _searchController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
+   
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        final List<CartModel> cartDataList = cartData.values.toList();
-        // cartData.values.toList();
-        //
-        int totalItems = 0;
-        cartDataList.map((e) {
-          totalItems += e.quantity;
-        }).toList();
+         final List<CartModel> cartDataList = cartData.values.toList();
+        //  state.cartDataList=cartData.values.toList();
+        //  print(   state.cartDataList);
 
-        int grandTotal = 0;
-        cartDataList.map((e) {
-          grandTotal += e.quantity * e.price;
-        }).toList();
+    int totalItems = 0;
+    cartDataList.map((e) {
+      totalItems += e.quantity;
+    }).toList();
+
+    int grandTotal = 0;
+    cartDataList.map((e) {
+      grandTotal += e.quantity * e.price;
+    }).toList();
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -1014,7 +1016,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                                               style: const TextStyle(fontSize: 20, color: Colors.white),
                                                                                             ),
                                                                                             InkWell(
-                                                                                              onTap: () {
+                                                                                              onTap: () async {
                                                                                                 setState(() {
                                                                                                   cartData.update(filterVegNonList[index].id.toString(), (value) {
                                                                                                     return CartModel(
@@ -1049,40 +1051,50 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                                                             )
                                                                           : InkWell(
                                                                               onTap: () {
-                                                                                //  cartData[filterVegNonList[index].id.toString()] = CartModel(
-                                                                                //       content: filterVegNonList[index].content,
-                                                                                //       dishName: filterVegNonList[index].dishName,
-                                                                                //       id: filterVegNonList[index].id,
-                                                                                //       image: filterVegNonList[index].image,
-                                                                                //       price: filterVegNonList[index].price,
-                                                                                //       rating: filterVegNonList[index].rating,
-                                                                                //       vegStatus: filterVegNonList[index].vegStatus,
-                                                                                //       quantity: 1,
-                                                                                //     );
+                                                                                // cartData[filterVegNonList[index].id.toString()] = CartModel(
+                                                                                //   content: filterVegNonList[index].content,
+                                                                                //   dishName: filterVegNonList[index].dishName,
+                                                                                //   id: filterVegNonList[index].id,
+                                                                                //   image: filterVegNonList[index].image,
+                                                                                //   price: filterVegNonList[index].price,
+                                                                                //   rating: filterVegNonList[index].rating,
+                                                                                //   vegStatus: filterVegNonList[index].vegStatus,
+                                                                                //   quantity: 1,
+                                                                                // );
+                                                                                // print(cartDataList);
 
-                                                                                //     context.read<CartBloc>().add(CartFirstIncrementItem(res: cartData));
-                                                                                //     print(state.cartData.length);
-                                                                                //     if (state.cartData.isNotEmpty) {
+                                                                                
+                                                                                // context.read<CartBloc>().add(CartFirstIncrementItem(res: cartDataList));
 
-                                                                                //        isCartButtonVisible = true;
-                                                                                //       }
+                                                                                 context.read<CartBloc>().add(CartFirstIncrementItem(res: CartModel(
+                                                                                  content: filterVegNonList[index].content,
+                                                                                  dishName: filterVegNonList[index].dishName,
+                                                                                  id: filterVegNonList[index].id,
+                                                                                  image: filterVegNonList[index].image,
+                                                                                  price: filterVegNonList[index].price,
+                                                                                  rating: filterVegNonList[index].rating,
+                                                                                  vegStatus: filterVegNonList[index].vegStatus,
+                                                                                  quantity: 1,
+                                                                                )));
 
-                                                                                setState(() {
-                                                                                  cartData[filterVegNonList[index].id.toString()] = CartModel(
-                                                                                    content: filterVegNonList[index].content,
-                                                                                    dishName: filterVegNonList[index].dishName,
-                                                                                    id: filterVegNonList[index].id,
-                                                                                    image: filterVegNonList[index].image,
-                                                                                    price: filterVegNonList[index].price,
-                                                                                    rating: filterVegNonList[index].rating,
-                                                                                    vegStatus: filterVegNonList[index].vegStatus,
-                                                                                    quantity: 1,
-                                                                                  );
-                                                                                  if (cartData.isNotEmpty) {
-                                                                                    // print('add item');
-                                                                                    isCartButtonVisible = true;
-                                                                                  }
-                                                                                });
+
+
+                                                                                // setState(() {
+                                                                                // cartData[filterVegNonList[index].id.toString()] = CartModel(
+                                                                                //   content: filterVegNonList[index].content,
+                                                                                //   dishName: filterVegNonList[index].dishName,
+                                                                                //   id: filterVegNonList[index].id,
+                                                                                //   image: filterVegNonList[index].image,
+                                                                                //   price: filterVegNonList[index].price,
+                                                                                //   rating: filterVegNonList[index].rating,
+                                                                                //   vegStatus: filterVegNonList[index].vegStatus,
+                                                                                //   quantity: 1,
+                                                                                // );
+                                                                                //   if (cartData.isNotEmpty) {
+                                                                                //     // print('add item');
+                                                                                //     isCartButtonVisible = true;
+                                                                                //   }
+                                                                                // });
                                                                               },
                                                                               child: Container(
                                                                                 height: 4.5.h,
