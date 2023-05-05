@@ -1,8 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars, unawaited_futures, avoid_returning_null_for_void
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+// import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/center_home_components.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';

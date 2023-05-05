@@ -1,10 +1,11 @@
 // ignore_for_file: lines_longer_than_80_chars, prefer_const_constructors, cast_nullable_to_non_nullable, prefer_const_constructors_in_immutables
 
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
-import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+// import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/utils/constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';

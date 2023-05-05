@@ -36,6 +36,8 @@ dependencies:
   get: ^4.6.5
   shared_preferences: ^2.0.20
   flutter_switch: ^0.3.2
+  api_repository:
+    path: package/api_repository
 
 
 dev_dependencies:

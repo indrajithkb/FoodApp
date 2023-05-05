@@ -1,5 +1,6 @@
 // ignore_for_file: require_trailing_commas, lines_longer_than_80_chars
 
+import 'package:api_repository/api_repo/api_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
@@ -42,10 +43,18 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => ApiHomeRepo(),
         ),
-        RepositoryProvider(create: (context) => AddressRepository(),),
-         RepositoryProvider(create: (context) => TransactionRepository(),),
-          RepositoryProvider(create: (context) => OrdersRepository(),),
-          RepositoryProvider(create: (context) => RecommendedDishesRepository (),)
+        RepositoryProvider(
+          create: (context) => AddressRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => TransactionRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => OrdersRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => RecommendedDishesRepository(),
+        )
       ],
       child: MultiBlocProvider(
         providers: [
@@ -73,11 +82,15 @@ class App extends StatelessWidget {
           BlocProvider<ApiHomeBloc>(
             create: (context) => ApiHomeBloc(
                 apiHomeRepo: RepositoryProvider.of<ApiHomeRepo>(context),
-                addressRepository: RepositoryProvider.of<AddressRepository>(context),
-                transactionRepository: RepositoryProvider.of<TransactionRepository>(context),
-                ordersRepository:  RepositoryProvider.of<OrdersRepository>(context),
-                recommendedDishesRepository: RepositoryProvider.of<RecommendedDishesRepository >(context)
-                ),
+                addressRepository:
+                    RepositoryProvider.of<AddressRepository>(context),
+                transactionRepository:
+                    RepositoryProvider.of<TransactionRepository>(context),
+                ordersRepository:
+                    RepositoryProvider.of<OrdersRepository>(context),
+                recommendedDishesRepository:
+                    RepositoryProvider.of<RecommendedDishesRepository>(
+                        context)),
           ),
 
           // BlocProvider(create: (context) => DemoUserBloc(
@@ -98,8 +111,7 @@ class App extends StatelessWidget {
                 ),
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
-                home: 
-                FutureBuilder<String?>(
+                home: FutureBuilder<String?>(
                   future: getToken(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != '') {

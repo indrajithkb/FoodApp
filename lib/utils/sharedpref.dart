@@ -2,10 +2,9 @@
 
 import 'dart:convert';
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
-
-
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,25 +13,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 saveToken(String token) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //  print(token);
- prefs.setString('token', token);
+  prefs.setString('token', token);
   debugPrint('saveToke');
- debugPrint(token);
+  debugPrint(token);
 }
 
 Future<String?> getToken() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-final tokenFetched= prefs.getString('token');
- debugPrint('gettoken');
- debugPrint(tokenFetched);
+  final tokenFetched = prefs.getString('token');
+  debugPrint('gettoken');
+  debugPrint(tokenFetched);
   return tokenFetched;
- 
 }
 
-Future<void>clearToken({required BuildContext context})async{
+Future<void> clearToken({required BuildContext context}) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
- prefs.remove('token');
+  prefs.remove('token');
   // Navigator.push(context,MaterialPageRoute(builder: (context) => ScreenLogin(),));
-  
 }
 
 //shared pref - notification
@@ -49,10 +46,12 @@ Future<void>clearToken({required BuildContext context})async{
 //   return notificationFetched;
 // }
 Future<List<XploreResto>> getFavorites() async {
-    final SharedPreferences prefs =await SharedPreferences.getInstance();
-    final List<String> favorites = prefs.getStringList('favKey') ?? [];
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final List<String> favorites = prefs.getStringList('favKey') ?? [];
 // final List favData=XploreResto.fromJson(favorites);
-final fav = favorites.map((e) => XploreResto.fromJson(jsonDecode(e) as Map<String,dynamic>)).toList();
-    print(favorites);
-    return fav;
-  }
+  final fav = favorites
+      .map((e) => XploreResto.fromJson(jsonDecode(e) as Map<String, dynamic>))
+      .toList();
+  print(favorites);
+  return fav;
+}

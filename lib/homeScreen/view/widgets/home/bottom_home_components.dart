@@ -2,10 +2,12 @@
 
 import 'dart:convert';
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+// import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites/fav_manager.dart';
 import 'package:foodieapp/homeScreen/view/widgets/favorites/favorites_tab.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/select_restaurants.dart';
@@ -44,14 +46,16 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
     return BlocBuilder<ApiHomeBloc, ApiHomeState>(
       builder: (context, state) {
         if (state is ApiHomeLoaded) {
-          final HomeApiModel userRes = state.result;
+          final HomeApiModel userRes = state.result as HomeApiModel;
           return Column(
             children: [
               Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 22.sp),
-                    child: Text(
+                    child:
+                    // Sample()
+                     Text(
                       ' ${userRes.data.nrWifmDJwiwH8WwvlhV.hotelCount} ${FoodDeliveryConstantText.exploreRestoTitle}',
                       style: FoodDeliveryTextStyles.homeScreenTitles,
                     ),
@@ -211,7 +215,7 @@ class _BottomHomeComponentsState extends State<BottomHomeComponents> {
                                       prefs.setStringList('favKey', favorites);
                                       getFavorites();
                                     } else {
-                                      favList.add(userData[index]);
+                                      favList.add(userData[index] as XploreResto);
 //                                     final  List<String> favorites=jsonEncode(favList.map((e)  => e.toJson()).toList()).toString() as List<String>;
 // print(favorites);
                                       List<String> favorites = favList

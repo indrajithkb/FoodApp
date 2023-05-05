@@ -1,10 +1,11 @@
 // ignore_for_file: cast_nullable_to_non_nullable, avoid_bool_literals_in_conditional_expressions, lines_longer_than_80_chars
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/bloc/api_home_bloc.dart';
 import 'package:foodieapp/homeScreen/home_export.dart';
-import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
+// import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/widgets/home/offer_banner.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';

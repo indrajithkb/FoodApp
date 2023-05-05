@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +51,7 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
   }
 
   final TextEditingController _searchController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
    
@@ -305,10 +306,10 @@ class _SelectedRestaurantsState extends State<SelectedRestaurants> {
                                     if (snapshot.hasData &&
                                         !snapshot.hasError &&
                                         snapshot.data!.snapshot.value != null) {
-                                      final snap = snapshot.data!.snapshot.value
-                                          as Map<Object?, Object?>;
-                                      final snapData =
-                                          NSu2QkNjNeKiuv3YX.fromJson(snap);
+                                      final snap = snapshot.data!.snapshot.value as Map<Object?, Object?>;
+                                         
+                                      final snapData =NSu2QkNjNeKiuv3YX.fromJson(snap);
+                                          
 
                                       final List<DishDetail> fullMenuList =
                                           snapData.dishDetails;

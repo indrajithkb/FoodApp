@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_if_elements_to_conditional_expressions, lines_longer_than_80_chars
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/homeScreen/view/model/cart_model.dart';

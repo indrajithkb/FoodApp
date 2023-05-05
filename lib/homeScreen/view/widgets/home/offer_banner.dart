@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars, must_be_immutable
 
+import 'package:api_repository/model/home_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:foodieapp/homeScreen/view/model/api_home_model.dart';
 import 'package:foodieapp/utils/constants.dart';
