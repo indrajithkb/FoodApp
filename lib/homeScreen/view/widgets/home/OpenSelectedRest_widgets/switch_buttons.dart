@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodieapp/homeScreen/bloc/bloc/cart_bloc.dart';
 import 'package:foodieapp/homeScreen/bloc/home_screen_bloc.dart';
 import 'package:foodieapp/utils/constants.dart';
 
@@ -12,53 +13,53 @@ class SwitchVegNon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1,
-                        child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-                          builder: (context, state) {
-                            return Switch(
-                              activeThumbImage: const AssetImage(
-                                'assets/images/vegIcon.png',
-                              ),
-                              inactiveThumbImage: const AssetImage(
-                                'assets/images/veg.png',
-                              ),
-                              value: state.isVeg,
-                              activeColor: const Color(0xFF1D9F80),
-                              onChanged: (value) {
-                                context
-                                    .read<HomeScreenBloc>()
-                                    .add(VegSwitch(res: value));
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                      Transform.scale(
-                        scale: 1,
-                        child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-                          builder: (context, state) {
-                            return Switch(
-                              activeThumbImage: const AssetImage(
-                                'assets/images/Non veg.png',
-                              ),
-                              inactiveThumbImage: const AssetImage(
-                                'assets/images/nonVegIcon.png',
-                              ),
-                              value: state.isNonVeg,
-                              activeColor: FoodDeliveryColor.logoutButtonColor,
-                              onChanged: (value) {
-                                context
-                                    .read<HomeScreenBloc>()
-                                    .add(NonVegSwitch(res: value));
-                              },
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  );
+    return Row(
+      children: [
+        Transform.scale(
+          scale: 1,
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              return Switch(
+                activeThumbImage: const AssetImage(
+                  'assets/images/vegIcon.png',
+                ),
+                inactiveThumbImage: const AssetImage(
+                  'assets/images/veg.png',
+                ),
+                value: state.isVeg,
+                activeColor: const Color(0xFF1D9F80),
+                onChanged: (value) {
+                  context.read<CartBloc>().add(FilterFetchedData(
+                      isVeg: value, isNonVeg: state.isNonVeg));
+                },
+              );
+            },
+          ),
+        ),
+        Transform.scale(
+          scale: 1,
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              return Switch(
+                activeThumbImage: const AssetImage(
+                  'assets/images/Non veg.png',
+                ),
+                inactiveThumbImage: const AssetImage(
+                  'assets/images/nonVegIcon.png',
+                ),
+                value: state.isNonVeg,
+                activeColor: FoodDeliveryColor.logoutButtonColor,
+                onChanged: (value) {
+                  context.read<CartBloc>().add(FilterFetchedData(
+                        isVeg: state.isVeg,
+                        isNonVeg: value,
+                      ));
+                },
+              );
+            },
+          ),
+        )
+      ],
+    );
   }
 }

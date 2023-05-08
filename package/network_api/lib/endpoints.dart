@@ -1,10 +1,7 @@
 import 'adapter.dart';
 import 'api_constants.dart';
 
-enum EndPoint {
-  appConfig,
-  jokesCategories,
-}
+enum EndPoint { appConfig, jokesCategories, home }
 
 extension URLExtension on EndPoint {
   String get url {
@@ -13,6 +10,8 @@ extension URLExtension on EndPoint {
         return ApiConstants.appConfig;
       case EndPoint.jokesCategories:
         return ApiConstants.baseUrl + ApiConstants.jokesCategories;
+      case EndPoint.home:
+        return ApiConstants.baseUrl + ApiConstants.appHome;
     }
   }
 
@@ -29,6 +28,7 @@ extension RequestMode on EndPoint {
     switch (this) {
       case EndPoint.appConfig:
       case EndPoint.jokesCategories:
+      case EndPoint.home:
         break;
     }
     return requestType;
@@ -55,6 +55,7 @@ extension FormType on EndPoint {
     switch (this) {
       case EndPoint.appConfig:
       case EndPoint.jokesCategories:
+      case EndPoint.home:
         formType = FormRequestType.formData;
         break;
     }

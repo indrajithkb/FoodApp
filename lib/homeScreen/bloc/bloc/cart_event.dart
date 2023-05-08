@@ -6,20 +6,23 @@ abstract class CartEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-class CartFirstIncrementItem extends CartEvent{
 
-  // final List<CartModel>   res;
-  final CartModel res;
-  
-  CartFirstIncrementItem({required this.res});
-    @override
-  List<Object> get props => [res];
-  
+class FetchDatas extends CartEvent {
+  List<DishDetail> dishList;
+  FetchDatas({required this.dishList});
 }
 
-// class isExpandEvent extends CartEvent{
-//   bool res;
-//   isExpandEvent({required this.res});
-//    @override
-//   List<Object> get props => [res];
-// }
+class FilterFetchedData extends CartEvent {
+  bool isVeg;
+  bool isNonVeg;
+  FilterFetchedData({required this.isVeg, required this.isNonVeg});
+}
+
+class SearchFetchedData extends CartEvent {
+  // List<DishDetail> searchList;
+  String val;
+  SearchFetchedData(
+      {
+      // required this.searchList,
+      required this.val});
+}
